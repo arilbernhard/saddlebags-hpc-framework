@@ -1,0 +1,133 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{uit-report}[2014/12/10 UiT report class]
+\def\baseclass{article}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{\baseclass}}
+\PassOptionsToClass{12pt}{\baseclass}
+\PassOptionsToClass{a4paper}{\baseclass}
+\PassOptionsToClass{oneside}{\baseclass}
+\PassOptionsToClass{titlepage}{\baseclass}
+\PassOptionsToClass{pdftex}{\baseclass}
+\ProcessOptions\relax
+\LoadClass{\baseclass}
+\special{papersize=210mm,297mm}
+
+\pdfpageheight=297mm
+\pdfpagewidth=210mm
+
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[resetfonts]{cmap}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{titlesec}
+\RequirePackage{sectsty}
+\RequirePackage{lmodern}
+\RequirePackage{type1cm}
+\RequirePackage{fixltx2e}
+
+\usepackage[a4paper, bottom=1.3in, left=1.25in, right=1.25in]{geometry}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[table]{xcolor}
+\usepackage{soul}
+
+\usepackage[obeyspaces,hyphens]{url}
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}%
+}
+\urlstyle{leo}
+
+\usepackage[pdftex,pagebackref=false,hyperindex,hyperfigures]{hyperref}
+\usepackage[pdftex]{graphicx}
+\usepackage[all]{hypcap}
+\hypersetup{
+    breaklinks=true,%
+    colorlinks=false,%
+    citecolor=black,%
+    filecolor=black,%
+    linkcolor=black,%
+    urlcolor=black,%
+    hidelinks%
+}
+
+\usepackage{float}
+\usepackage[hang,bf,small,hypcap]{caption}
+\usepackage{subcaption}
+\usepackage{listings}
+
+\let\ult@savetitle\title
+\def\title#1{%
+  \gdef\ult@title{#1}%
+  \ult@savetitle{#1}%
+}
+\global\let\ult@author\@empty
+\def\@author{\@latex@error{No \noexpand\author given}\@ehc}
+\let\ult@saveauthor\author
+\def\author#1{%
+  \gdef\ult@author{#1}%
+  \ult@saveauthor{#1}%
+}
+\def\subtitle#1{\gdef\@subtitle{#1}}
+
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage[parfill]{parskip}
+\usepackage{setspace}
+
+\usepackage[nottoc]{tocbibind}
+\usepackage[titles]{tocloft}
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyhf{}
+%%%%%%HEADER LINE
+
+\fancyhf{} % sets both header and footer to nothing
+\renewcommand{\headrulewidth}{0.75pt}
+
+
+
+\lhead{\textcolor{darkgray}{\fancyplain{}{\ult@title}}}
+\rhead{\textcolor{darkgray}{\fancyplain{}{June 2018}}}
+
+\lfoot{}
+\cfoot{\textcolor{darkgray}{Page {\thepage} of \pageref{LastPage}}}
+\rfoot{}
+
+
+
+\allsectionsfont{\sffamily\mdseries\upshape}
+\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape}
+\setlength{\headheight}{15pt}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amscd}
+\usepackage{xspace}
+\usepackage{mathtools}
+\usepackage{wasysym}
+\usepackage{ifsym}
+\usepackage{bm}
+\usepackage[version=3]{mhchem}
+\usepackage{upgreek}
+
+\if@titlepage
+\renewcommand\maketitle{%
+  \setcounter{page}{2}%
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\@subtitle\@empty
+  \global\let\title\relax
+  \global\let\subtitle\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+}
+\fi
+
+\endinput

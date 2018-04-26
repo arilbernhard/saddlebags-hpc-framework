@@ -1,0 +1,35 @@
+running with 24 ranks
+Mode is 3
+Instructions per clock: 1.20511
+L3 cache hit ratio: 0.248238
+Bytes read: 702758852352
+Power used: 3.15963e-308 joules
+
+running with 24 ranks
+Mode is 3
+Instructions per clock: 1.20348
+L3 cache hit ratio: 0.249168
+Bytes read: 701334326528
+Power used: 1.16494e-308 joules
+
+running with 24 ranks
+Mode is 3
+Instructions per clock: 1.21436
+L3 cache hit ratio: 0.252933
+Bytes read: 702281153408
+Power used: 7.83021e-309 joules
+
+running with 24 ranks
+Mode is 3
+Instructions per clock: 1.18134
+L3 cache hit ratio: 0.245901
+Bytes read: 703692964288
+Power used: 2.02455e-308 joules
+
+running with 24 ranks
+Mode is 3
+Instructions per clock: 1.19705
+L3 cache hit ratio: 0.248222
+Bytes read: 698970981568
+Power used: 1.27226e-308 joules
+

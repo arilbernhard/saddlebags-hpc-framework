@@ -1,0 +1,45 @@
+\begin{thebibliography}{1}
+
+\bibitem{sutter_larus_2005}
+H.~Sutter and J.~Larus, ``Software and the concurrency revolution,'' {\em
+  Queue}, vol.~3, p.~54, Jan 2005.
+
+\bibitem{diaz_munoz-caro_nino_2012}
+J.~Diaz, C.~Munoz-Caro, and A.~Nino, ``A survey of parallel programming models
+  and tools in the multi and many-core era,'' {\em IEEE Transactions on
+  Parallel and Distributed Systems}, vol.~23, no.~8, p.~1369–1386, 2012.
+
+\bibitem{wilkinson_allen_2005}
+B.~Wilkinson and M.~Allen, {\em Parallel Programming Techniques and
+  Applications Using Networked Workstations and Parallel Computers}.
+\newblock Prentice-Hall, 2~ed., 2005.
+
+\bibitem{pgas_languages}
+M.~De~Wael, S.~Marr, B.~De~Fraine, T.~Van~Cutsem, and W.~De~Meuter,
+  ``{Partitioned Global Address Space Languages},'' {\em ACM Comput. Surv.},
+  vol.~47, pp.~62:1--62:27, May 2015.
+
+\bibitem{mccandless_lumsdaine_1997}
+B.~C. Mccandless and A.~Lumsdaine, ``The role of abstraction in
+  high-performance computing,'' {\em Lecture Notes in Computer Science
+  Scientific Computing in Object-Oriented Parallel Environments}, p.~203–210,
+  1997.
+
+\bibitem{dryad}
+``{Dryad - Microsoft Research}.''
+  \url{https://www.microsoft.com/en-us/research/project/dryad/}.
+\newblock [Online; accessed 03-April-2017].
+
+\bibitem{pregel}
+G.~Malewicz, M.~H. Austern, A.~J. Bik, J.~C. Dehnert, I.~Horn, N.~Leiser, and
+  G.~Czajkowski, ``Pregel: A system for large-scale graph processing,'' {\em
+  Proceedings of the 28th ACM symposium on Principles of distributed computing
+  - PODC 09}, 2009.
+
+\bibitem{pgas_upc_energy}
+J.~Lagraviere, J.~Langguth, M.~Sourouri, P.~H. Ha, and X.~Cai, ``On the
+  performance and energy efficiency of the pgas programming model on multicore
+  architectures,'' {\em 2016 International Conference on High Performance
+  Computing \& Simulation (HPCS)}, 2016.
+
+\end{thebibliography}

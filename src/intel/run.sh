@@ -1,0 +1,1 @@
+sudo GASNET_PSHM_NODES=24 PATH="~/gcc-6.4.0/bin:$PATH" LD_LIBRARY_PATH="~/gcc-6.4.0/lib:$LD_LIBRARY_PATH" LD_LIBRARY_PATH="~/gcc-6.4.0/lib64:$LD_LIBRARY_PATH" LD_LIBRARY_PATH="/home/aril/boost_1_66_0/stage/lib:$LD_LIBRARY_PATH" UPCXX_INSTALL="~/upc1install/" ./pagerank
