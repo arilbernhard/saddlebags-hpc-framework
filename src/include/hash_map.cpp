@@ -3,6 +3,9 @@
 //#define OFFSET_LIMIT
 //#define ROBIN_SWAPPING
 
+namespace saddlebags
+{
+
 int bit_modulo(int x, int N) {
     return (x & (N-1));
 }
@@ -331,3 +334,5 @@ class RobinIterator
 };
 
 
+
+} //end namespace

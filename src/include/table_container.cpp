@@ -6,14 +6,14 @@
 #include <functional>
 #include <cmath>
 
-#include "data_object.cpp"
+#include "data_item.cpp"
 #include "distributor.cpp"
 #include "hash_map.cpp"
 #include <assert.h>
 
 #define ROBIN_HASH
 
-namespace lighght
+namespace saddlebags
 {
 
 template<typename TableKey_T, typename ItemKey_T, typename Msg_T> class Worker;
@@ -29,13 +29,13 @@ class TableContainerBase
     upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>>* parent_dist_worker;
 
     virtual void insert(ItemKey_T k) = 0;
-    virtual int partition(ItemKey_T objectKey) = 0;
+    virtual int partition(ItemKey_T itemKey) = 0;
     #ifdef ROBIN_HASH
-    virtual Robin_Map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>* get_objects() = 0;
+    virtual Robin_Map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>* get_items() = 0;
     #else
-    virtual std::unordered_map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>* get_objects() = 0;
+    virtual std::unordered_map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>* get_items() = 0;
     #endif
-    virtual void insert_existing(ItemKey_T k, Item<TableKey_T, ItemKey_T, Msg_T>* obj) = 0;
+    virtual void insert_preexisting(ItemKey_T k, Item<TableKey_T, ItemKey_T, Msg_T>* obj) = 0;
     virtual void insert_newly_created(ItemKey_T k, Item<TableKey_T, ItemKey_T, Msg_T>* obj) = 0;
     virtual void push(ItemKey_T key, Msg_T val) = 0;
     virtual Msg_T foreign_pull(ItemKey_T key, int tag) = 0;
@@ -43,28 +43,25 @@ class TableContainerBase
     virtual void direct_push(ItemKey_T key, Msg_T val) = 0;
 };
 
-
-//TODO replace word 'object' with 'item'
-
-template <typename TableKey_T, typename ItemKey_T, typename Msg_T, typename ObjectType, typename DistributorType>
+template <typename TableKey_T, typename ItemKey_T, typename Msg_T, typename ItemType, typename DistributorType>
 class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
     public:
 
     DistributorType distributor;
     #ifdef ROBIN_HASH
-    Robin_Map<ItemKey_T, ObjectType*> mapped_objects;
+    Robin_Map<ItemKey_T, ItemType*> mapped_items;
 
-    Robin_Map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>* get_objects() override
+    Robin_Map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>* get_items() override
     {
-        return reinterpret_cast<Robin_Map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>*>(&mapped_objects);
+        return reinterpret_cast<Robin_Map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>*>(&mapped_items);
     }
     #else
 
-    std::unordered_map<ItemKey_T, ObjectType*> mapped_objects;
+    std::unordered_map<ItemKey_T, ItemType*> mapped_items;
 
-    std::unordered_map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>* get_objects() override
+    std::unordered_map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>* get_items() override
     {
-        return reinterpret_cast<std::unordered_map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>*>(&mapped_objects);
+        return reinterpret_cast<std::unordered_map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>*>(&mapped_items);
     }
 
     #endif
@@ -74,10 +71,9 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
         
     }
 
-    ObjectType* create_new_item(ItemKey_T key)
+    ItemType* create_new_item(ItemKey_T key)
     {
-        auto newobj = new ObjectType();
-        newobj->parent_worker = this->parent_worker;
+        auto newobj = new ItemType();
         newobj->parent_dist_worker = this->parent_dist_worker;
         newobj->myItemKey = key;
         newobj->myTableKey = this->myTableKey;
@@ -88,16 +84,16 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
 
     void push(ItemKey_T key, Msg_T val) override
     {
-        auto iterator = mapped_objects.find(key);
-		if(iterator == mapped_objects.end())
+        auto iterator = mapped_items.find(key);
+		if(iterator == mapped_items.end())
 		{
             auto newobj = create_new_item(key);
             newobj->in_push_buffer.push_back(val);
 
             #ifdef ROBIN_HASH
-            mapped_objects.insert(key, newobj);
+            mapped_items.insert(key, newobj);
             #else
-            mapped_objects[key] = newobj;
+            mapped_items[key] = newobj;
             #endif
         }
         else {
@@ -108,16 +104,16 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
 
     void direct_push(ItemKey_T key, Msg_T val) override
     {
-        auto iterator = mapped_objects.find(key);
-		if(iterator == mapped_objects.end())
+        auto iterator = mapped_items.find(key);
+		if(iterator == mapped_items.end())
 		{
             auto newobj = create_new_item(key);
             newobj->foreign_push(val);
 
             #ifdef ROBIN_HASH
-            mapped_objects.insert(key, newobj);
+            mapped_items.insert(key, newobj);
             #else
-            mapped_objects[key] = newobj;
+            mapped_items[key] = newobj;
             #endif
         }
         else {
@@ -128,13 +124,18 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
 
     Msg_T foreign_pull(ItemKey_T key, int tag) override
     {
-        auto iterator = mapped_objects.find(key);
-		//TODO: Create new item or error if pull item that does not exist
-        if(iterator == mapped_objects.end())
+        auto iterator = mapped_items.find(key);
+        if(iterator == mapped_items.end())
 		{
-            std::cout << " not found " << std::endl;
-            Msg_T tmp;
-            return tmp;
+            auto newobj = create_new_item(key);
+
+            #ifdef ROBIN_HASH
+            mapped_items.insert(key, newobj);
+            #else
+            mapped_items[key] = newobj;
+            #endif
+
+            return newobj->foreign_pull(tag);
         }
         else {
             assert((*iterator).second != NULL);
@@ -142,23 +143,23 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
         }
     }
 
-    int partition(ItemKey_T objectKey) override {
-        return distributor.distribute(objectKey);
+    int partition(ItemKey_T itemKey) override {
+        return distributor.distribute(itemKey);
     }
 
     //TODO inspect these insertions
 
     void insert(ItemKey_T key) override
     { 
-        auto iterator = mapped_objects.find(key);
-		if(iterator == mapped_objects.end())
+        auto iterator = mapped_items.find(key);
+		if(iterator == mapped_items.end())
 		{
-            ObjectType* newobj = create_new_item(key);
+            ItemType* newobj = create_new_item(key);
 
             #ifdef ROBIN_HASH
-            mapped_objects.insert(key, newobj);
+            mapped_items.insert(key, newobj);
             #else
-            mapped_objects[key] = newobj;
+            mapped_items[key] = newobj;
             #endif
 		}
 		else {
@@ -167,39 +168,37 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
 		}
     }
 
-    void insert_existing(ItemKey_T k, Item<TableKey_T, ItemKey_T, Msg_T>* obj) override
+    void insert_preexisting(ItemKey_T k, Item<TableKey_T, ItemKey_T, Msg_T>* obj) override
     {
-        ObjectType* new_obj = new ObjectType(*(reinterpret_cast<ObjectType*>(obj)));
+        ItemType* new_obj = new ItemType(*(reinterpret_cast<ItemType*>(obj)));
         
         new_obj->myItemKey = k;
         new_obj->myTableKey = TableContainerBase<TableKey_T, ItemKey_T, Msg_T>::myTableKey;
-        new_obj->parent_worker = TableContainerBase<TableKey_T, ItemKey_T, Msg_T>::parent_worker;
         new_obj->parent_dist_worker = this->parent_dist_worker;
         new_obj->on_create();
         new_obj->refresh();
 
         #ifdef ROBIN_HASH
-        mapped_objects.insert(k, new_obj);
+        mapped_items.insert(k, new_obj);
         #else
-        mapped_objects[k] = new_obj;
+        mapped_items[k] = new_obj;
         #endif
     }
 
     void insert_newly_created(ItemKey_T k, Item<TableKey_T, ItemKey_T, Msg_T>* obj) override
     {
-        ObjectType* new_obj = reinterpret_cast<ObjectType*>(obj);
+        ItemType* new_obj = reinterpret_cast<ItemType*>(obj);
         
         new_obj->myItemKey = k;
-        new_obj->parent_worker = TableContainerBase<TableKey_T, ItemKey_T, Msg_T>::parent_worker;
         new_obj->parent_dist_worker = this->parent_dist_worker;
         new_obj->myTableKey = TableContainerBase<TableKey_T, ItemKey_T, Msg_T>::myTableKey;
         new_obj->on_create();
         new_obj->refresh();
 
         #ifdef ROBIN_HASH
-        mapped_objects.insert(k, new_obj);
+        mapped_items.insert(k, new_obj);
         #else
-        mapped_objects[k] = new_obj;
+        mapped_items[k] = new_obj;
         #endif
     }
 

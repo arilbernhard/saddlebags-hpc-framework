@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     using object_k = int;
     using msg_type = std::vector<int>;
 
-    auto worker = lighght::create_worker<table_k, object_k, msg_type>();
+    auto worker = lighght::create_worker<table_k, object_k, msg_type>(GasnetDirect);
 
     lighght::add_table<MatrixRowObject, table_k, object_k, msg_type>(worker, 0, true);
     lighght::add_table<MatrixRowObject, table_k, object_k, msg_type>(worker, 1, true);

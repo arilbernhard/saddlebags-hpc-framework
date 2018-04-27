@@ -47,19 +47,20 @@ namespace std {
 
 
 
-namespace lighght
+namespace saddlebags
 {
 
 
 template<typename TableKey_T, typename ItemKey_T, typename Msg_T>
 class Worker {
     public:
-    std::unordered_map<TableKey_T, TableContainerBase<TableKey_T, ItemKey_T, Msg_T>*, std::hash<int>> tables; //TODO Dont assume int
+    std::unordered_map<TableKey_T, TableContainerBase<TableKey_T, ItemKey_T, Msg_T>*> tables;
     
     std::vector<std::unordered_map<TableKey_T, std::unordered_map<ItemKey_T, std::vector<Msg_T>>, std::hash<int>>> out;
     
     std::vector<Message<TableKey_T, ItemKey_T, Msg_T>> out_push_buffer;
     
+
     SendingMode sending_mode;
     bool ordered_pulls = false;
     bool pulls_before_pushes = true;
@@ -106,7 +107,7 @@ class Worker {
     {
         for (auto table_iterator : tables)
         {
-            for(auto obj_iterator : *(table_iterator.second->get_objects()))
+            for(auto obj_iterator : *(table_iterator.second->get_items()))
             {
 
                 obj_iterator.second->apply_push_buffer();
@@ -118,7 +119,7 @@ class Worker {
     {
         for (auto table_iterator : tables)
         {
-            for(auto obj_iterator : *(table_iterator.second->get_objects()))
+            for(auto obj_iterator : *(table_iterator.second->get_items()))
             {
                 obj_iterator.second->apply_returning_pull_buffer();
             }
@@ -129,7 +130,7 @@ class Worker {
     {
         for (auto table_iterator : tables)
         {
-            for(auto obj_iterator : (*(table_iterator.second->get_objects())))
+            for(auto obj_iterator : (*(table_iterator.second->get_items())))
             {
                 obj_iterator.second->do_work();
             }
@@ -140,7 +141,7 @@ class Worker {
     {
         for (auto table_iterator : tables)
         {
-            for(auto obj_iterator : *(table_iterator.second->get_objects()))
+            for(auto obj_iterator : *(table_iterator.second->get_items()))
             {
                 obj_iterator.second->create_ordered_buffer();
             }
@@ -151,7 +152,7 @@ class Worker {
     {
         for (auto table_iterator : tables)
         {
-            for(auto obj_iterator : *(table_iterator.second->get_objects()))
+            for(auto obj_iterator : *(table_iterator.second->get_items()))
             {
                 obj_iterator.second->finishing_work();
             }
@@ -162,7 +163,7 @@ class Worker {
     {
         for (auto table_iterator : tables)
         {
-            for(auto obj_iterator : *(table_iterator.second->get_objects()))
+            for(auto obj_iterator : *(table_iterator.second->get_items()))
             {
                 obj_iterator.second->clear_outgoing_buffers();
             }
@@ -170,6 +171,20 @@ class Worker {
     }
 
 };
+
+std::vector<upcxx::future<>> worker_futures;
+
+
+void await_worker_futures()
+{
+    upcxx::barrier();
+    for(auto f : worker_futures)
+    {
+        f.wait();
+    }
+    worker_futures.clear();
+}
+
 
 void init() {
     upcxx::init();
@@ -188,26 +203,6 @@ int rank_me() {
     return upcxx::rank_me();
 }
 
-
-/*
-template<class ObjectType, class DistributorType>
-void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker, TableKey_T tableKey, bool is_global)
-{
-    tables.insert({tableKey, new TableContainer<TableKey_T, ItemKey_T, Msg_T, ObjectType, DistributorType>()});
-    tables[tableKey]->is_global = is_global;
-    tables[tableKey]->myTableKey = tableKey;
-    tables[tableKey]->parent_worker = this;
-    tables[tableKey]->parent_dist_worker = worker;
-
-    if(worker->sending_mode == Combining)
-    {
-        for(int i = 0; i < upcxx::rank_n(); i++)
-        {
-            std::unordered_map<ItemKey_T, std::vector<Msg_T>> buf;
-            out[i].insert({tableKey, buf});
-        }
-    }
-}*/
 template<class DistributorType, template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
 void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker, TableKey_T tableKey, bool is_global)
 {
@@ -256,7 +251,7 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* insert_and_return(upcxx::dist_objec
                         TableKey_T table_key, ItemKey_T item_key)
 {
     auto target_table = worker->tables[table_key];
-    auto target_map = target_table->get_objects();
+    auto target_map = target_table->get_items();
 
     auto it = target_map->find(item_key);
     if(it == target_map->end()) {
@@ -265,7 +260,6 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* insert_and_return(upcxx::dist_objec
         //target_table->insert_newly_created(item_key, new_obj);
         
         new_obj->myItemKey = item_key;
-        new_obj->parent_worker = &(*worker);
         new_obj->parent_dist_worker = &worker;
         new_obj->myTableKey = table_key;
         new_obj->on_create();
@@ -293,7 +287,7 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* lookup_item(upcxx::dist_object<Work
                         TableKey_T table_key, ItemKey_T item_key)
 {
     auto target_table = worker->tables[table_key];
-    auto target_map = target_table->get_objects();
+    auto target_map = target_table->get_items();
 
     auto it = target_map->find(item_key);
     if(it == target_map->end()) {
@@ -313,7 +307,7 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* get_item(upcxx::dist_object<Worker<
                         TableKey_T table_key, ItemKey_T item_key)
 {
     auto target_table = worker->tables[table_key];
-    auto target_map = *(target_table->get_objects());
+    auto target_map = *(target_table->get_items());
 
     auto it = target_map.find(item_key);
     if(it == target_map.end()) {
@@ -327,7 +321,7 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* get_item(upcxx::dist_object<Worker<
 template<class key_T, class value_T, class message_T>
 upcxx::dist_object<Worker<key_T, value_T, message_T>> create_worker()
 {
-    Worker<key_T, value_T, message_T> w(Buffering);
+    Worker<key_T, value_T, message_T> w(BufferingWorker);
     return upcxx::dist_object<Worker<key_T, value_T, message_T>>(w);
 }
 
@@ -360,9 +354,11 @@ void cycle(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker, boo
     }
     send_pulls(worker);
     //std::cout << "end of communication phase" << std::endl;
-
-
     upcxx::barrier();
+
+    await_worker_futures();
+    upcxx::barrier();
+
     //std::cout << upcxx::rank_me() << " communication complete" << std::endl;
 
     //3) Reset phase
@@ -400,11 +396,9 @@ void insert_object_global(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T
     }
     else
     {
-        upcxx::rpc_ff(target_partition, [](ItemKey_T ok) {
-            //TODO
-            std::cout << "this is a rpc" << std::endl;
-        }, item_key);
-
+        worker_futures.push_back(upcxx::rpc(target_partition, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw, TableKey_T tk, ItemKey_T ok) {
+            dw->tables[tk]->insert(ok);
+        }, worker, tableKey, item_key));
     }
 }
 
@@ -477,69 +471,21 @@ void push_buf(Worker<TableKey_T, ItemKey_T, Msg_T> &w, TableKey_T table_key, Ite
     target_table->push(item_key, message);
 }
 
+/*  Send all pushes */
 template<typename TableKey_T, typename ItemKey_T, typename Msg_T>
 void send_pushes(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker)
 {
-    //for (auto table_iterator : worker->tables)
-   // {
-        /*
-        for(auto obj_iterator : *(table_iterator.second->get_objects()))
-        {                
-            for(auto msg_iterator : obj_iterator.second->out_push_buffer)
-            {
-                auto target_table = worker->tables[msg_iterator.dest_table];
-                if(target_table->is_global == true)
-                {
-                    int target_partition = worker->get_partition(table_iterator.second, msg_iterator.dest_object);
-
-                    if(target_partition != upcxx::rank_me())
-                    {
-                        auto it = worker->out[target_partition].find(msg_iterator.dest_object);
-
-                        if(it == worker->out[target_partition].end())
-                        {
-                            std::vector<Msg_T> send_vector;
-                            send_vector.push_back(msg_iterator.value);
-                            worker->out[target_partition].insert({msg_iterator.dest_object, send_vector});
-                        }
-                        else
-                        {
-                            worker->out[target_partition][msg_iterator.dest_object].push_back(msg_iterator.value);
-                        }
-                        continue;
-                    }
-                }
-                target_table->push(msg_iterator.dest_object, msg_iterator.value);
-            }
-        }*/
-
-    //     for(int i = 0; i < upcxx::rank_n(); i++)
-    //     {
-    //         if(i == upcxx::rank_me()) {
-    //             continue;
-    //         }
-
-    //         upcxx::rpc_ff(i, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw, TableKey_T tk,
-    //                         std::unordered_map<ItemKey_T, std::vector<Msg_T>> incoming)
-    //         {
-    //             dw->tables[tk]->bulk_push(incoming);
-    //         }, worker, table_iterator.first, worker->out[i][table_iterator.first]);
-    //     }
-    // }
-
     if(worker->sending_mode == Combining){
-        //Send pushes
-        //For each target partition
         for(int i = 0; i < upcxx::rank_n(); i++)
         {
-            //For each table
             for (auto table_iterator : worker->out[i])
             {
                 //Send a map containing <ItemKey_T, Vector<Push Messages>>
-                upcxx::rpc_ff(i, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw, TableKey_T tk, std::unordered_map<ItemKey_T, std::vector<Msg_T>> incoming)
+                auto f = upcxx::rpc(i, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw, TableKey_T tk, std::unordered_map<ItemKey_T, std::vector<Msg_T>> incoming)
                 {
                     dw->tables[tk]->bulk_push(incoming);
                 }, worker, table_iterator.first, table_iterator.second);
+                worker_futures.push_back(f);
             }
         }
 
@@ -553,25 +499,13 @@ void send_pushes(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worke
             }
         }
     }
-    else if(worker->sending_mode == Buffering) {
-        for (auto table_iterator : worker->tables)
-        {
-            for(auto obj_iterator : *(table_iterator.second->get_objects()))
-            {
-                for(auto msg_iterator : obj_iterator.second->out_push_buffer)
-                {
-                    perform_remote_push(worker, msg_iterator.dest_table, msg_iterator.dest_object, msg_iterator.value);
-                }
-            }
-        }
-        upcxx::progress();
-    }
     else if(worker->sending_mode == BufferingWorker)
     {
         for(auto msg_iterator : worker->out_push_buffer)
         {
-            perform_remote_push(worker, msg_iterator.dest_table, msg_iterator.dest_object, msg_iterator.value);
+            perform_remote_push(worker, msg_iterator.dest_table, msg_iterator.dest_item, msg_iterator.value);
         }
+        worker->out_push_buffer.clear();
     }
 
     upcxx::progress();
@@ -587,10 +521,10 @@ void perform_remote_push(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>
 
         if(target_partition != upcxx::rank_me())
         {
-            upcxx::rpc(target_partition, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw,
+            worker_futures.push_back(upcxx::rpc(target_partition, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw,
             Msg_T val, TableKey_T tk, ItemKey_T ok) {
                 dw->tables[tk]->push(ok, val);
-            }, worker, msg_val, dest_table, dest_obj);
+            }, worker, msg_val, dest_table, dest_obj));
             upcxx::progress();
             return;
         }
@@ -598,6 +532,7 @@ void perform_remote_push(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>
     target_table->push(dest_obj, msg_val);
 }
 
+//TODO: ????????
 template<typename TableKey_T, typename ItemKey_T, typename Msg_T>
 void perform_direct_remote_push(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker, TableKey_T dest_table, ItemKey_T dest_obj, Msg_T msg_val)
 {
@@ -608,10 +543,10 @@ void perform_direct_remote_push(upcxx::dist_object<Worker<TableKey_T, ItemKey_T,
 
         if(target_partition != upcxx::rank_me())
         {
-            upcxx::rpc(target_partition, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw,
+            worker_futures.push_back(upcxx::rpc(target_partition, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw,
             Msg_T val, TableKey_T tk, ItemKey_T ok) {
                 dw->tables[tk]->push(ok, val);
-            }, worker, msg_val, dest_table, dest_obj);
+            }, worker, msg_val, dest_table, dest_obj));
             upcxx::progress();
             return;
         }
@@ -619,50 +554,56 @@ void perform_direct_remote_push(upcxx::dist_object<Worker<TableKey_T, ItemKey_T,
     target_table->push(dest_obj, msg_val);
 }
 
+
+/*  Send and complete all outgoing pulls from all objects in all tables
+    Guaranteed to have completed (with a return mesasge) all pulls when retuning from function
+    Pull RPCs are stored as futures in a vector untill all futures are sent
+    Only after all pulls are sent will the function wait/block for futures to complete */
 template<typename TableKey_T, typename ItemKey_T, typename Msg_T>
 void send_pulls(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker)
 {
+    //std::vector<upcxx::future<>> futures;
     for (auto table_iterator : worker->tables)
     {
-        for(auto obj_iterator : *(table_iterator.second->get_objects()))
+        for(auto obj_iterator : *(table_iterator.second->get_items()))
         {                
             for(auto msg_iterator : obj_iterator.second->out_pull_buffer)
             {
                 auto target_table = worker->tables[msg_iterator.dest_table];
                 if(target_table->is_global == true)
                 {
-                    int target_partition = worker->get_partition(target_table, msg_iterator.dest_object);
+                    int target_partition = worker->get_partition(target_table, msg_iterator.dest_item);
                     if(target_partition != upcxx::rank_me())
                     {
                         auto fut = upcxx::rpc(target_partition,
                             [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw, TableKey_T tk, ItemKey_T ok, int tag)
                             {
                                 return dw->tables[tk]->foreign_pull(ok, tag);
-                            }, worker, msg_iterator.dest_table, msg_iterator.dest_object, msg_iterator.tag).then(
+                            }, worker, msg_iterator.dest_table, msg_iterator.dest_item, msg_iterator.tag).then(
                             [obj_iterator, msg_iterator](Msg_T retval)
                             {
                                 Message<TableKey_T, ItemKey_T, Msg_T> new_msg;
                                 new_msg.src_table = msg_iterator.dest_table;
                                 new_msg.dest_table = msg_iterator.src_table;
-                                new_msg.src_object = msg_iterator.dest_object;
-                                new_msg.dest_object = msg_iterator.src_object;
+                                new_msg.src_item = msg_iterator.dest_item;
+                                new_msg.dest_item = msg_iterator.src_item;
                                 new_msg.value = retval;
                                 new_msg.tag = msg_iterator.tag;
                                 new_msg.seqnum = msg_iterator.seqnum;
                                 obj_iterator.second->add_returning_pull_buffer(new_msg);
                             });
-                        fut.wait();//TODO: don't wait here/investigate if RPCs are handled while waiting, if so, waiting here is OK
+                        worker_futures.push_back(fut);
                         upcxx::progress();
                         continue;
                     }
                 }
                 Message<TableKey_T, ItemKey_T, Msg_T> new_msg;
-                new_msg.value = target_table->foreign_pull(msg_iterator.dest_object, msg_iterator.tag);
+                new_msg.value = target_table->foreign_pull(msg_iterator.dest_item, msg_iterator.tag);
                 new_msg.tag = msg_iterator.tag;
                 new_msg.src_table = msg_iterator.dest_table;
                 new_msg.dest_table = msg_iterator.src_table;
-                new_msg.src_object = msg_iterator.dest_object;
-                new_msg.dest_object = msg_iterator.src_object;
+                new_msg.src_item = msg_iterator.dest_item;
+                new_msg.dest_item = msg_iterator.src_item;
                 new_msg.seqnum = msg_iterator.seqnum;
                 obj_iterator.second->add_returning_pull_buffer(new_msg);
             }
@@ -670,6 +611,9 @@ void send_pulls(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker
     }
     upcxx::progress();
 }
+
+
+
 
 } //end namespace
 

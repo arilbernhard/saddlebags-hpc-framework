@@ -2,7 +2,6 @@
 #define ENUMS_H
 
 enum SendingMode {
-    Buffering,
     Combining,
     Direct,
     GasnetDirect,

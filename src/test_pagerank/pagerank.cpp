@@ -2,11 +2,10 @@
 #include <fstream>
 #include <string>
 
-#include "../include/timer.cpp"
-#include "../include/lighght.hpp"
+#include "../include/saddlebags.hpp"
 
 template<class Tk, class Ok, class Mt>
-class SiteObject : public lighght::Item<Tk, Ok, Mt> {
+class SiteObject : public saddlebags::Item<Tk, Ok, Mt> {
     public:
 
     float page_rank = 1;
@@ -48,17 +47,14 @@ class SiteObject : public lighght::Item<Tk, Ok, Mt> {
 
 int main(int argc, char* argv[])
 {
-    lighght::init();
-    if(lighght::rank_me() == 0)
+    saddlebags::init();
+    if(saddlebags::rank_me() == 0)
         std::cout << "running with " << upcxx::rank_n() << " ranks" << std::endl;
 
-    using table_k = int;
-    using object_k = int;
-    using msg_type = float;
 
-    auto worker = lighght::create_worker<table_k, object_k, msg_type>(Buffering);
+    auto worker = saddlebags::create_worker<int, int, float>(BufferingWorker);
 
-    lighght::add_table<SiteObject>(worker, 0, true);
+    saddlebags::add_table<SiteObject>(worker, 0, true);
 
     std::ifstream infile("example_data/simple_graph.txt");
     //std::ifstream infile("/home/aril/Documents/Google_genGraph_15.txt");
@@ -75,11 +71,11 @@ int main(int argc, char* argv[])
         int link = stoi(dst_buffer);
 
 
-        if(worker->get_partition(0, url) == lighght::rank_me())
+        if(worker->get_partition(0, url) == saddlebags::rank_me())
         {
             //std::cout << url << " is in partition " << lighght::rank_me() << std::endl;
             //std::cout << "inserting " << src_buffer << std::endl;
-            auto new_obj = lighght::insert_and_return<SiteObject>(worker, 0, url);
+            auto new_obj = saddlebags::insert_and_return<SiteObject>(worker, 0, url);
             new_obj->add_link(link);
         }
     }
@@ -90,11 +86,9 @@ int main(int argc, char* argv[])
 
     for(int i = 1; i < 4; i++)
     {
-        upcxx::barrier();
-        lighght::cycle(worker, true);
+        saddlebags::cycle(worker, true);
         if(upcxx::rank_me() == 0)
             std::cout << "CYCLE " << i << std::endl;
-        upcxx::barrier();
 
         std::string filename = "example_data/solution"+std::to_string(i)+".txt";
         std::ifstream solfile(filename);
@@ -108,21 +102,19 @@ int main(int argc, char* argv[])
 
         int items = 0;
 
-        for(auto table_iterator : worker->tables)
+
+        for(auto obj_iterator : *(worker->tables[0]->get_items()))
         {
-            for(auto obj_iterator : *(table_iterator.second->get_objects()))
+            items += 1;
+            int url = obj_iterator.first;
+            auto page_rank = saddlebags::lookup_item<SiteObject>(worker, 0, url)->page_rank;
+            if(url < 9)
             {
-                items += 1;
-                auto obj = obj_iterator.second;
-                auto page_rank = reinterpret_cast<SiteObject<table_k, object_k, msg_type>*>(obj)->page_rank;
-                int url = obj_iterator.first;
-                if(url < 9)
-                {
-                    if(abs(solution[url] - page_rank) > 0.01)
-                        std::cout << "Failed: " << url << " has rank " << page_rank << " (expected " << solution[url] << ")" << std::endl;
-                }
+                if(abs(solution[url] - page_rank) > 0.01)
+                    std::cout << "Failed: " << url << " has rank " << page_rank << " (expected " << solution[url] << ")" << std::endl;
             }
         }
+        
 
         std::cout << "Partition " << upcxx::rank_me() << " has in total " << items << " items" << std::endl;
 
@@ -132,6 +124,6 @@ int main(int argc, char* argv[])
 
 
 
-	lighght::finalize();
+	saddlebags::finalize();
 }
 

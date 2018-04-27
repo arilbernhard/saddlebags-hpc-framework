@@ -4,6 +4,8 @@
 #include <upcxx/upcxx.hpp>
 #include "cityhash/src/city.h"
 
+namespace saddlebags
+{
 
 class Distributor {
     public:
@@ -36,5 +38,7 @@ class Distributor {
     }
 };
 
+
+} //end namespace
 
 #endif
