@@ -216,6 +216,21 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
 
 };
 
+/*
+template<template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
+Robin_Map<ItemKey_T, ItemType*> iterate_table(TableContainerBase<TableKey_T, ItemKey_T, Msg_T>& table)
+{
+
+}
+
+
+
+template <typename TableKey_T, typename ItemKey_T, typename Msg_T, typename ItemType, typename DistributorType>
+Robin_Map<ItemKey_T, ItemType*> iterate_table(TableContainerBase<TableKey_T, ItemKey_T, Msg_T>& table)
+{
+    return reinterpret_cast<TableContainer<TableKey_T, ItemKey_T, Msg_T, ItemType, DistributorType>>(table)->mapped_items;
+}*/
+
 }//end namespace
 
 #endif

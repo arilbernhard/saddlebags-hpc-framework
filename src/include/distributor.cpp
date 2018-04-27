@@ -7,9 +7,22 @@
 namespace saddlebags
 {
 
-class Distributor {
+template<typename ItemKey_T>
+class BaseDistributor
+{
+    virtual int distribute(ItemKey_T key) = 0;
+}
+
+template<typename ItemKey_T>
+class HashDistributor : BaseDistributor<ItemKey_T> {
     public:
 
+    int distribute<int>(int key) override
+    {
+        return CityHash32((const char*)(&key), sizeof(key)) % upcxx::rank_n(); 
+    }
+
+/*
     int distribute(std::string key)
     {
         return CityHash32((const char*)key.c_str(), (size_t)key.size()) % upcxx::rank_n();
@@ -35,7 +48,8 @@ class Distributor {
         }
 
         return distribute(tmp);
-    }
+    }*/
+
 };
 
 

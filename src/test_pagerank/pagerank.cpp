@@ -114,7 +114,20 @@ int main(int argc, char* argv[])
                     std::cout << "Failed: " << url << " has rank " << page_rank << " (expected " << solution[url] << ")" << std::endl;
             }
         }
-        
+
+/*
+        for(auto obj_iterator : saddlebags::iterate_table<int, int, float, SiteObject<int, int, float>, saddlebags::Distributor>(*(worker->tables[0])))
+        {
+            items += 1;
+            int url = obj_iterator.first;
+            auto page_rank = obj_iterator.second->page_rank;
+            if(url < 9)
+            {
+                if(abs(solution[url] - page_rank) > 0.01)
+                    std::cout << "Failed: " << url << " has rank " << page_rank << " (expected " << solution[url] << ")" << std::endl;
+            }
+        }
+        */
 
         std::cout << "Partition " << upcxx::rank_me() << " has in total " << items << " items" << std::endl;
 

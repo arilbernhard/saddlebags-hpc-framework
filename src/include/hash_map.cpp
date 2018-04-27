@@ -328,7 +328,6 @@ class RobinIterator
 
     Entry<keyT, valueT> & operator*() const
     {
-        //std::cout << "accessing" << std::endl;
         return my_map.entries[current_loc];
     }
 };
