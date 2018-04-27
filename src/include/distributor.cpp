@@ -10,14 +10,15 @@ namespace saddlebags
 template<typename ItemKey_T>
 class BaseDistributor
 {
+    public:
     virtual int distribute(ItemKey_T key) = 0;
-}
+};
 
 template<typename ItemKey_T>
-class HashDistributor : BaseDistributor<ItemKey_T> {
+class HashDistributor : public BaseDistributor<ItemKey_T> {
     public:
 
-    int distribute<int>(int key) override
+    int distribute(int key) override
     {
         return CityHash32((const char*)(&key), sizeof(key)) % upcxx::rank_n(); 
     }

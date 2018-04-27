@@ -206,7 +206,7 @@ int rank_me() {
 template<class DistributorType, template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
 void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker, TableKey_T tableKey, bool is_global)
 {
-    worker->tables.insert({tableKey, new TableContainer<TableKey_T, ItemKey_T, Msg_Type, ObjectType<TableKey_T, ItemKey_T, Msg_Type>, DistributorType>()});
+    worker->tables.insert({tableKey, new TableContainer<TableKey_T, ItemKey_T, Msg_Type, ObjectType<TableKey_T, ItemKey_T, Msg_Type>>(new DistributorType())});
     worker->tables[tableKey]->is_global = is_global;
     worker->tables[tableKey]->myTableKey = tableKey;
     worker->tables[tableKey]->parent_worker = &(*worker);
@@ -227,7 +227,9 @@ void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &work
 template<template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
 void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker, TableKey_T tableKey, bool is_global)
 {
-    worker->tables.insert({tableKey, new TableContainer<TableKey_T, ItemKey_T, Msg_Type, ObjectType<TableKey_T, ItemKey_T, Msg_Type>, Distributor>()});
+    worker->tables.insert({tableKey, new TableContainer<TableKey_T, ItemKey_T, Msg_Type, ObjectType<TableKey_T, ItemKey_T, Msg_Type>>(
+        new HashDistributor<ItemKey_T>())
+        });
     worker->tables[tableKey]->is_global = is_global;
     worker->tables[tableKey]->myTableKey = tableKey;
     worker->tables[tableKey]->parent_worker = &(*worker);

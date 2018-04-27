@@ -43,11 +43,11 @@ class TableContainerBase
     virtual void direct_push(ItemKey_T key, Msg_T val) = 0;
 };
 
-template <typename TableKey_T, typename ItemKey_T, typename Msg_T, typename ItemType, typename DistributorType>
+template <typename TableKey_T, typename ItemKey_T, typename Msg_T, typename ItemType>
 class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
     public:
 
-    DistributorType distributor;
+    BaseDistributor<ItemKey_T>* distributor;
     #ifdef ROBIN_HASH
     Robin_Map<ItemKey_T, ItemType*> mapped_items;
 
@@ -66,9 +66,9 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
 
     #endif
 
-    TableContainer()
+    TableContainer(BaseDistributor<ItemKey_T>* new_distributor)
     {
-        
+        distributor = new_distributor;
     }
 
     ItemType* create_new_item(ItemKey_T key)
@@ -144,7 +144,7 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
     }
 
     int partition(ItemKey_T itemKey) override {
-        return distributor.distribute(itemKey);
+        return distributor->distribute(itemKey);
     }
 
     //TODO inspect these insertions
