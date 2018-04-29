@@ -147,8 +147,6 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
         return distributor->distribute(itemKey);
     }
 
-    //TODO inspect these insertions
-
     void insert(ItemKey_T key) override
     { 
         auto iterator = mapped_items.find(key);
@@ -216,20 +214,16 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
 
 };
 
-/*
-template<template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
-Robin_Map<ItemKey_T, ItemType*> iterate_table(TableContainerBase<TableKey_T, ItemKey_T, Msg_T>& table)
-{
 
+//Return iterator to item-map in which every item is cast to derived itemtype
+template<template<class TableKey_T, class ItemKey_T, class Msg_Type> class ItemType, class TableKey_T, class ItemKey_T, class Msg_Type>
+Robin_Map<ItemKey_T, ItemType<TableKey_T, ItemKey_T, Msg_Type>*> 
+iterate_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker, TableKey_T table_key)
+{
+    TableContainerBase<TableKey_T, ItemKey_T, Msg_Type>* base_table = worker->tables[table_key];
+    auto derived_table = reinterpret_cast<TableContainer<TableKey_T, ItemKey_T, Msg_Type, ItemType<TableKey_T, ItemKey_T, Msg_Type>>*>(base_table);
+    return derived_table->mapped_items;
 }
-
-
-
-template <typename TableKey_T, typename ItemKey_T, typename Msg_T, typename ItemType, typename DistributorType>
-Robin_Map<ItemKey_T, ItemType*> iterate_table(TableContainerBase<TableKey_T, ItemKey_T, Msg_T>& table)
-{
-    return reinterpret_cast<TableContainer<TableKey_T, ItemKey_T, Msg_T, ItemType, DistributorType>>(table)->mapped_items;
-}*/
 
 }//end namespace
 

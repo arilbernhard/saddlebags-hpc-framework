@@ -283,6 +283,7 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* insert_and_return(upcxx::dist_objec
 }
 
 
+//TODO are both lookup_item and get_item needed?
 
 template<template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
 ObjectType<TableKey_T, ItemKey_T, Msg_Type>* lookup_item(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker,
@@ -303,7 +304,7 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* lookup_item(upcxx::dist_object<Work
 }
 
 
-
+/*
 template<template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
 ObjectType<TableKey_T, ItemKey_T, Msg_Type>* get_item(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker,
                         TableKey_T table_key, ItemKey_T item_key)
@@ -318,7 +319,7 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* get_item(upcxx::dist_object<Worker<
     else {
         return reinterpret_cast<ObjectType<TableKey_T, ItemKey_T, Msg_Type>*>(it->second);
     }
-}
+}*/
 
 template<class key_T, class value_T, class message_T>
 upcxx::dist_object<Worker<key_T, value_T, message_T>> create_worker()
@@ -564,7 +565,6 @@ void perform_direct_remote_push(upcxx::dist_object<Worker<TableKey_T, ItemKey_T,
 template<typename TableKey_T, typename ItemKey_T, typename Msg_T>
 void send_pulls(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker)
 {
-    //std::vector<upcxx::future<>> futures;
     for (auto table_iterator : worker->tables)
     {
         for(auto obj_iterator : *(table_iterator.second->get_items()))

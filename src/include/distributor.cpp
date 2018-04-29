@@ -23,12 +23,12 @@ class HashDistributor : public BaseDistributor<ItemKey_T> {
         return CityHash32((const char*)(&key), sizeof(key)) % upcxx::rank_n(); 
     }
 
-/*
-    int distribute(std::string key)
+
+    int distribute(std::string key) override
     {
         return CityHash32((const char*)key.c_str(), (size_t)key.size()) % upcxx::rank_n();
     }
-
+/*
     int distribute(std::pair<int,int> key)
     {
         long k = key.first + key.second;

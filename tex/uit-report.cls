@@ -74,27 +74,35 @@
 \usepackage[nottoc]{tocbibind}
 \usepackage[titles]{tocloft}
 \usepackage{fancyhdr}
-\pagestyle{fancyplain}
-\renewcommand{\headrulewidth}{1pt}
-\renewcommand{\footrulewidth}{0pt}
-\fancyhf{}
-%%%%%%HEADER LINE
 
-\fancyhf{} % sets both header and footer to nothing
-\renewcommand{\headrulewidth}{0.75pt}
+\fancypagestyle{firststyle}
+{
+	\fancyhf{}
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyfoot[C]{\footnotesize \thepage\ }
+}
+
+\fancypagestyle{secondstyle}
+{
+	\fancyhf{} % sets both header and footer to nothing
+	%\renewcommand{\headrulewidth}{0.75pt}
+	
+	
+	
+	%\lhead{\textcolor{darkgray}{\fancyplain{}{\ult@title}}}
+	%\rhead{\textcolor{darkgray}{\fancyplain{}{June 2018}}}
+	
+	\lfoot{}
+	%\cfoot{\textcolor{darkgray}{\fancyplain{}{Page {\thepage} of \pageref{LastPage}}}}
+	\cfoot{\textcolor{darkgray}{\fancyplain{}{{\thepage}}}}
+	\rfoot{}
+
+}
 
 
 
-\lhead{\textcolor{darkgray}{\fancyplain{}{\ult@title}}}
-\rhead{\textcolor{darkgray}{\fancyplain{}{June 2018}}}
 
-\lfoot{}
-\cfoot{\textcolor{darkgray}{Page {\thepage} of \pageref{LastPage}}}
-\rfoot{}
-
-
-
-\allsectionsfont{\sffamily\mdseries\upshape}
+\allsectionsfont{\rmfamily\bfseries}
 \renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
 \renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape}
 \setlength{\headheight}{15pt}
@@ -112,22 +120,5 @@
 \usepackage[version=3]{mhchem}
 \usepackage{upgreek}
 
-\if@titlepage
-\renewcommand\maketitle{%
-  \setcounter{page}{2}%
-  \global\let\thanks\relax
-  \global\let\maketitle\relax
-  \global\let\@thanks\@empty
-  \global\let\@author\@empty
-  \global\let\@date\@empty
-  \global\let\@title\@empty
-  \global\let\@subtitle\@empty
-  \global\let\title\relax
-  \global\let\subtitle\relax
-  \global\let\author\relax
-  \global\let\date\relax
-  \global\let\and\relax
-}
-\fi
 
 \endinput

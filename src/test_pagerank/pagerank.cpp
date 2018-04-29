@@ -73,8 +73,6 @@ int main(int argc, char* argv[])
 
         if(worker->get_partition(0, url) == saddlebags::rank_me())
         {
-            //std::cout << url << " is in partition " << lighght::rank_me() << std::endl;
-            //std::cout << "inserting " << src_buffer << std::endl;
             auto new_obj = saddlebags::insert_and_return<SiteObject>(worker, 0, url);
             new_obj->add_link(link);
         }
@@ -103,20 +101,36 @@ int main(int argc, char* argv[])
         int items = 0;
 
 
-        for(auto obj_iterator : *(worker->tables[0]->get_items()))
+        /*  Different methods of accessing data follows.
+            Correctness is checked by comparing url with solution
+            The results of the following loops are equivalent */ 
+
+        //1) Lookup items based on their url. Lookup will return NULL on partitions where it does not exist
+        for(int url = 1; url < 9; url++)
         {
-            items += 1;
-            int url = obj_iterator.first;
-            auto page_rank = saddlebags::lookup_item<SiteObject>(worker, 0, url)->page_rank;
-            if(url < 9)
+            auto item = saddlebags::lookup_item<SiteObject>(worker, 0, url);
+            if(item == NULL)
+                continue;
+            auto page_rank = item->page_rank;
+            if(abs(solution[url] - page_rank) > 0.01)
+                std::cout << "Failed: " << url << " has rank " << page_rank << " (expected " << solution[url] << ")" << std::endl;
+        }
+
+        //2) Similar to 1, but check the distribution logic rather than relying on what lookup_item returns
+        //the differentiation between the two is useful because it can be ensured whether an item exists in any table
+        for(int url = 1; url < 9; url++)
+        {
+            if(worker->check_if_partition(0, url))
             {
+                auto item = saddlebags::lookup_item<SiteObject>(worker, 0, url);
+                auto page_rank = item->page_rank;
                 if(abs(solution[url] - page_rank) > 0.01)
                     std::cout << "Failed: " << url << " has rank " << page_rank << " (expected " << solution[url] << ")" << std::endl;
             }
         }
 
-/*
-        for(auto obj_iterator : saddlebags::iterate_table<int, int, float, SiteObject<int, int, float>, saddlebags::Distributor>(*(worker->tables[0])))
+        //3) Iterate through all items on each partition
+        for(auto obj_iterator : saddlebags::iterate_table<SiteObject>(worker, 0))
         {
             items += 1;
             int url = obj_iterator.first;
@@ -127,12 +141,9 @@ int main(int argc, char* argv[])
                     std::cout << "Failed: " << url << " has rank " << page_rank << " (expected " << solution[url] << ")" << std::endl;
             }
         }
-        */
+
 
         std::cout << "Partition " << upcxx::rank_me() << " has in total " << items << " items" << std::endl;
-
-
-
     }
 
 

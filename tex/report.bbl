@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{sutter_larus_2005}
 H.~Sutter and J.~Larus, ``Software and the concurrency revolution,'' {\em
@@ -41,5 +41,47 @@ J.~Lagraviere, J.~Langguth, M.~Sourouri, P.~H. Ha, and X.~Cai, ``On the
   performance and energy efficiency of the pgas programming model on multicore
   architectures,'' {\em 2016 International Conference on High Performance
   Computing \& Simulation (HPCS)}, 2016.
+
+\bibitem{MPI}
+``{Message Passing Interface}.''
+  \url{https://computing.llnl.gov/tutorials/mpi/}.
+\newblock [Online; accessed 27-November-2017].
+
+\bibitem{gasnet_description}
+D.~Bonachea and J.~Jeong, ``{{GASNet: A Portable High-Performance Communication
+  Layer for Global Address-Space Languages}},'' 2002.
+\newblock [Online; accessed 23-November-2017].
+
+\bibitem{gasnetreadme}
+D.~Bonachea and P.~Hargrove, ``{GASNet Specification, v1.8.1}.''
+
+\bibitem{web_gnu_upc}
+``{GNU UPC}.'' \url{http://www.gccupc.org}.
+\newblock [Online; accessed 23-November-2017].
+
+\bibitem{web_berkeley_upc}
+``{Berkeley UPC}.'' \url{http://upc.lbl.gov}.
+\newblock [Online; accessed 23-November-2017].
+
+\bibitem{evaluation_of_upc}
+C.~Coarfa, Y.~Dotsenko, J.~Mellor-Crummey, F.~Cantonnet, T.~El-Ghazawi,
+  A.~Mohanti, Y.~Yao, and D.~Chavarría-Miranda, ``{An Evaluation of Global
+  Address Space Languages},'' {\em Proceedings of the tenth ACM SIGPLAN
+  symposium on Principles and practice of parallel programming - PPoPP 05},
+  2005.
+
+\bibitem{upc_language_specification}
+W.~W. Carlson, D.~E. Culler, and E.~Brooks, ``{Introduction to UPC and Language
+  Specification},'' 1999.
+
+\bibitem{zheng_kamil_driscoll_shan_yelick_2014}
+Y.~Zheng, A.~Kamil, M.~B. Driscoll, H.~Shan, and K.~Yelick, ``{UPC++ : A PGAS
+  Extension for C++},'' {\em 2014 IEEE 28th International Parallel and
+  Distributed Processing Symposium}, 2014.
+
+\bibitem{web_cpp_template}
+``{Function template, cppreference.com}.''
+  \url{http://en.cppreference.com/w/cpp/language/function_template}.
+\newblock [Online; accessed 23-November-2017].
 
 \end{thebibliography}

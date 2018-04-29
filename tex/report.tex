@@ -16,10 +16,9 @@
 \title{Saddlebags: A Parallel Computing Framework for C++}
 \subtitle{}
 \author{Aril Bernhard Ovesen}
-\date{October 13, 2014}
+\date{June 1, 2018}
 
 % Create the cover page
-\maketitle
 
 % Add these lines to include a Table of Contents
 
@@ -31,31 +30,33 @@
 %\caption{This is a figure text.}
 %\label{fig:ex}
 %\end{figure}
-\newpage
-\thispagestyle{empty}
+\newpage\
+\pagestyle{empty}
+
 \mbox{}
 
 \pagebreak
-\thispagestyle{empty}
-\textbf{Abstract}
+\pagenumbering{roman}
+\pagestyle{firststyle}
+\textbf{\large{Abstract}}
 
 abstract goes here
 
 
 \newpage
-\thispagestyle{empty}
-\textbf{Acknowledgements}
+\textbf{\large{Acknowledgements}}
 
 Acknowledgements goes here
 
 
 \newpage
-\thispagestyle{empty}
 \tableofcontents
 \pagebreak
 
 \newpage
-\thispagestyle{fancyplain}
+\pagenumbering{arabic}
+\pagestyle{secondstyle}
+\setcounter{page}{1}
 \section{Introduction}
 
 
@@ -98,16 +99,118 @@ On top of these models, abstractions can be applied to hide complexity from the 
 
 There exists a perception that abstraction carry an inherent performance penalty, but abstractions can also be powerful tools in high performance computing \cite{mccandless_lumsdaine_1997}. For example, computing at a large scale can introduce issues relating to handling large amounts of data, scaling to a large or arbitrary number of computation nodes, or developing algorithms that utilizes communication routines and synchronization.
 
-Identifying common patterns in different problems allows for development of frameworks and libraries that are optimized to handle classes of problems matching the same patterns. For example, the MapReduce framework hides significant programming overhead of problems that can be expressed within semantics provided by the framework and the programming model it represents. In its most primitive, data is supplied to the \emph{Map} function and a function to execute on the data is supplied to the \emph{Reduce} function. The MapReduce programming model is designed for algorithms and problems that can be expressed using these two functions, and the MapReduce framework is implemented to provide functionality that can be applied generally to problems within that programming model. In addition to implementing communication routines and data distribution logic, the framework can supply scalability and fault tolerance, due to the information of the application that is implied by the programming model it is utilizing. Other examples of systems specialized in specific programming models include Dryad \cite{dryad}, which models an application's data flow into directed acyclic graphs, and Pregel \cite{pregel}, a framework for graph processing.
+Identifying common patterns in different problems allows for development of frameworks and libraries that are optimized to handle classes of problems matching the same patterns. For example, the MapReduce framework hides significant programming overhead of problems that can be expressed within semantics provided by the framework and the programming model it represents. In its most primitive, data is supplied to the \emph{Map} function and a function to execute on the data is supplied to the \emph{Reduce} function. The MapReduce programming model is designed for algorithms and problems that can be expressed using these two functions, and the MapReduce framework is implemented to provide functionality that can be applied generally to problems within that programming model.
+
+In addition to implementing communication routines and data distribution logic, the framework can supply scalability and fault tolerance, due to the information of the application that is implied by the programming model it is utilizing. Other examples of systems specialized in specific programming models include Dryad \cite{dryad}, which models an application's data flow into directed acyclic graphs, and Pregel \cite{pregel}, a framework for graph processing.
 
 \subsection{Data intensive computing}
 
-\subsection{PGAS}
+
+
+\subsection{Partitioned Global Address Space}
 \cite{pgas_upc_energy}
 
-\subsection{GASNet}
+Traditionally, parallel programming (and the field of High Performance Computing) has been clustered in two language paradigms: \emph{shared memory }and \emph{message passing} \cite{pgas_languages}.  Shared memory models provide an abstract memory space that is available for access across several concurrent compute threads. Message passing models, such as MPI \cite{MPI}, give a programmer control of the flow of execution by conceptually bundling most of the communication into a message abstraction. This approach can be used to achieve high performance; the programmer can reason about the cost of communication, and messages can be delivered between compute nodes to scale a program to large, multi-node systems.
+
+Programming languages that achieve parallelism through a shared memory abstraction that provides memory access to several compute threads concurrently can be classified as Global Address Space (GAS) langauges. Communication between threads is achieved through reading and writing shared data, rather than explicit message passing \cite{gasnet_description}. Partitioned Global Address Space (PGAS) languages aim to provide a hybrid approach between previous parallelization paradigms, by utilizing the programmability advantages of the shared memory model, and the communication efficiency of message passing.
+
+\subsubsection{GASNet}
+GASNet is a communication API for GAS/PGAS languages that aims to provide a portable communication layer to systems that would otherwise be platform specific or network implementation dependent. Portability is achieved through translating PGAS programs to an intermediate C representation, which can be compiled into a platform specific application using the system's standard C compiler \cite{gasnet_description}.
+
+GASNet is distributed with several API implementations with support for different underlying network architectures, called \emph{conduits} \cite{gasnetreadme}. This means that systems built on GASNet can be implemented to utilize different communication interfaces, including, among others, MPI, shared memory, UDP/IP, and InfiniBand verbs.
+
+\subsection{Unified Parallel C}
+Unified Parallel C, referred to as UPC, is a superset of the C programming language for writing SPMD programs, utilizing a global address space paradigm for parallelism. A complete UPC specification was first standardized in 2001, and several UPC compilers have been under development since, including GNU UPC, which is an extension of GCC \cite{web_gnu_upc}, and Berkeley UPC, which is dependent on GASNet \cite{web_berkeley_upc}.
+
+The address space of a UPC program is partitioned into several logical fragments, with each concurrent thread being mapped to one fragment. With this model, each thread has affinity to its own individual memory region, which makes it possible to exploit data locality \cite{evaluation_of_upc} and utilize parallelism with the same language constructs.
+
+Handling data in a memory partition mapped to a single thread makes it implicit that data is being accessed by a thread that has affinity to the given partition. Memory can also be explicitly distributed across several threads, using shared global memory, which disregards any thread affinity and is logically separated from the aforementioned thread-mapped memory partitions.
+
+The shared memory abstraction of UPC is provided regardless of underlying hardware structure. Partitioned memory segments can be mapped to individual compute nodes in a cluster, utilizing data locality by performing computation on private data close to the location where it is stored, while still providing a shared memory abstraction for communication and programmability. The original UPC language specification states that a driving principle behind UPC is that parallelism and remote memory access should not obfuscate the resulting program; programmers should themselves utilize the language constructs to design programs and data structures, instead of being provided with solutions to specialized tasks. Additionally, the specification claims that a shared memory programming model is attractive for users of distributed memory systems \cite{upc_language_specification}. These two concepts can in part make up the motivation behind the UPC language.
+
+
 
 \subsection{UPC++}
+UPC++ is a PGAS extension to the C++ programming language. It is developed at University of California, Berkeley and saw the release of its 1.0 version in September 2017. UPC++ is implemented as a library extension, due to the complexity of developing a separate C++ compiler \cite{zheng_kamil_driscoll_shan_yelick_2014}. The library heavily utilizes C++ template programming \cite{web_cpp_template} for PGAS mechanisms, which allows the creation of library functions that use generic variables that can be adapted to different types. 
+
+\subsubsection{Programming model}
+UPC++ follows the SPMD model and like UPC utilizes threads with affinity to memory partitions. While UPC++ allows the use of C++ functionality such as objects and lambdas, it still aims to provide high performance and explicit communication by leaving much responsibility regarding concurrency and data movement to the programmer.
+
+Each UPC++ partition has access to its own private memory segment, and is identified by its rank, an integer that can range from zero to the total number of partitions. Listing \ref{lst:helloworld} demonstrates a simple program that is started with 4 threads, each printing their rank, illustrating the Single Program Multiple Data property of UPC++ programs. Ranks can communicate through a logical shared memory segment, by utilizing UPC++ communication functionality, including global pointers, remote procedure calls (RPCs), and distributed objects. The number of ranks is static during execution; the total rank count is specified when launching a program and cannot be modified during runtime.
+
+
+\begin{lstlisting}[label={lst:helloworld}, float, caption="Hello World"-program in UPC++ and its output, frame=tlrb, captionpos=b, language=c++, showstringspaces=false]
+void main()
+{
+  upcxx::init();
+  cout << "Hello world! " << upcxx::rank_me() << endl;
+  upcxx::finalize();
+}
+
+-----------------------------------------------------------
+Output:
+Hello world! 0
+Hello world! 2
+Hello world! 3
+Hello world! 1
+\end{lstlisting}
+
+
+
+Through communication or internal operations, a single thread may consist of several independent tasks that need access to computing resources for the program to continue its execution. In order to keep communication data movement predictable, a programmer will need to yield control of execution. This means that operations that require communication, such as RPC or global memory accesses, are separated from the main thread of execution and will not expend computing resources until explicitly granted permission to do so. Remote and asynchronous tasks are exposed to the caller through \emph{future} objects, which will change their internal state when the task has completed. This allows the caller to perform operations dependent on the completion of remote tasks or retrieval of remote data, and effectively communicate between ranks.
+
+The 1.0 release of UPC++ introduced the concept of \emph{distributed objects}, which are objects defined by a generic type within UPC++ with the same identifier across all ranks. This means that data stored in the private memory segment of a partition can be referenced by a different rank in RPC calls. The data within the object is not implicitly distributed, but the name of the variable is. Local contents of the distributed objects can as such be explicitly distributed to any rank.
+
+\subsubsection{Progress}
+Outstanding asynchronous operations are not completed automatically, because the program consists of a static number of threads. In order to advance the internal state of UPC++ or complete RPC calls, computing resources are yielded from the main thread of execution via the \emph{progress()} function. This concept puts the responsibility of frequently progressing UPC++ state on the programmer's shoulders. The goal of this is to provide visibility of resource usage and parallelism, the latter being important to achieve interoperability with libraries and software packages that would otherwise restrict the use of multi-threading. Being cautious about where to progress RPCs relieves the needs for concurrency control such as mutexes, and implies atomicity in partition-internal operations of basic data types. More complex data structures that are not designed for concurrent access can be safely referenced in RPCs across partitions as long as the \emph{progress()} function is used only between atomic accesses.
+
+\begin{lstlisting}[label={lst:distribobj}, float=t,frame=tlrb, caption={Communication through RPC, referencing a distributed object of an arbitrary C++ class. Rank 1 retrieves and prints \emph{myProperty} from rank 2's instance of \emph{myObj}.}, captionpos=b, language=c++, showstringspaces=false]
+int main(int argc, char *argv[])
+{
+  upcxx::init();
+
+  auto myObj = upcxx::dist_object<myClass>(myClass());
+  upcxx::barrier();
+
+  if(upcxx::rank_me() == 1)
+  {
+  
+    auto f = upcxx::rpc(2, [](
+      upcxx::dist_object<myClass> &my_dist_obj])
+    {
+      return (*my_dist_obj).myProperty;
+    }, myObj);
+
+    f.wait();
+    std::cout << f.result() << std::endl;
+    
+  }
+
+  upcxx::barrier();
+  upcxx::finalize();
+} 
+\end{lstlisting}
+
+\subsubsection{Remote Procedure Calls}
+
+RPCs can be used for both modifying and copying data in the private segment of another rank's memory. The future objects returned by UPC++ RPCs can be used to indicate completion of the remote task, and communicate return values. A program that is dependent on data from a different rank, can halt advancement of the main thread by using the \emph{future.wait()} function, during which progress is attempted until the given future indicates that its corresponding remote operation has completed. This is not possible to achieve in tasks executed by progressing -- futures can only change state during progress, and progress-callbacks cannot themselves initiate further progress of other tasks. This concept provides a clear distinction between execution via the main thread of a rank, and execution via user-initiated progress of the same rank.
+
+Listing \ref{lst:distribobj} demonstrates communication between two ranks using RPCs, distributed objects, and futures. A distributed object of an arbitrary class is initiated on all ranks, and a RPC is invoked to retrieve a property of the instance of the distributed object $myObj$ local to rank 2, back to rank 1. A barrier is used to ensure that the identifier of the distributed object is available on all ranks before it is referenced in the following RPC. The remote procedure is expressed with a lambda function, an unnamed function object. The RPC returns future $f$, which will hold a copy of the remote $myProperty$, the return value of the lambda function passed to the UPC++ $rpc$ function. The return value of the lambda will be available as \emph{f.result()} when the function has been executed, which is indicated by returning from \emph{f.wait()}. 
+
+A distributed object is used in this example because it can be passed as a reference to the RPC on the sender's side, and it will be translated to the local copy of the distributed object with the same name on the receiving side. Non-distributed objects can only be passed as copy through RPCs, so distributed objects must be used for retrieving or modifying properties of remote objects. Within the RPC, the distributed object can be de-referenced to access properties of the underlying class. This is exemplified in listing \ref{lst:distribobj} through the access of $myProperty$.
+
+
+\subsubsection{Global pointers}
+Basic built-in C++ datatypes can be transmitted between partitions as RPC arguments or return values, by passing them as a copy. To communicate pointers to other partitions, the shared memory segment must be utilized. UPC++ can create a pointer to memory allocated in the shared memory segment, and copy local data to this location. The global pointer can be passed to other partitions through RPCs. Accessing global memory from a partition other than the one that initiated the pointer has to be done through asynchronous operations. UPC++ provides functions for remote puts and gets, which require internal progress on the partition that is hosting the shared memory in order to complete.
+
+\newpage
+\section{Related work}
+\subsection{Husky}
+\subsection{Spark}
+\subsection{DataMPI}
+\subsection{Legion}
+%% Data MPI?
+%% PGAS energy evaluation?
 
 \newpage
 \section{Design}
@@ -122,6 +225,7 @@ Saddlebags is designed with several key features in mind, all of them related to
 
 \hspace{4ex} \textbf{1. Computational tasks should be executed in the same partition in which the data it requires is located}
 
+%TODO: CITATION FOR DATA PARALLELISM
 Problems that can be expressed with data parallelism \cite{data_parallelism} can be distributed across computing units as individual tasks related to specific data. A key concept within PGAS programming is that a private memory segment has affinity to a single computing unit. To exploit data locality, a computational task should only be performed on the unit of computing which the data it requires has affinity to. Expressing behavior like this is trivial when the distribution of data is deterministic. Another wording of the same behavior is that computational tasks have affinity to the data it requires, the same way data has affinity to a computing unit and its private memory segment.
 \\
 
@@ -150,14 +254,8 @@ Distributor
 
 The communication patterns of a push/pull paradigm is simple enough that computational costs of communication in an application can be reasoned about, despite implementation complexity being hidden. 
 
-The Lighght framework is designed with the goal that abstractions provided through C++ mechanisms such as inheritance and type templates should not affect algorithmic complexity: This will only be true for algorithms that can be tailored to the push/pull/work paradigm. 
+Saddlebags is designed with the goal that abstractions provided by the programming model, through C++ mechanisms such as inheritance and type templates, should not affect algorithmic complexity. This will likely only be true for algorithms that can be tailored to the push/pull/work paradigm. 
 
-\newpage
-\section{Related work}
-\subsection{Husky}
-\subsection{Spark}
-%% Data MPI?
-%% PGAS energy evaluation?
 
 \newpage
 \section{Implementation}
