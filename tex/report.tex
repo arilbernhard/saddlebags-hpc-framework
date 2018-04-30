@@ -9,7 +9,7 @@
 
 \usepackage{pdfpages}
 
-
+\setcounter{tocdepth}{2}
 
 
 % Beginning of document, everything below relates to the acutal contents of the document
@@ -88,7 +88,7 @@ A framework for implementing distributed algorithms and applications, created in
 %  Message passing vs PGAS
 %  Data intensive computing
 %  Coupling of Data and processing task -> computation close to data
-%  benefits of Abstractions + introduce data/task coupling as a potential abstraction
+%  benefits of Abstractions + introduce data/task coupling as a potential 
 %  Object oriented high performance computing: object contains data AND task
 %  Distributed objects
 %  
@@ -105,7 +105,7 @@ There exists a perception that abstraction carry an inherent performance penalty
 
 Identifying common patterns in different problems allows for development of frameworks and libraries that are optimized to handle classes of problems matching the same patterns. For example, the MapReduce framework hides significant programming overhead of problems that can be expressed within semantics provided by the framework and the programming model it represents. In its most primitive, data is supplied to the \emph{Map} function and a function to execute on the data is supplied to the \emph{Reduce} function. The MapReduce programming model is designed for algorithms and problems that can be expressed using these two functions, and the MapReduce framework is implemented to provide functionality that can be applied generally to problems within that programming model.
 
-In addition to implementing communication routines and data distribution logic, the framework can supply scalability and fault tolerance, due to the information of the application that is implied by the programming model it is utilizing. Other examples of systems specialized in specific programming models include Dryad \cite{dryad}, which models an application's data flow into directed acyclic graphs, and Pregel \cite{pregel}, a framework for graph processing.
+In addition to implementing communication routines and data distribution logic, a framework can supply scalability and fault tolerance, due to the information about the application that is implied by the programming model it is utilizing. Other examples of systems specialized in specific programming models include Dryad \cite{dryad}, which models an application's data flow into directed acyclic graphs, and Pregel \cite{pregel}, a framework for graph processing.
 
 \subsection{Data intensive computing}
 
@@ -208,15 +208,6 @@ A distributed object is used in this example because it can be passed as a refer
 Basic built-in C++ datatypes can be transmitted between partitions as RPC arguments or return values, by passing them as a copy. To communicate pointers to other partitions, the shared memory segment must be utilized. UPC++ can create a pointer to memory allocated in the shared memory segment, and copy local data to this location. The global pointer can be passed to other partitions through RPCs. Accessing global memory from a partition other than the one that initiated the pointer has to be done through asynchronous operations. UPC++ provides functions for remote puts and gets, which require internal progress on the partition that is hosting the shared memory in order to complete.
 
 \newpage
-\section{Related work}
-\subsection{Husky}
-\subsection{Spark}
-\subsection{DataMPI}
-\subsection{Legion}
-%% Data MPI?
-%% PGAS energy evaluation?
-
-\newpage
 \section{Design}
 Saddlebags is a framework for parallel computing, aimed at applications and algorithms that can be implemented in C++. It uses UPC++ for thread spawning, communication, and data distribution, which provides PGAS mechanisms and language constructs such as remote procedure calls, virtual shared memory, and distributed objects. Saddlebags provides a programmer with objects and functions that are inherently distributed, and can be extended with methods and data to express different algorithms.
 
@@ -265,8 +256,56 @@ Tables are stored within a \emph{worker}, a distributed object. Tables are refer
 
 Items implement a \emph{work-push-pull} model, in which \emph{work} refers to a computational task implemented in the item class, and \emph{push} and \emph{pull} are the two available modes of communication. The work of an item is designed to be executed iteratively, and each iteration of a Saddlebags application involves executing work and performing any communication routines that was called as a result of the work. An iteration applies to every item in every table, and it is with this iterative model that an application can be executed. 
 
-The data flow model of Saddlebags is implemented with the concept of \emph{events}. Within the context of this framework, an event refers to the receiving of any communication message, or reaching specific points of the iteration process. Whenever an event is triggered, for example when receiving a \emph{push} message, the item that received the message calls a \emph{received push} method. The contents of this method can be implemented differently in different item types, and it also able to initiate other communication routines. This is directly related to the data flow of an application: when receiving a \emph{receieved pull} event, the event-triggered method determines what data to return. When a pull returns with some data, the method triggered by the \emph{returning pull} event determines how to handle the data. 
+\subsubsection{Events}
+The data flow model of Saddlebags is implemented with the concept of \emph{events}. Within the context of this framework, an event refers to the receiving of any communication message, or reaching specific points of the iteration process. Whenever an event is triggered, for example when receiving a \emph{pull} message, the item that received the message calls a corresponding \emph{foreign pull} method. The contents of this method can be implemented differently in different item types, and it also able to initiate other communication routines. This is directly related to the data flow of an application: when receiving a pull event, the event-triggered method determines what data to return. When the message returns to the original sender with some data, event-triggered return method determines how to handle the data. 
 
+\begin{table}
+\setlength\arrayrulewidth{1pt}
+\renewcommand{\arraystretch}{2}
+\begin{tabular}{ | p{3cm} | p{6cm} | p{6cm} |}
+   	\hline
+   	\textbf{Method} & \textbf{Event} & \textbf{Implied data movement} \\ \hline
+   	On Create & Item is created & None\\ \hline
+  	Refresh & An item with the same name is attempted created & None \\ \hline
+  	Work & Start of iteration & None \\ \hline
+   	Foreign Push & A push message is received from another item & Data from sender is received with the message  \\ \hline
+   	Foreign Pull & A pull message is received from another item & Return data is sent back to the sender\\ \hline
+	Returning Pull & A pull message that originated in this item has returned & Data from pull target is received with the message\\ \hline
+	Finishing Work & End of iteration & None\\ \hline
+
+\end{tabular}
+\caption{All events and their corresponding methods}
+\label{table:events}
+\end{table}
+
+Table \ref{table:events} lists all methods in the item class that can be triggered by events. Column 1 lists the names of the methods, column 2 lists the circumstances under which the method is called, and column 3 lists what data is moved in the corresponding method. All methods with data movement is called as a result of communication with other items. Communication routines can be initiated in any of the methods listed in the table.
+\\ \\
+\subsubsection{Example}
+The programming model that is implied by items and events can be explained further through an example application. Consider the PageRank algorithm, a mathematical expression for ranking the importance of a website \cite{pagerank}. The following expression is a simplified way of calculating the Page Rank ($PR$) of a website ($u$), given a list of pages that link to it ($B_u$), and the total number of links from those websites ($N$):
+
+\vspace{10pt}
+\begin{center}
+${\displaystyle PR(u)=\sum_{v\in B_{u}}{\frac{PR(v)}{N(v)}}}$
+
+\end{center}
+\vspace{20pt}
+
+It is assumed that every page starts with a PageRank of 1. Given a list of pages and their outgoing links, a PageRank application can be designed with the Saddlebags programming model. Each page is implemented as an item, and each item is given a list of its own outgoing pages, in addition to a PageRank value and a buffer for calculating a new PageRank, set to 0. Only one table and one type of item is needed. The required methods are listed in table \ref{table:pagerankevents}. When the items are created, the algorithm can be ran for as many iterations of PageRank as needed, since one PageRank iteration (one execution of the aforelisted formula for each item) is equivalent to one Saddlebags iteration.
+
+\begin{table}[b]
+	\setlength\arrayrulewidth{1pt}
+	\renewcommand{\arraystretch}{2}
+	\begin{tabular}{ | p{3cm} | p{12cm} |}
+		\hline
+		\textbf{Method} & \textbf{Functionality} \\ \hline
+		Work & Each page that this item links to will receive a push message with this item's PageRank divided by this item's count of outgoing links \\ \hline
+		Foreign Push & Add the incoming value to the new PageRank buffer \\ \hline
+		Finishing Work & PageRank of this item is set to the value of the buffer. The buffer is set to 0.\\ \hline
+		
+	\end{tabular}
+	\caption{The methods required to implement PageRank with Saddlebags}
+	\label{table:pagerankevents}
+\end{table}
 
 \subsection{Architecture}
 \subsubsection{Item}
@@ -277,6 +316,15 @@ The communication patterns of a push/pull paradigm is simple enough that the cos
 
 Saddlebags is designed with the goal that abstractions provided by the programming model, through C++ mechanisms such as inheritance and type templates, should not affect algorithmic complexity. This will likely only be true for algorithms that can be tailored to the push/pull/work paradigm. 
 
+
+\newpage
+\section{Related work}
+\subsection{Husky}
+\subsection{Spark}
+\subsection{DataMPI}
+\subsection{Legion}
+%% Data MPI?
+%% PGAS energy evaluation?
 
 \newpage
 \section{Implementation}

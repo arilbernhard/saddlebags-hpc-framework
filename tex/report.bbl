@@ -84,4 +84,10 @@ Y.~Zheng, A.~Kamil, M.~B. Driscoll, H.~Shan, and K.~Yelick, ``{UPC++ : A PGAS
   \url{http://en.cppreference.com/w/cpp/language/function_template}.
 \newblock [Online; accessed 23-November-2017].
 
+\bibitem{pagerank}
+L.~Page, S.~Brin, R.~Motwani, and T.~Winograd, ``{The PageRank Citation
+  Ranking: Bringing Order to the Web.},'' Technical Report 1999-66, Stanford
+  InfoLab, November 1999.
+\newblock Previous number = SIDL-WP-1999-0120.
+
 \end{thebibliography}

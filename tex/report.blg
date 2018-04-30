@@ -6,45 +6,45 @@ Database file #1: report.bib
 Warning--I didn't find a database entry for "data_parallelism"
 Warning--empty journal in gasnet_description
 Warning--empty journal in upc_language_specification
-You've used 17 entries,
+You've used 18 entries,
             1876 wiz_defined-function locations,
-            562 strings with 6472 characters,
-and the built_in function-call counts, 3387 in all, are:
-= -- 309
-> -- 167
-< -- 0
-+ -- 63
-- -- 46
-* -- 203
-:= -- 482
-add.period$ -- 23
-call.type$ -- 17
-change.case$ -- 17
+            570 strings with 6688 characters,
+and the built_in function-call counts, 3567 in all, are:
+= -- 325
+> -- 181
+< -- 1
++ -- 68
+- -- 50
+* -- 220
+:= -- 516
+add.period$ -- 25
+call.type$ -- 18
+change.case$ -- 18
 chr.to.int$ -- 0
-cite$ -- 19
-duplicate$ -- 175
-empty$ -- 337
-format.name$ -- 46
-if$ -- 837
+cite$ -- 20
+duplicate$ -- 182
+empty$ -- 349
+format.name$ -- 50
+if$ -- 875
 int.to.chr$ -- 0
-int.to.str$ -- 17
+int.to.str$ -- 18
 missing$ -- 12
-newline$ -- 61
-num.names$ -- 12
-pop$ -- 86
+newline$ -- 65
+num.names$ -- 13
+pop$ -- 87
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 122
+skip$ -- 123
 stack$ -- 0
 substring$ -- 87
-swap$ -- 63
-text.length$ -- 0
+swap$ -- 64
+text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 18
-width$ -- 19
-write$ -- 146
+while$ -- 19
+width$ -- 20
+write$ -- 157
 (There were 3 warnings)

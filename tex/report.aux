@@ -56,37 +56,44 @@
 \newlabel{lst:distribobj}{{2}{9}{Communication through RPC, referencing a distributed object of an arbitrary C++ class. Rank 1 retrieves and prints \emph {myProperty} from rank 2's instance of \emph {myObj}}{lstlisting.2}{}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Communication through RPC, referencing a distributed object of an arbitrary C++ class. Rank 1 retrieves and prints \emph  {myProperty} from rank 2's instance of \emph  {myObj}.}{9}{lstlisting.2}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.6.4}Global pointers}{10}{subsubsection.2.6.4}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Related work}{11}{section.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Husky}{11}{subsection.3.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Spark}{11}{subsection.3.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}DataMPI}{11}{subsection.3.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Legion}{11}{subsection.3.4}}
 \citation{data_parallelism}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Design}{12}{section.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Motivation}{12}{subsection.4.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Programming model}{14}{subsection.4.2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Overview of the key data structures in a Saddlebags application.\relax }}{15}{figure.caption.3}}
-\newlabel{fig:basicmodel}{{1}{15}{Overview of the key data structures in a Saddlebags application.\relax }{figure.caption.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Architecture}{16}{subsection.4.3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Item}{16}{subsubsection.4.3.1}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Table}{16}{subsubsection.4.3.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {5}Implementation}{17}{section.5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Distributed objects}{17}{subsection.5.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Templates}{17}{subsection.5.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Table}{17}{subsection.5.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Communication}{17}{subsection.5.4}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Synchronization}{17}{subsection.5.5}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Usage}{17}{subsection.5.6}}
-\@writefile{toc}{\contentsline {section}{\numberline {6}Evaluation}{18}{section.6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Expressiveness}{18}{subsection.6.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Energy efficiency}{18}{subsection.6.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Abstraction costs}{18}{subsection.6.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Comparison with other systems}{18}{subsection.6.4}}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Future work}{19}{section.7}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Fault tolerance}{19}{subsection.7.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}View based serialization}{19}{subsection.7.2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}File input}{19}{subsection.7.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{20}{section.8}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Design}{11}{section.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Motivation}{11}{subsection.3.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Programming model}{13}{subsection.3.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Overview of the key data structures in a Saddlebags application.\relax }}{14}{figure.caption.3}}
+\newlabel{fig:basicmodel}{{1}{14}{Overview of the key data structures in a Saddlebags application.\relax }{figure.caption.3}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Events}{14}{subsubsection.3.2.1}}
+\citation{pagerank}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces All events and their corresponding methods\relax }}{15}{table.caption.4}}
+\newlabel{table:events}{{1}{15}{All events and their corresponding methods\relax }{table.caption.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Example}{16}{subsubsection.3.2.2}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces The methods required to implement PageRank with Saddlebags\relax }}{16}{table.caption.5}}
+\newlabel{table:pagerankevents}{{2}{16}{The methods required to implement PageRank with Saddlebags\relax }{table.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Architecture}{17}{subsection.3.3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1}Item}{17}{subsubsection.3.3.1}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2}Table}{17}{subsubsection.3.3.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Related work}{18}{section.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Husky}{18}{subsection.4.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Spark}{18}{subsection.4.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}DataMPI}{18}{subsection.4.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Legion}{18}{subsection.4.4}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}Implementation}{19}{section.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Distributed objects}{19}{subsection.5.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Templates}{19}{subsection.5.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Table}{19}{subsection.5.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Communication}{19}{subsection.5.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Synchronization}{19}{subsection.5.5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}Usage}{19}{subsection.5.6}}
+\@writefile{toc}{\contentsline {section}{\numberline {6}Evaluation}{20}{section.6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Expressiveness}{20}{subsection.6.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Energy efficiency}{20}{subsection.6.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Abstraction costs}{20}{subsection.6.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4}Comparison with other systems}{20}{subsection.6.4}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Future work}{21}{section.7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Fault tolerance}{21}{subsection.7.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}View based serialization}{21}{subsection.7.2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}File input}{21}{subsection.7.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusion}{22}{section.8}}
 \bibstyle{ieeetr}
 \bibdata{report}
 \bibcite{sutter_larus_2005}{1}
@@ -99,7 +106,7 @@
 \bibcite{pgas_upc_energy}{8}
 \bibcite{MPI}{9}
 \bibcite{gasnet_description}{10}
-\@writefile{toc}{\contentsline {section}{References}{21}{section*.4}}
+\@writefile{toc}{\contentsline {section}{References}{23}{section*.6}}
 \bibcite{gasnetreadme}{11}
 \bibcite{web_gnu_upc}{12}
 \bibcite{web_berkeley_upc}{13}
@@ -107,6 +114,7 @@
 \bibcite{upc_language_specification}{15}
 \bibcite{zheng_kamil_driscoll_shan_yelick_2014}{16}
 \bibcite{web_cpp_template}{17}
-\newlabel{LastPage}{{}{22}{}{page.22}{}}
-\xdef\lastpage@lastpage{22}
-\xdef\lastpage@lastpageHy{22}
+\bibcite{pagerank}{18}
+\newlabel{LastPage}{{}{24}{}{page.24}{}}
+\xdef\lastpage@lastpage{24}
+\xdef\lastpage@lastpageHy{24}
