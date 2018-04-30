@@ -23,7 +23,8 @@
 \RequirePackage{type1cm}
 \RequirePackage{fixltx2e}
 
-\usepackage[a4paper, bottom=1.3in, left=1.25in, right=1.25in]{geometry}
+%\usepackage[a4paper, bottom=1.0in, left=1.1in, right=1.1in]{geometry}
+\usepackage[a4paper, bottom=1.0in, outer=1.0in, inner=1.2in, headsep=140pt, twoside]{geometry}
 \usepackage[usenames,dvipsnames]{color}
 \usepackage[table]{xcolor}
 \usepackage{soul}
@@ -103,8 +104,8 @@
 
 
 \allsectionsfont{\rmfamily\bfseries}
-\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
-\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape}
+\renewcommand{\cftsecfont}{\rmfamily\bfseries\upshape}
+\renewcommand{\cftsecpagefont}{\rmfamily\bfseries\upshape}
 \setlength{\headheight}{15pt}
 
 \usepackage{amsfonts}
@@ -120,5 +121,6 @@
 \usepackage[version=3]{mhchem}
 \usepackage{upgreek}
 
+\renewcommand{\baselinestretch}{1.5}
 
 \endinput

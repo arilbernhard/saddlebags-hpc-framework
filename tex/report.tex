@@ -7,13 +7,16 @@
 \usepackage{lipsum}
 \usepackage{listings,multicol}
 
+\usepackage{pdfpages}
+
+
 
 
 % Beginning of document, everything below relates to the acutal contents of the document
 \begin{document}
-
+\includepdf[pages=-]{front.pdf}
 %%%%%%%%     FILL IN THESE     %%%%%%%%
-\title{Saddlebags: A Parallel Computing Framework for C++}
+\title{Saddlebags: An Object-Oriented Parallel Computing Framework for C++}
 \subtitle{}
 \author{Aril Bernhard Ovesen}
 \date{June 1, 2018}
@@ -40,17 +43,19 @@
 \pagestyle{firststyle}
 \textbf{\large{Abstract}}
 
-abstract goes here
+abstract goes here \lipsum[1]
 
 
 \newpage
 \textbf{\large{Acknowledgements}}
 
-Acknowledgements goes here
+Acknowledgements goes here \lipsum[1]
 
 
 \newpage
 \tableofcontents
+\pagebreak
+\listoffigures
 \pagebreak
 
 \newpage
@@ -92,10 +97,9 @@ Software performance gains from increased frequency in single processing units r
 
 The answers to these problems were multi-core and many-core systems, which bypasses the aforementioned performance wall by utilizing several processing units. Within the field of high performance computing, however, multi-processor systems were not a novelty. Using networks of workstation computers for parallel computation was an attractive alternative to traditional supercomputers, partly because new processor technology could easily be incorporated without replacing the entire system \cite{wilkinson_allen_2005}. While the field of parallel programming was relevant in high-end scientific applications before halt in clock speed development and the following \emph{concurrency revolution}, homogeneous distributed systems now dominate the field of high performance computing.
 
-Multi-core and many-core architectures achieve parallelism through explicit task distribution and scheduling, managed by the programmer. Exploiting parallelism is often an application-specific issue, and can pose several challenges. In the fields of distributed- and high performance-computing, aiming for scalability further increases the complexity of the programming task. Several programming models have been devised to support development of distributed, parallel applications, and the current leading models can be clustered into different language paradigms: \emph{shared memory }and \emph{message passing} \cite{pgas_languages}.
+Multi-core and many-core architectures achieve parallelism through explicit task distribution and scheduling, managed by the programmer. Exploiting parallelism is often an application-specific issue, and can pose several challenges. In the fields of distributed- and high performance-computing, aiming for scalability further increases the complexity of the programming task. Several programming models have been devised to support development of distributed, parallel applications, and the current leading models can be clustered into different language paradigms: \emph{shared memory }and \emph{message passing} \cite{pgas_languages}. On top of these communication models, abstractions can be applied to hide complexity from the programmer in order to reduce development time and ease the debugging process. 
 
 \subsection{Programming models}
-On top of these models, abstractions can be applied to hide complexity from the programmer in order to reduce development time and ease the debugging process. 
 
 There exists a perception that abstraction carry an inherent performance penalty, but abstractions can also be powerful tools in high performance computing \cite{mccandless_lumsdaine_1997}. For example, computing at a large scale can introduce issues relating to handling large amounts of data, scaling to a large or arbitrary number of computation nodes, or developing algorithms that utilizes communication routines and synchronization.
 
@@ -244,15 +248,32 @@ Saddlebags presents a programming model that is devised from a specific communic
 The goal of building a framework on these specific features is to allow computational parallelism to be expressed with the same semantics as data parallelism, while still allowing tasks to communicate data between each other. The complexity of implementing applications that fit this classification is reduced by utilizing a general communication pattern that relieves programmers of implementing specialized communication. Programmers will in this framework use communication routines by referring to data rather than physical location in the form of partition or computing unit.
 
 \subsection{Programming model}
-123123
+The programming model and data flow model of Saddlebags is based around coupling data and functionality together into an object. Objects that serve the purpose of executing computational tasks in Saddlebags are named \emph{Items}. Items contain pre-existing general communication methods, and the main effort of developing an application with Saddlebags is implementing the computational tasks within an item, and integrating communication and data-flow into that task.
+
+Items of different types can be implemented in the same application, and stored in different \emph{tables}. The behavior of tables cannot be extended by the programmer, but every application must define their tables by name and item type. Tables are common for every partition, while an instance and name of an item can only exist on a single partition. This is how distribution of data is achieved: items are spread across partitions, while the tables that contain them exist on every partition, and can reference items regardless of physical location.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=16cm]{illustrations/basicmodel.pdf}
+\caption{Overview of the key data structures in a Saddlebags application.}
+\label{fig:basicmodel}
+\end{figure}
+
+The relation between items, tables and partitions are illustrated in figure \ref{fig:basicmodel}. This illustration shows a basic design of a Saddlebags application with two tables and two UPC++ partitions. Underlined names are objects that exist on every partition. Lines indicate example communication, with red lines indicating communication between different partitions. Items of different types are stored in different tables, and the same tables are available on both partitions. Item names are unique across all partitions, and a single item have affinity to a single partition. 
+
+Tables are stored within a \emph{worker}, a distributed object. Tables are referenced via this object. The behavior of the worker need not be extended by the programmer, and in the context of data flow and execution model the worker is relatively insignificant, and will be mostly ignored in this section. It will be explained further when discussing implementation and interoperability with UPC++.
+
+Items implement a \emph{work-push-pull} model, in which \emph{work} refers to a computational task implemented in the item class, and \emph{push} and \emph{pull} are the two available modes of communication. The work of an item is designed to be executed iteratively, and each iteration of a Saddlebags application involves executing work and performing any communication routines that was called as a result of the work. An iteration applies to every item in every table, and it is with this iterative model that an application can be executed. 
+
+The data flow model of Saddlebags is implemented with the concept of \emph{events}. Within the context of this framework, an event refers to the receiving of any communication message, or reaching specific points of the iteration process. Whenever an event is triggered, for example when receiving a \emph{push} message, the item that received the message calls a \emph{received push} method. The contents of this method can be implemented differently in different item types, and it also able to initiate other communication routines. This is directly related to the data flow of an application: when receiving a \emph{receieved pull} event, the event-triggered method determines what data to return. When a pull returns with some data, the method triggered by the \emph{returning pull} event determines how to handle the data. 
+
+
 \subsection{Architecture}
 \subsubsection{Item}
 \subsubsection{Table}
 Distributor
-\subsubsection{Worker}
 
-
-The communication patterns of a push/pull paradigm is simple enough that computational costs of communication in an application can be reasoned about, despite implementation complexity being hidden. 
+The communication patterns of a push/pull paradigm is simple enough that the cost of data movement as a result of communication in an application can be reasoned about, despite implementation complexity being hidden. 
 
 Saddlebags is designed with the goal that abstractions provided by the programming model, through C++ mechanisms such as inheritance and type templates, should not affect algorithmic complexity. This will likely only be true for algorithms that can be tailored to the push/pull/work paradigm. 
 
@@ -262,8 +283,10 @@ Saddlebags is designed with the goal that abstractions provided by the programmi
 \subsection{Distributed objects}
 \subsection{Templates}
 \subsection{Table}
+\subsection{Communication}
+%message
 \subsection{Synchronization}
-barriers in cycle
+%barriers in cycle
 \subsection{Usage}
 
 \newpage
@@ -277,13 +300,14 @@ barriers in cycle
 \section{Future work}
 \subsection{Fault tolerance}
 \subsection{View based serialization}
+\subsection{File input}
 
 \newpage
 \section{Conclusion}
 
 
 
-% References. Use IEEE as citation style, and load references from report.bib.
+
 \pagebreak
 \bibliographystyle{ieeetr}
 \bibliography{report}
