@@ -43,7 +43,9 @@
 \pagestyle{firststyle}
 \textbf{\large{Abstract}}
 
-abstract goes here \lipsum[1]
+
+
+With the increasing importance of big data processing, and the convergence of big data analytics and high performance computing, there is a need for new parallel computing frameworks and workflows that can process the 
 
 
 \newpage
@@ -71,7 +73,34 @@ Acknowledgements goes here \lipsum[1]
 %  Data centric computation
 %  UPC++
 
+%Scientific applications and engineering research are undergoing a transformation
+%At the end of Dennard Scaling around 2004, transistor clock frequencies could not be raised without increasing the total circuit power consumption.
+%Introduced multicore, manycore and accelerator-based computing 
+%The big data revolution 
+%Analysis, management, and collection of large volumes of data makes up the field of data-intensive science. 
 
+The U.S department of Energy reported in 2013 through the Advanced Scientific Computing Advisory Subcommittee that the data volumes produced by scientific experiments and simulations were increasing more rapidly than the currently available algorithms, computing systems and workflows were able to keep up with. They also reported a need for innovations in high performance computing and data-intensive science to address challenges with contemporary systems related to concurrency, data movement, and energy efficiency~\cite{subcommittee}.
+
+Big data frameworks such as Apache Hadoop~\cite{hadoop}, Spark~\cite{spark} and Flink~\cite{flink} can provide simple programming interfaces for distributed algorithms, with the underlying assumption that distribution of data and computing tasks can be handled by the system without programmer input. Programmers are given functionality to access data without explicitly managing communication between nodes. These systems are often reliant on coarse grained operations, which in many cases can produce inefficient programs, and limit the programmability of a framework~\cite{husky}\cite{piccolo}. Many data analytics operations are often orders of magnitude slower when implemented in a data analytics framework like Spark, than when written with native high performance computing tools such as MPI~\cite{bridgingthegap}. However, with a simple programming model, support for numerous data formats, underlying fault tolerance and automated data distribution, Spark remains an attractive option for distributed big data workloads~\cite{sparkacm}. 
+
+As many scientific applications depend on processing high volumes of data, problems of high performance computing and big data analytics are converging. As the amounts of data increase, so does the importance of developing more efficient analytical tools~\cite{hpcabds}. Features from big data systems can be incorporated into HPC frameworks, to create programming models that are intuitive and higher-level, yet expressive and performant. This thesis presents Saddlebags, a framework that attempts to strike a balance between the two paradigms of parallel computing systems. Inspired by big data frameworks, Saddlebags support automatic distribution of data and computational tasks, and removes the need for specialized communication routines based on physical location. Inspired by HPC frameworks, Saddlebags allows fine grained memory access of distributed data, and leaves data movement during computations explicit and up to the programmer.
+
+
+
+%while still allowing fine grained memory access, 
+
+
+%Advantageous programming models from big data systems can be incorporated into 
+
+
+%By incorporating concepts of simple programming models from big data systems, into HPC frameworks typically known for complex, we can develop tools that can solve problems that depend on both big data processing and performant computation.
+
+%As the importance of advanced big data analytics
+
+%Highly performant communication or computation a
+
+
+%Designing efficient, yet intuitive programming models for distributed computing and data analytics seems to .
 
 \subsection{Contributions}
 A framework for implementing distributed algorithms and applications, created in and for C++, using UPC++, a library that provides PGAS mechanisms for communication. The framework provides an alternate programming model for distributed algorithms, in which a computational task, its data and its communication routines, is represented as a single object. 
@@ -93,9 +122,13 @@ A framework for implementing distributed algorithms and applications, created in
 %  Distributed objects
 %  
 \subsection{State of High Performance Computing}
-Software performance gains from increased frequency in single processing units reached its limits many years ago, and multi-core systems has been prominent in personal computing since. Up until the early 2000s, the speed at which computers could execute sequential programs would steadily increase as clock speed and semiconductor fabrication improved \cite{sutter_larus_2005}. Heat dissipation and energy consumption caused development of the maximum achievable CPU frequency to stall, effectively freezing the number of tasks that can be completed within a certain time frame on a single processing unit \cite{diaz_munoz-caro_nino_2012}. Yet, the size of computational tasks and the amount of data is still increasing, resulting in single-core systems not being able to keep up with the demands of problems found in modern science, engineering and business. 
+The field of high performance computing has experienced two major disruptions during the 21st century.
 
-The answers to these problems were multi-core and many-core systems, which bypasses the aforementioned performance wall by utilizing several processing units. Within the field of high performance computing, however, multi-processor systems were not a novelty. Using networks of workstation computers for parallel computation was an attractive alternative to traditional supercomputers, partly because new processor technology could easily be incorporated without replacing the entire system \cite{wilkinson_allen_2005}. While the field of parallel programming was relevant in high-end scientific applications before halt in clock speed development and the following \emph{concurrency revolution}, homogeneous distributed systems now dominate the field of high performance computing.
+Software performance gains from increased frequency in single processing units reached its limits many years ago, and multi-core systems has been prominent in personal computing since. Up until the early 2000s, the speed at which computers could execute sequential programs would steadily increase as clock speed and semiconductor fabrication improved \cite{sutter_larus_2005}. Heat dissipation and energy consumption caused development of the maximum achievable CPU frequency to stall, effectively freezing the number of tasks that can be completed within a certain time frame on a single processing unit \cite{diaz_munoz-caro_nino_2012}. The answers to these problems were multi-core and many-core systems, which bypasses the aforementioned performance wall by utilizing several processing units.
+
+
+Within the field of high performance computing, however, multi-processor systems were not a novelty. Using networks of workstation computers for parallel computation was an attractive alternative to traditional supercomputers, partly because new processor technology could easily be incorporated without replacing the entire system \cite{wilkinson_allen_2005}. While the field of parallel programming was relevant in high-end scientific applications before halt in clock speed development and the following \emph{concurrency revolution}, homogeneous distributed systems now dominate the field of high performance computing.
+
 
 Multi-core and many-core architectures achieve parallelism through explicit task distribution and scheduling, managed by the programmer. Exploiting parallelism is often an application-specific issue, and can pose several challenges. In the fields of distributed- and high performance-computing, aiming for scalability further increases the complexity of the programming task. Several programming models have been devised to support development of distributed, parallel applications, and the current leading models can be clustered into different language paradigms: \emph{shared memory }and \emph{message passing} \cite{pgas_languages}. On top of these communication models, abstractions can be applied to hide complexity from the programmer in order to reduce development time and ease the debugging process. 
 
@@ -343,6 +376,10 @@ Saddlebags is designed with the goal that abstractions provided by the programmi
 \subsection{Energy efficiency}
 \subsection{Abstraction costs}
 \subsection{Comparison with other systems}
+
+\newpage
+\section{Discussion}
+%other features from spark
 
 \newpage
 \section{Future work}

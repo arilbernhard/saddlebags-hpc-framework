@@ -1,5 +1,39 @@
 \begin{thebibliography}{10}
 
+\bibitem{subcommittee}
+J.~Chen, A.~Choudhary, S.~Feldman, B.~Hendrickson, C.~Johnson, R.~Mount,
+  V.~Sarkar, V.~White, and D.~Williams, {\em Synergistic Challenges in
+  Data-Intensive Science and Exascale Computing: DOE ASCAC Data Subcommittee
+  Report}.
+\newblock Department of Energy Office of Science, 3 2013.
+\newblock Type: Report.
+
+\bibitem{husky}
+F.~Yang, J.~Li, and J.~Cheng, ``Husky: Towards a more efficient and expressive
+  distributed computing framework,'' {\em Proceedings of the VLDB Endowment},
+  vol.~9, no.~5, pp.~420--431, 2016.
+
+\bibitem{piccolo}
+R.~Power and J.~Li, ``Piccolo: Building fast, distributed programs with
+  partitioned tables.,''
+
+\bibitem{bridgingthegap}
+M.~Anderson, S.~Smith, N.~Sundaram, M.~Capot{\u{a}}, Z.~Zhao, S.~Dulloor,
+  N.~Satish, and T.~L. Willke, ``Bridging the gap between hpc and big data
+  frameworks,'' {\em Proceedings of the VLDB Endowment}, vol.~10, no.~8,
+  pp.~901--912, 2017.
+
+\bibitem{sparkacm}
+M.~Zaharia, R.~S. Xin, P.~Wendell, T.~Das, M.~Armbrust, A.~Dave, X.~Meng,
+  J.~Rosen, S.~Venkataraman, M.~J. Franklin, A.~Ghodsi, J.~Gonzalez,
+  S.~Shenker, and I.~Stoica, ``Apache spark: A unified engine for big data
+  processing,'' {\em Commun. ACM}, vol.~59, pp.~56--65, Oct. 2016.
+
+\bibitem{hpcabds}
+J.~Qiu, S.~Jha, A.~Luckow, and G.~C. Fox, ``Towards hpc-abds: an initial
+  high-performance big data stack,'' {\em Building Robust Big Data Ecosystem
+  ISO/IEC JTC}, vol.~1, pp.~18--21, 2014.
+
 \bibitem{sutter_larus_2005}
 H.~Sutter and J.~Larus, ``Software and the concurrency revolution,'' {\em
   Queue}, vol.~3, p.~54, Jan 2005.
@@ -45,23 +79,23 @@ J.~Lagraviere, J.~Langguth, M.~Sourouri, P.~H. Ha, and X.~Cai, ``On the
 \bibitem{MPI}
 ``{Message Passing Interface}.''
   \url{https://computing.llnl.gov/tutorials/mpi/}.
-\newblock [Online; accessed 27-November-2017].
+\newblock [Online; accessed 26-April-2018].
 
 \bibitem{gasnet_description}
 D.~Bonachea and J.~Jeong, ``{{GASNet: A Portable High-Performance Communication
   Layer for Global Address-Space Languages}},'' 2002.
-\newblock [Online; accessed 23-November-2017].
+\newblock [Online; accessed 23-April-2018].
 
 \bibitem{gasnetreadme}
 D.~Bonachea and P.~Hargrove, ``{GASNet Specification, v1.8.1}.''
 
 \bibitem{web_gnu_upc}
 ``{GNU UPC}.'' \url{http://www.gccupc.org}.
-\newblock [Online; accessed 23-November-2017].
+\newblock [Online; accessed 13-March-2018].
 
 \bibitem{web_berkeley_upc}
 ``{Berkeley UPC}.'' \url{http://upc.lbl.gov}.
-\newblock [Online; accessed 23-November-2017].
+\newblock [Online; accessed 13-March-2018].
 
 \bibitem{evaluation_of_upc}
 C.~Coarfa, Y.~Dotsenko, J.~Mellor-Crummey, F.~Cantonnet, T.~El-Ghazawi,
@@ -82,12 +116,12 @@ Y.~Zheng, A.~Kamil, M.~B. Driscoll, H.~Shan, and K.~Yelick, ``{UPC++ : A PGAS
 \bibitem{web_cpp_template}
 ``{Function template, cppreference.com}.''
   \url{http://en.cppreference.com/w/cpp/language/function_template}.
-\newblock [Online; accessed 23-November-2017].
+\newblock [Online; accessed 26-April-2018].
 
 \bibitem{pagerank}
 L.~Page, S.~Brin, R.~Motwani, and T.~Winograd, ``{The PageRank Citation
   Ranking: Bringing Order to the Web.},'' Technical Report 1999-66, Stanford
-  InfoLab, November 1999.
+  InfoLab, 1999.
 \newblock Previous number = SIDL-WP-1999-0120.
 
 \end{thebibliography}
