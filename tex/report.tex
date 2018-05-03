@@ -79,13 +79,18 @@ Acknowledgements goes here \lipsum[1]
 %The big data revolution 
 %Analysis, management, and collection of large volumes of data makes up the field of data-intensive science. 
 
+%The core of high performance computing is writing efficient and parallel applications, which is the concern of researchers from an increasing range of disciplines, from physics and chemistry to medicine and geology. While the available hardware is being steadily improved,  \cite{engineering}. 
+
+
+High performance computing is becoming of increased importance for scientists and researchers of a large range of disciplines, from physics and chemistry, to medicine and geology. At the very core of high performance computing lies the ability to write efficient and parallel software~\cite{engineering}.
+
 The U.S department of Energy reported in 2013 through the Advanced Scientific Computing Advisory Subcommittee that the data volumes produced by scientific experiments and simulations were increasing more rapidly than the currently available algorithms, computing systems and workflows were able to keep up with. They also reported a need for innovations in high performance computing and data-intensive science to address challenges with contemporary systems related to concurrency, data movement, and energy efficiency~\cite{subcommittee}.
 
 Big data frameworks such as Apache Hadoop~\cite{hadoop}, Spark~\cite{spark} and Flink~\cite{flink} can provide simple programming interfaces for distributed algorithms, with the underlying assumption that distribution of data and computing tasks can be handled by the system without programmer input. Programmers are given functionality to access data without explicitly managing communication between nodes. These systems are often reliant on coarse grained operations, which in many cases can produce inefficient programs, and limit the programmability of a framework~\cite{husky}\cite{piccolo}. Many data analytics operations are often orders of magnitude slower when implemented in a data analytics framework like Spark, than when written with native high performance computing tools such as MPI~\cite{bridgingthegap}. However, with a simple programming model, support for numerous data formats, underlying fault tolerance and automated data distribution, Spark remains an attractive option for distributed big data workloads~\cite{sparkacm}. 
 
 As many scientific applications depend on processing high volumes of data, problems of high performance computing and big data analytics are converging. As the amounts of data increase, so does the importance of developing more efficient analytical tools~\cite{hpcabds}. Features from big data systems can be incorporated into HPC frameworks, to create programming models that are intuitive and higher-level, yet expressive and performant. This thesis presents Saddlebags, a framework that attempts to strike a balance between the two paradigms of parallel computing systems. Inspired by big data frameworks, Saddlebags support automatic distribution of data and computational tasks, and removes the need for specialized communication routines based on physical location. Inspired by HPC frameworks, Saddlebags allows fine grained memory access of distributed data, and leaves data movement during computations explicit and up to the programmer.
 
-
+Saddlebags is implemented in C++. It uses parallelization and communication implementations from UPC++, a Partitioned Global Address Space library. With UPC++, a program has a static number of threads, each of which is given the affinity of a unique private memory segment. While data can be shared across segments, a memory segment is mainly accesses by the thread it has affinity to. Saddlebags applications can be used either on a single node or across multiple nodes within a compute cluster, using Ethernet or InfiniBand for network communication.
 
 %while still allowing fine grained memory access, 
 

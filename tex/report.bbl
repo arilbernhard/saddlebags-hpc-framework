@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{engineering}
+G.~Hager, {\em {Introduction to High Performance Computing for Scientists and
+  Engineers}}.
+\newblock CRC PRESS, 2017.
+
 \bibitem{subcommittee}
 J.~Chen, A.~Choudhary, S.~Feldman, B.~Hendrickson, C.~Johnson, R.~Mount,
   V.~Sarkar, V.~White, and D.~Williams, {\em Synergistic Challenges in
@@ -7,6 +12,19 @@ J.~Chen, A.~Choudhary, S.~Feldman, B.~Hendrickson, C.~Johnson, R.~Mount,
   Report}.
 \newblock Department of Energy Office of Science, 3 2013.
 \newblock Type: Report.
+
+\bibitem{hadoop}
+``{Apache Hadoop}.'' \url{http://hadoop.apache.org/}.
+\newblock [Online; accessed 02-May-2018].
+
+\bibitem{spark}
+M.~Zaharia, {\em An architecture for fast and general data processing on large
+  clusters}.
+\newblock Morgan \& Claypool, 2016.
+
+\bibitem{flink}
+``{Apache Flink}.'' \url{http://flink.apache.org/}.
+\newblock [Online; accessed 02-May-2018].
 
 \bibitem{husky}
 F.~Yang, J.~Li, and J.~Cheng, ``Husky: Towards a more efficient and expressive
@@ -30,8 +48,8 @@ M.~Zaharia, R.~S. Xin, P.~Wendell, T.~Das, M.~Armbrust, A.~Dave, X.~Meng,
   processing,'' {\em Commun. ACM}, vol.~59, pp.~56--65, Oct. 2016.
 
 \bibitem{hpcabds}
-J.~Qiu, S.~Jha, A.~Luckow, and G.~C. Fox, ``Towards hpc-abds: an initial
-  high-performance big data stack,'' {\em Building Robust Big Data Ecosystem
+J.~Qiu, S.~Jha, A.~Luckow, and G.~C. Fox, ``{Towards HPC-ABDS: an initial
+  high-performance big data stack},'' {\em Building Robust Big Data Ecosystem
   ISO/IEC JTC}, vol.~1, pp.~18--21, 2014.
 
 \bibitem{sutter_larus_2005}

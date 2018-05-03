@@ -8,45 +8,45 @@ Warning--empty booktitle in piccolo
 Warning--empty year in piccolo
 Warning--empty journal in gasnet_description
 Warning--empty journal in upc_language_specification
-You've used 24 entries,
+You've used 28 entries,
             1876 wiz_defined-function locations,
-            605 strings with 8099 characters,
-and the built_in function-call counts, 5507 in all, are:
-= -- 492
-> -- 313
+            620 strings with 8444 characters,
+and the built_in function-call counts, 6023 in all, are:
+= -- 544
+> -- 323
 < -- 1
-+ -- 114
-- -- 90
-* -- 385
-:= -- 812
-add.period$ -- 32
-call.type$ -- 24
-change.case$ -- 23
++ -- 120
+- -- 92
+* -- 401
+:= -- 876
+add.period$ -- 40
+call.type$ -- 28
+change.case$ -- 25
 chr.to.int$ -- 0
-cite$ -- 28
-duplicate$ -- 266
-empty$ -- 503
-format.name$ -- 90
-if$ -- 1321
+cite$ -- 32
+duplicate$ -- 292
+empty$ -- 579
+format.name$ -- 92
+if$ -- 1461
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 19
-newline$ -- 85
-num.names$ -- 19
-pop$ -- 107
+int.to.str$ -- 28
+missing$ -- 23
+newline$ -- 101
+num.names$ -- 21
+pop$ -- 135
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 178
+skip$ -- 186
 stack$ -- 0
 substring$ -- 199
-swap$ -- 97
+swap$ -- 99
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 4
-while$ -- 37
-width$ -- 26
-write$ -- 216
+while$ -- 39
+width$ -- 30
+write$ -- 250
 (There were 5 warnings)
