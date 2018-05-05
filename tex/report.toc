@@ -28,21 +28,22 @@
 \contentsline {subsection}{\numberline {4.3}DataMPI}{19}{subsection.4.3}
 \contentsline {subsection}{\numberline {4.4}Legion}{19}{subsection.4.4}
 \contentsline {section}{\numberline {5}Implementation}{20}{section.5}
-\contentsline {subsection}{\numberline {5.1}Distributed objects}{20}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Templates}{20}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Table}{20}{subsection.5.3}
-\contentsline {subsection}{\numberline {5.4}Communication}{20}{subsection.5.4}
-\contentsline {subsection}{\numberline {5.5}Synchronization}{20}{subsection.5.5}
-\contentsline {subsection}{\numberline {5.6}Usage}{20}{subsection.5.6}
-\contentsline {section}{\numberline {6}Evaluation}{21}{section.6}
-\contentsline {subsection}{\numberline {6.1}Expressiveness}{21}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Energy efficiency}{21}{subsection.6.2}
-\contentsline {subsection}{\numberline {6.3}Abstraction costs}{21}{subsection.6.3}
-\contentsline {subsection}{\numberline {6.4}Comparison with other systems}{21}{subsection.6.4}
-\contentsline {section}{\numberline {7}Discussion}{22}{section.7}
-\contentsline {section}{\numberline {8}Future work}{23}{section.8}
-\contentsline {subsection}{\numberline {8.1}Fault tolerance}{23}{subsection.8.1}
-\contentsline {subsection}{\numberline {8.2}View based serialization}{23}{subsection.8.2}
-\contentsline {subsection}{\numberline {8.3}File input}{23}{subsection.8.3}
-\contentsline {section}{\numberline {9}Conclusion}{24}{section.9}
-\contentsline {section}{References}{25}{section*.6}
+\contentsline {subsection}{\numberline {5.1}Overview}{20}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Distributed objects}{21}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Templates}{21}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Table}{21}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}Communication}{21}{subsection.5.5}
+\contentsline {subsection}{\numberline {5.6}Synchronization}{21}{subsection.5.6}
+\contentsline {subsection}{\numberline {5.7}Usage}{21}{subsection.5.7}
+\contentsline {section}{\numberline {6}Evaluation}{22}{section.6}
+\contentsline {subsection}{\numberline {6.1}Expressiveness}{22}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Energy efficiency}{22}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Abstraction costs}{22}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Comparison with other systems}{22}{subsection.6.4}
+\contentsline {section}{\numberline {7}Discussion}{23}{section.7}
+\contentsline {section}{\numberline {8}Future work}{24}{section.8}
+\contentsline {subsection}{\numberline {8.1}Fault tolerance}{24}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}View based serialization}{24}{subsection.8.2}
+\contentsline {subsection}{\numberline {8.3}File input}{24}{subsection.8.3}
+\contentsline {section}{\numberline {9}Conclusion}{25}{section.9}
+\contentsline {section}{References}{26}{section*.7}

@@ -316,7 +316,7 @@ The data flow model of Saddlebags is implemented with the concept of \emph{event
 \label{table:events}
 \end{table}
 
-Table \ref{table:events} lists all methods in the item class that can be triggered by events. Column 1 lists the names of the methods, column 2 lists the circumstances under which the method is called, and column 3 lists what data is moved in the corresponding method. All methods with data movement is called as a result of communication with other items. Communication routines can be initiated in any of the methods listed in the table.
+Table \ref{table:events} lists all methods in the item class that can be triggered by events. Column 1 lists the names of the methods, column 2 lists the circumstances under which the method is called, and column 3 lists what data is moved in the corresponding method. All methods with data movement is called as a result of communication with other items. Communication routines can be initiated in any of the methods listed in the table. Items are referenced by name, so two items with the same name cannot exist in the same table. The \emph{Refresh} method is used to incorporate this behavior in a program.
 \\ \\
 \subsubsection{Example}
 The programming model that is implied by items and events can be explained further through an example application. Consider the PageRank algorithm, a mathematical expression for ranking the importance of a website \cite{pagerank}. The following expression is a simplified way of calculating the Page Rank ($PR$) of a website ($u$), given a list of pages that link to it ($B_u$), and the total number of links from those websites ($N$):
@@ -346,7 +346,13 @@ It is assumed that every page starts with a PageRank of 1. Given a list of pages
 \end{table}
 
 \subsection{Architecture}
+Programming a Saddlebags application involves two main tasks: extending item methods to fit a computational purpose, and creating items through data input. In the example illustrated in the previous section, table \ref{table:pagerankevents} shows the extension of an item, and feeding outgoing links to an item is an example of data input. Items are referred to by the name of the table that contains it, and the name of the item itself. Tables are initialized with a name, and an item type, which also means that each table can only contain items of a single type. 
+
+
+
 \subsubsection{Item}
+
+
 \subsubsection{Table}
 Distributor
 
@@ -366,7 +372,18 @@ Saddlebags is designed with the goal that abstractions provided by the programmi
 
 \newpage
 \section{Implementation}
+\subsection{Overview}
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=16cm]{illustrations/uml.png}
+	\caption{UML diagram of Saddlebags' main classes.}
+	\label{fig:uml}
+\end{figure}
+
+
+
 \subsection{Distributed objects}
+
 \subsection{Templates}
 \subsection{Table}
 \subsection{Communication}
