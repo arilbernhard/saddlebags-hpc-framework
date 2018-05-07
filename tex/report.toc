@@ -14,36 +14,38 @@
 \contentsline {subsubsection}{\numberline {2.6.2}Progress}{9}{subsubsection.2.6.2}
 \contentsline {subsubsection}{\numberline {2.6.3}Remote Procedure Calls}{9}{subsubsection.2.6.3}
 \contentsline {subsubsection}{\numberline {2.6.4}Global pointers}{11}{subsubsection.2.6.4}
-\contentsline {section}{\numberline {3}Design}{12}{section.3}
-\contentsline {subsection}{\numberline {3.1}Motivation}{12}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}Programming model}{14}{subsection.3.2}
-\contentsline {subsubsection}{\numberline {3.2.1}Events}{15}{subsubsection.3.2.1}
-\contentsline {subsubsection}{\numberline {3.2.2}Example}{17}{subsubsection.3.2.2}
-\contentsline {subsection}{\numberline {3.3}Architecture}{18}{subsection.3.3}
-\contentsline {subsubsection}{\numberline {3.3.1}Item}{18}{subsubsection.3.3.1}
-\contentsline {subsubsection}{\numberline {3.3.2}Table}{18}{subsubsection.3.3.2}
-\contentsline {section}{\numberline {4}Related work}{19}{section.4}
-\contentsline {subsection}{\numberline {4.1}Husky}{19}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}Spark}{19}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}DataMPI}{19}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Legion}{19}{subsection.4.4}
-\contentsline {section}{\numberline {5}Implementation}{20}{section.5}
-\contentsline {subsection}{\numberline {5.1}Overview}{20}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Distributed objects}{21}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Templates}{21}{subsection.5.3}
-\contentsline {subsection}{\numberline {5.4}Table}{21}{subsection.5.4}
-\contentsline {subsection}{\numberline {5.5}Communication}{21}{subsection.5.5}
-\contentsline {subsection}{\numberline {5.6}Synchronization}{21}{subsection.5.6}
-\contentsline {subsection}{\numberline {5.7}Usage}{21}{subsection.5.7}
-\contentsline {section}{\numberline {6}Evaluation}{22}{section.6}
-\contentsline {subsection}{\numberline {6.1}Expressiveness}{22}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Energy efficiency}{22}{subsection.6.2}
-\contentsline {subsection}{\numberline {6.3}Abstraction costs}{22}{subsection.6.3}
-\contentsline {subsection}{\numberline {6.4}Comparison with other systems}{22}{subsection.6.4}
-\contentsline {section}{\numberline {7}Discussion}{23}{section.7}
-\contentsline {section}{\numberline {8}Future work}{24}{section.8}
-\contentsline {subsection}{\numberline {8.1}Fault tolerance}{24}{subsection.8.1}
-\contentsline {subsection}{\numberline {8.2}View based serialization}{24}{subsection.8.2}
-\contentsline {subsection}{\numberline {8.3}File input}{24}{subsection.8.3}
-\contentsline {section}{\numberline {9}Conclusion}{25}{section.9}
-\contentsline {section}{References}{26}{section*.7}
+\contentsline {section}{\numberline {3}Related work}{12}{section.3}
+\contentsline {subsection}{\numberline {3.1}Pregel}{12}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Spark}{13}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Husky}{13}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Legion}{13}{subsection.3.4}
+\contentsline {section}{\numberline {4}Design}{14}{section.4}
+\contentsline {subsection}{\numberline {4.1}Motivation}{14}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Programming model}{16}{subsection.4.2}
+\contentsline {subsubsection}{\numberline {4.2.1}Events}{17}{subsubsection.4.2.1}
+\contentsline {subsubsection}{\numberline {4.2.2}Example: PageRank}{19}{subsubsection.4.2.2}
+\contentsline {subsection}{\numberline {4.3}Architecture and data flow}{20}{subsection.4.3}
+\contentsline {subsubsection}{\numberline {4.3.1}Table structure}{20}{subsubsection.4.3.1}
+\contentsline {subsubsection}{\numberline {4.3.2}Data distribution}{20}{subsubsection.4.3.2}
+\contentsline {subsubsection}{\numberline {4.3.3}Table locality}{22}{subsubsection.4.3.3}
+\contentsline {section}{\numberline {5}Implementation}{23}{section.5}
+\contentsline {subsection}{\numberline {5.1}Overview}{23}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Distributed objects}{24}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Templates}{24}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Table}{24}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}Communication}{24}{subsection.5.5}
+\contentsline {subsection}{\numberline {5.6}Synchronization}{24}{subsection.5.6}
+\contentsline {subsection}{\numberline {5.7}Usage}{24}{subsection.5.7}
+\contentsline {section}{\numberline {6}Evaluation}{25}{section.6}
+\contentsline {subsection}{\numberline {6.1}Expressiveness}{25}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Energy efficiency}{25}{subsection.6.2}
+\contentsline {subsection}{\numberline {6.3}Abstraction costs}{25}{subsection.6.3}
+\contentsline {subsection}{\numberline {6.4}Comparison with other systems}{25}{subsection.6.4}
+\contentsline {section}{\numberline {7}Discussion}{26}{section.7}
+\contentsline {subsection}{\numberline {7.1}Differences from Husky}{26}{subsection.7.1}
+\contentsline {section}{\numberline {8}Future work}{27}{section.8}
+\contentsline {subsection}{\numberline {8.1}Fault tolerance}{27}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}View based serialization}{27}{subsection.8.2}
+\contentsline {subsection}{\numberline {8.3}File input}{27}{subsection.8.3}
+\contentsline {section}{\numberline {9}Conclusion}{28}{section.9}
+\contentsline {section}{References}{29}{section*.8}
