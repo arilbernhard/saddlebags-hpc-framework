@@ -48,6 +48,8 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
     public:
 
     BaseDistributor<ItemKey_T>* distributor;
+    int key_partition_space;
+    
     #ifdef ROBIN_HASH
     Robin_Map<ItemKey_T, ItemType*> mapped_items;
 
@@ -69,6 +71,12 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
     TableContainer(BaseDistributor<ItemKey_T>* new_distributor)
     {
         distributor = new_distributor;
+    }
+    
+    TableContainer()
+    {
+        distributor = NULL;
+        key_partition_space = INT32_MAX / upcxx::rank_n();
     }
 
     ItemType* create_new_item(ItemKey_T key)
@@ -144,11 +152,14 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
     }
 
     int partition(ItemKey_T itemKey) override {
-        return distributor->distribute(itemKey);
+        if(distributor != NULL)
+            return distributor->distribute(itemKey);
+        else
+            return default_distribute(itemKey);
     }
 
     void insert(ItemKey_T key) override
-    { 
+    {
         auto iterator = mapped_items.find(key);
 		if(iterator == mapped_items.end())
 		{
@@ -211,6 +222,26 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
         }
     }
 
+    int default_distribute(int key)
+    {
+        //return CityHash32((const char*)(&key), sizeof(key)) / key_partition_space;
+        return CityHash32((const char*)(&key), sizeof(key)) % upcxx::rank_n(); 
+    }
+
+    int default_distribute(std::string key)
+    {
+        return CityHash32((const char*)key.c_str(), (size_t)key.size()) % upcxx::rank_n();
+    }
+
+    int default_distribute(std::vector<std::string> key)
+    {
+        std::string tmp;
+        for (auto it : key)
+        {
+            tmp += it;
+        }
+        return default_distribute(tmp);
+    }
 
 };
 

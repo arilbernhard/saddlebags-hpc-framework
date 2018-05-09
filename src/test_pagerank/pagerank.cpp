@@ -59,7 +59,6 @@ int main(int argc, char* argv[])
     std::ifstream infile("example_data/simple_graph.txt");
     //std::ifstream infile("/home/aril/Documents/Google_genGraph_15.txt");
     //std::ifstream infile("/home/aril/BigDataBench_MPI_V3.1/SearchEngine/MPI_Pagerank/data-PageRank/Google_genGraph_17.txt");
-    //std::ifstream infile("graph.txt");
 
     std::string src_buffer, dst_buffer;
 
@@ -77,9 +76,6 @@ int main(int argc, char* argv[])
             new_obj->add_link(link);
         }
     }
-
-    std::cout << "end of insertion phase" << std::endl;
-
 
 
     for(int i = 1; i < 4; i++)

@@ -25,6 +25,12 @@ int hashf(int key)
 	return c_abs(CityHash32((const char*)(&key), sizeof(key)));
 }
 
+int hashf(std::pair<int, int> key)
+{
+	int tmp = key.first + key.second;
+	return c_abs(CityHash32((const char*)(&tmp), sizeof(tmp)));
+}
+
 int hashf(std::vector<std::string> key)
 {
 	std::string tmp = "";

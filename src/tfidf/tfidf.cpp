@@ -24,6 +24,8 @@ Doc: total number of terms in Doc
 2 TermDoc can now calculate term frequency
 3 Term knows the number of docs with a term and can calculate idf
 4 Each TermDoc pulls idf from term, and can calculate tf-idf
+
+This approach assumes that the total number of documents is known, and fixed
 */
 
 #include <iostream>
@@ -31,14 +33,17 @@ Doc: total number of terms in Doc
 #include <string>
 #include <cmath>
 
-#include "../include/timer.cpp"
-#include "../include/lighght.hpp"
+#include "../include/saddlebags.hpp"
 
 
-enum TableId { Term, Doc, TermDoc };
+#define TERM_TABLE 0
+#define DOC_TABLE 1
+#define TERMDOC_TABLE 2
+
+
 
 template<class Tk, class Ok, class Mt>
-class TermDocObject : public lighght::Item<Tk, Ok, Mt> {
+class TermDocObject : public saddlebags::Item<Tk, Ok, Mt> {
     public:
     float term_frequency = 0;
     float inv_doc_frequency = 0;
@@ -46,7 +51,7 @@ class TermDocObject : public lighght::Item<Tk, Ok, Mt> {
 
     void on_create() override {
 
-        this->push(Term, {this->myItemKey[0]}, 1);
+        this->push(TERM_TABLE, {this->myItemKey[0]}, 1);
     }
 
     void refresh() override {
@@ -54,15 +59,15 @@ class TermDocObject : public lighght::Item<Tk, Ok, Mt> {
     }
 
     void do_work() override {
-        this->pull(Term, {this->myItemKey[0]});
-        this->pull(Doc, {this->myItemKey[1]});
+        this->pull(TERM_TABLE, {this->myItemKey[0]});
+        this->pull(DOC_TABLE, {this->myItemKey[1]});
     }
 
-    void returning_pull(lighght::Message<Tk, Ok, Mt> returning_message) override {
-        if(returning_message.src_table == Doc) {
+    void returning_pull(saddlebags::Message<Tk, Ok, Mt> returning_message) override {
+        if(returning_message.src_table == DOC_TABLE) {
             term_frequency = this->occurences / (float)returning_message.value;
         }
-        else if(returning_message.src_table == Term)
+        else if(returning_message.src_table == TERM_TABLE)
         {
             inv_doc_frequency = returning_message.value;
             this->value = term_frequency * inv_doc_frequency;
@@ -75,7 +80,7 @@ class TermDocObject : public lighght::Item<Tk, Ok, Mt> {
 
 
 template<class Tk, class Ok, class Mt>
-class TermObject : public lighght::Item<Tk, Ok, Mt> {
+class TermObject : public saddlebags::Item<Tk, Ok, Mt> {
     public:
     Mt foreign_pull(int tag) override
     {
@@ -88,15 +93,8 @@ class TermObject : public lighght::Item<Tk, Ok, Mt> {
 };
 
 template<class Tk, class Ok, class Mt>
-class DocObject : public lighght::Item<Tk, Ok, Mt> {
+class DocObject : public saddlebags::Item<Tk, Ok, Mt> {
     public:
-
-    void on_create() override {
-        if(this->myItemKey[0] == "Dudley_R._Herschbach")
-        {
-            std::cout << "=======================dudley CREATED==========" << std::endl;
-        }
-    }
 
     void refresh() override {
         this->value += 1;
@@ -115,27 +113,24 @@ class DocObject : public lighght::Item<Tk, Ok, Mt> {
 
 
 int main(int argc, char* argv[]) {
-    Benchmark_Timer read_timer;
-    read_timer = Benchmark_Timer();
-
-
     upcxx::init();
     if(upcxx::rank_me() == 0)
         std::cout << "running with " << upcxx::rank_n() << " ranks" << std::endl;
-    upcxx::barrier();
+    
+    /* 1 Create worker and tables */
 
-    using key_T = TableId;
-    using value_T = std::vector<std::string>;
-    using message_T = float;
+    auto worker = saddlebags::create_worker<int, std::vector<std::string>, float>(BufferingWorker);
 
-    auto worker = lighght::create_worker<key_T, value_T, message_T>(Buffering);
+    saddlebags::add_table<TermDocObject>(worker, TERMDOC_TABLE, false);
+    saddlebags::add_table<TermObject>(worker, TERM_TABLE, true);
+    saddlebags::add_table<DocObject>(worker, DOC_TABLE, false);
 
-    lighght::add_table<TermDocObject>(worker, TermDoc, false);
-    lighght::add_table<TermObject>(worker, Term, true);
-    lighght::add_table<Distributor, DocObject>(worker, Doc, false);
+
+
+
+    /* 2 Designate filenames to partitions */
 
     std::ifstream file_list("../../datasets/filenames");
-    
     std::string file_count_str = "";
     file_list >> file_count_str;
     int file_count = stoi(file_count_str);
@@ -155,6 +150,10 @@ int main(int argc, char* argv[]) {
         file_list >> filename;
     }
 
+
+
+    /* 3 Insert objects*/
+
     int inserted_objects = 0;
     
     for(int i = 0; i < my_files_per_rank; i++) {
@@ -170,22 +169,25 @@ int main(int argc, char* argv[]) {
             std::string word = "";
             infile >> word;
 		    inserted_objects += 1;
-            insert_object(worker, Doc, {filename});
-            insert_object(worker, TermDoc, {word, filename});
+
+            //For every word in a file:
+            //1 insert an item with the document name (to count total number of words in document)
+            //2 insert an item with term/document combination (to count unique occurrences of a term)
+
+            insert_object(worker, DOC_TABLE, {filename});
+            insert_object(worker, TERMDOC_TABLE, {word, filename});
 
         }
     }
     
+    //Perform cycle without work (communication only) to create all items
+    saddlebags::cycle(worker, false);
 
+    //Perform cycle with work, to calculate tf-idf
+    saddlebags::cycle(worker, true);
     
-    // Read file
-
-    lighght::cycle(worker, false);
-    lighght::cycle(worker, true);
+    
     upcxx::barrier();
-    read_timer.stop();
-    if(upcxx::rank_me() == 0)
-        read_timer.print();
 	std::cout << upcxx::rank_me() << " -> inserted objects = " << inserted_objects << std::endl;
 
 	upcxx::finalize();

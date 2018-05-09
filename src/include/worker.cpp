@@ -203,14 +203,17 @@ int rank_me() {
     return upcxx::rank_me();
 }
 
-template<class DistributorType, template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
+template<template<class ItemKey_T> class DistributorType, template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
 void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker, TableKey_T tableKey, bool is_global)
 {
-    worker->tables.insert({tableKey, new TableContainer<TableKey_T, ItemKey_T, Msg_Type, ObjectType<TableKey_T, ItemKey_T, Msg_Type>>(new DistributorType())});
+    worker->tables.insert({tableKey, new TableContainer<TableKey_T, ItemKey_T, Msg_Type, ObjectType<TableKey_T, ItemKey_T, Msg_Type>>(
+        new DistributorType<ItemKey_T>())
+        });
+        
     worker->tables[tableKey]->is_global = is_global;
     worker->tables[tableKey]->myTableKey = tableKey;
     worker->tables[tableKey]->parent_worker = &(*worker);
-    worker->tables[tableKey]->parent_dist_worker = worker;
+    worker->tables[tableKey]->parent_dist_worker = &worker;
 
     if(worker->sending_mode == Combining)
     {
@@ -227,9 +230,7 @@ void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &work
 template<template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
 void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker, TableKey_T tableKey, bool is_global)
 {
-    worker->tables.insert({tableKey, new TableContainer<TableKey_T, ItemKey_T, Msg_Type, ObjectType<TableKey_T, ItemKey_T, Msg_Type>>(
-        new HashDistributor<ItemKey_T>())
-        });
+    worker->tables.insert({tableKey, new TableContainer<TableKey_T, ItemKey_T, Msg_Type, ObjectType<TableKey_T, ItemKey_T, Msg_Type>>()});
     worker->tables[tableKey]->is_global = is_global;
     worker->tables[tableKey]->myTableKey = tableKey;
     worker->tables[tableKey]->parent_worker = &(*worker);
@@ -334,6 +335,15 @@ upcxx::dist_object<Worker<key_T, value_T, message_T>> create_worker(SendingMode 
     Worker<key_T, value_T, message_T> w(mode);
     return upcxx::dist_object<Worker<key_T, value_T, message_T>>(w);
 }
+
+template<typename TableKey_T, typename ItemKey_T, typename Msg_T>
+void cycles(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker, int num_cycles)
+{
+    for(int i = 0; i < num_cycles; i++) {
+        cycle(worker, true);
+    }
+}
+
 
 template<typename TableKey_T, typename ItemKey_T, typename Msg_T>
 void cycle(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker, bool do_work)

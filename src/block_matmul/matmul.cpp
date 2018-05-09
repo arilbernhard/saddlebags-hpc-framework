@@ -2,11 +2,11 @@
 #include <fstream>
 #include <string>
 
-#include "../include/timer.cpp"
-#include "../include/lighght.hpp"
+#include "../include/saddlebags.hpp"
 
 #include <Eigen/Dense>
 
+/* Convert Eigen matrices to std vectors, since serialization of other types is not yet implemented*/
 std::vector<int> mat_to_vector(Eigen::MatrixXi mat)
 {
     std::vector<int> vec;
@@ -25,16 +25,19 @@ Eigen::MatrixXi vector_to_mat(std::vector<int> vec)
 }
 
 
+/*  Block matrix class
+    Each item represents one block from a matrix. All entries in a table will together resemble an entire matrix*/
 template<class Tk, class Ok, class Mt>
-class DistribMatBlock : public lighght::Item<Tk, Ok, Mt> {
+class DistribMatBlock : public saddlebags::Item<Tk, Ok, Mt> {
     public:
     
-    Eigen::MatrixXi my_mat; 
+    Eigen::MatrixXi my_mat;
     Eigen::MatrixXi my_sol = Eigen::MatrixXi(2,2);
     Eigen::MatrixXi buffer = Eigen::MatrixXi(2,2);
 
     int cycle = 0;
 
+    //Set values of the block; initialize multiplication buffer and solutions
     void set_vector(Eigen::MatrixXi v)
     {
         my_mat = v;
@@ -42,6 +45,8 @@ class DistribMatBlock : public lighght::Item<Tk, Ok, Mt> {
         my_sol << 0,0,0,0;
     }
 
+    //For each cycle, move across both matrix dimensions and pull blocks
+    //Pull from the horizontal dimension  
     void do_work() override
     {
         this->pull(0, {this->myItemKey.first, cycle});
@@ -53,16 +58,18 @@ class DistribMatBlock : public lighght::Item<Tk, Ok, Mt> {
         return mat_to_vector(my_mat);
     }
 
-    void returning_pull(lighght::Message<Tk, Ok, Mt> returning_message) override
+    //When a pull returns, multiply the buffer with the pulled values
+    //This works because pulls are returned in the same order as they were sent
+    void returning_pull(saddlebags::Message<Tk, Ok, Mt> returning_message) override
     {
         auto retval = vector_to_mat(returning_message.value);
         buffer = buffer * retval;
     }
 
+    //Update solution at the end of each cycle
     void finishing_work() override {
-        cycle+=1;
+        cycle++;
         my_sol = my_sol + buffer;
-
         buffer << 1,0,0,1;
     }
 };
@@ -71,17 +78,20 @@ class DistribMatBlock : public lighght::Item<Tk, Ok, Mt> {
 int main(int argc, char* argv[]) {
 
 
-    lighght::init();
-    if(lighght::rank_me() == 0)
+    saddlebags::init();
+    if(saddlebags::rank_me() == 0)
         std::cout << "running with " << upcxx::rank_n() << " ranks" << std::endl;
 
     using pair = std::pair<int, int>;
 
-    auto worker = lighght::create_worker<int, pair, std::vector<int>>();
+    /*  Create a worker and add one table for each matrix
+        Tables are indexed with integers, matrix blocks are indexed with integer pairs (x/y coordinates) */
+    auto worker = saddlebags::create_worker<int, pair, std::vector<int>>();
+    worker->ordered_pulls = true;
+    saddlebags::add_table<saddlebags::CyclicDistributor2D, DistribMatBlock>(worker, 0, true);
+    saddlebags::add_table<saddlebags::CyclicDistributor2D, DistribMatBlock>(worker, 1, true);
 
-    lighght::add_table<DistribMatBlock>(worker, 0, true);
-    lighght::add_table<DistribMatBlock>(worker, 1, true);
-
+    /* Matrices to use: mat_a will be multiplied by mat_b */
     Eigen::MatrixXi mat_a(4,4);
     mat_a <<    1,  2,  3,  4,
                 5,  6,  7,  8,
@@ -94,39 +104,40 @@ int main(int argc, char* argv[]) {
                 29, 30, 31, 32,
                 33, 34, 35, 36;
 
+    /* Matrices are 4x4, blocks are 2x2, there are 2 blocks in each dimension of the matrix*/
     const int mat_dim = 4;
     const int blk_dim = 2;
     int blocks = mat_dim / blk_dim;    
 
+    /* Insert matrix blocks into tables. Eigen matrices' block method is used to devise blocks as sub-matrices from a matrix*/
     for(int i = 0; i < blocks; i++)
     {
         for(int j = 0; j < blocks; j++)
         {
-            if(worker->get_partition(0, pair(i, j)) == lighght::rank_me()) {
-                lighght::insert_and_return<DistribMatBlock>(worker, 0, pair(i, j))->set_vector(mat_a.block<blk_dim,blk_dim>(blk_dim*i, blk_dim*j));
-                lighght::insert_and_return<DistribMatBlock>(worker, 1, pair(i, j))->set_vector(mat_b.block<blk_dim,blk_dim>(blk_dim*i, blk_dim*j));
+            if(worker->get_partition(0, pair(i, j)) == saddlebags::rank_me()) {
+                saddlebags::insert_and_return<DistribMatBlock>(worker, 0, pair(i, j))->set_vector(mat_a.block<blk_dim,blk_dim>(blk_dim*i, blk_dim*j));
+                saddlebags::insert_and_return<DistribMatBlock>(worker, 1, pair(i, j))->set_vector(mat_b.block<blk_dim,blk_dim>(blk_dim*i, blk_dim*j));
             }
         }
     }
 
+    /* Perform cycles equal to the number of blocks per dimension, so that the entire matrix is traversed in the work method */
+    saddlebags::cycles(worker, blocks);
 
-    upcxx::barrier();
-    for(int i = 0; i < blocks; i++) {
-        lighght::cycle(worker, true);
-    }
 
+    /* Print the solution */
     for(int i = 0; i < 2; i++)
     {
         for(int j = 0; j < 2; j++)
         {
-            if(worker->get_partition(0, pair(i, j)) == lighght::rank_me())
+            if(worker->get_partition(0, pair(i, j)) == saddlebags::rank_me())
             {
-                std::cout << lighght::lookup_item<DistribMatBlock>(worker, 0, pair(i, j))->my_sol << std::endl;
+                std::cout << "[" << saddlebags::lookup_item<DistribMatBlock>(worker, 0, pair(i, j))->my_sol << "]" << std::endl;
             }
             upcxx::barrier();
         }
     }
 
-	lighght::finalize();
+	saddlebags::finalize();
 }
 

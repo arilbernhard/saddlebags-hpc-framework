@@ -2,17 +2,16 @@
 #include <fstream>
 #include <string>
 
-#include "../include/timer.cpp"
-#include "../include/lighght.hpp"
+#include "../include/saddlebags.hpp"
 
 
 int main(int argc, char* argv[])
 {
-    lighght::init();
-    if(lighght::rank_me() == 0)
+    saddlebags::init();
+    if(saddlebags::rank_me() == 0)
         std::cout << "running with " << upcxx::rank_n() << " ranks" << std::endl;
 
-    Robin_Map<int, int> mapped_objects;
+    saddlebags::Robin_Map<int, int> mapped_objects;
 
     std::ifstream infile("example_data/data.txt");
 
@@ -39,8 +38,8 @@ int main(int argc, char* argv[])
             failed +=1;
     }
 
-    std::cout<<passed<<" correct elements"<<std::endl<<failed<<" wrong elements"<<std::endl;
+    std::cout<< "Rank " << upcxx::rank_me() << " "<< passed<<" correct elements --  "<<failed<<" wrong elements"<<std::endl;
 
-	lighght::finalize();
+	saddlebags::finalize();
 }
 
