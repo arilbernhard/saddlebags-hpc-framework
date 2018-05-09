@@ -4,49 +4,52 @@ The top-level auxiliary file: report.aux
 The style file: ieeetr.bst
 Database file #1: report.bib
 Warning--I didn't find a database entry for "data_parallelism"
+Warning--I didn't find a database entry for "uniform_hashing"
+Warning--I didn't find a database entry for "consistent_hashing"
 Warning--empty booktitle in piccolo
 Warning--empty year in piccolo
 Warning--empty journal in gasnet_description
 Warning--empty journal in upc_language_specification
-You've used 28 entries,
+Warning--empty booktitle in abstractionslocality
+You've used 31 entries,
             1876 wiz_defined-function locations,
-            620 strings with 8444 characters,
-and the built_in function-call counts, 6023 in all, are:
-= -- 544
-> -- 323
+            634 strings with 9234 characters,
+and the built_in function-call counts, 6659 in all, are:
+= -- 580
+> -- 388
 < -- 1
-+ -- 120
-- -- 92
-* -- 401
-:= -- 876
-add.period$ -- 40
-call.type$ -- 28
-change.case$ -- 25
++ -- 143
+- -- 112
+* -- 456
+:= -- 985
+add.period$ -- 44
+call.type$ -- 31
+change.case$ -- 28
 chr.to.int$ -- 0
-cite$ -- 32
-duplicate$ -- 292
-empty$ -- 579
-format.name$ -- 92
-if$ -- 1461
+cite$ -- 36
+duplicate$ -- 317
+empty$ -- 636
+format.name$ -- 112
+if$ -- 1600
 int.to.chr$ -- 0
-int.to.str$ -- 28
-missing$ -- 23
-newline$ -- 101
-num.names$ -- 21
-pop$ -- 135
+int.to.str$ -- 31
+missing$ -- 25
+newline$ -- 111
+num.names$ -- 23
+pop$ -- 155
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 186
+skip$ -- 191
 stack$ -- 0
 substring$ -- 199
-swap$ -- 99
+swap$ -- 100
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 4
-while$ -- 39
-width$ -- 30
-write$ -- 250
-(There were 5 warnings)
+warning$ -- 5
+while$ -- 41
+width$ -- 33
+write$ -- 274
+(There were 8 warnings)

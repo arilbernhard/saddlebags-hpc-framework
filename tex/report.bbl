@@ -41,7 +41,7 @@ M.~Anderson, S.~Smith, N.~Sundaram, M.~Capot{\u{a}}, Z.~Zhao, S.~Dulloor,
   frameworks,'' {\em Proceedings of the VLDB Endowment}, vol.~10, no.~8,
   pp.~901--912, 2017.
 
-\bibitem{sparkacm}
+\bibitem{sparkarticle}
 M.~Zaharia, R.~S. Xin, P.~Wendell, T.~Das, M.~Armbrust, A.~Dave, X.~Meng,
   J.~Rosen, S.~Venkataraman, M.~J. Franklin, A.~Ghodsi, J.~Gonzalez,
   S.~Shenker, and I.~Stoica, ``Apache spark: A unified engine for big data
@@ -87,6 +87,10 @@ G.~Malewicz, M.~H. Austern, A.~J. Bik, J.~C. Dehnert, I.~Horn, N.~Leiser, and
   G.~Czajkowski, ``Pregel: A system for large-scale graph processing,'' {\em
   Proceedings of the 28th ACM symposium on Principles of distributed computing
   - PODC 09}, 2009.
+
+\bibitem{husky_website}
+``{www.husky-project.com}.'' \url{http://www.husky-project.com}.
+\newblock [Online; accessed 09-March-2018].
 
 \bibitem{pgas_upc_energy}
 J.~Lagraviere, J.~Langguth, M.~Sourouri, P.~H. Ha, and X.~Cai, ``On the
@@ -135,6 +139,18 @@ Y.~Zheng, A.~Kamil, M.~B. Driscoll, H.~Shan, and K.~Yelick, ``{UPC++ : A PGAS
 ``{Function template, cppreference.com}.''
   \url{http://en.cppreference.com/w/cpp/language/function_template}.
 \newblock [Online; accessed 26-April-2018].
+
+\bibitem{abstractionslocality}
+A.~Tate, A.~Kamil, A.~Dubey, A.~Gr{\"o}{\ss}linger, B.~Chamberlain, B.~Goglin,
+  C.~Edwards, C.~J. Newburn, D.~Padua, D.~Unat, {\em et~al.}, ``Programming
+  abstractions for data locality,'' PADAL Workshop 2014, April 28--29, Swiss
+  National Supercomputing Center (CSCS), Lugano, Switzerland, 2014.
+
+\bibitem{hall2013rethinking}
+M.~Hall, R.~M. Kirby, F.~Li, M.~Meyer, V.~Pascucci, J.~M. Phillips, R.~Ricci,
+  J.~Van~der Merwe, and S.~Venkatasubramanian, ``Rethinking abstractions for
+  big data: Why, where, how, and what,'' {\em arXiv preprint arXiv:1306.3295},
+  2013.
 
 \bibitem{pagerank}
 L.~Page, S.~Brin, R.~Motwani, and T.~Winograd, ``{The PageRank Citation

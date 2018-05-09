@@ -12,27 +12,14 @@
 \setcounter{tocdepth}{2}
 
 
-% Beginning of document, everything below relates to the acutal contents of the document
 \begin{document}
 \includepdf[pages=-]{front.pdf}
-%%%%%%%%     FILL IN THESE     %%%%%%%%
 \title{Saddlebags: An Object-Oriented Parallel Computing Framework for C++}
 \subtitle{}
 \author{Aril Bernhard Ovesen}
 \date{June 1, 2018}
 
-% Create the cover page
 
-% Add these lines to include a Table of Contents
-
-
-%Figure \ref{fig:ex} shows an example figure. \cite{wiki:rest}
-%\begin{figure}[h]
-%\centering
-%\includegraphics[width=0.5\textwidth]{figureTree.pdf}
-%\caption{This is a figure text.}
-%\label{fig:ex}
-%\end{figure}
 \newpage\
 \pagestyle{empty}
 
@@ -84,13 +71,13 @@ Acknowledgements goes here \lipsum[1]
 
 High performance computing is becoming of increased importance for scientists and researchers of a large range of disciplines, from physics and chemistry, to medicine and geology. At the very core of high performance computing lies the ability to write efficient and parallel software~\cite{engineering}.
 
-The U.S department of Energy reported in 2013 through the Advanced Scientific Computing Advisory Subcommittee that the data volumes produced by scientific experiments and simulations were increasing more rapidly than the currently available algorithms, computing systems and workflows were able to keep up with. They also reported a need for innovations in high performance computing and data-intensive science to address challenges with contemporary systems related to concurrency, data movement, and energy efficiency~\cite{subcommittee}.
+The U.S Department of Energy reported in 2013 through the Advanced Scientific Computing Advisory Subcommittee that the data volumes produced by scientific experiments and simulations were increasing more rapidly than the currently available algorithms, computing systems and workflows were able to keep up with. They also reported a need for innovations in high performance computing and data-intensive science to address challenges with contemporary systems related to concurrency, data movement, and energy efficiency~\cite{subcommittee}.
 
-Big data frameworks such as Apache Hadoop~\cite{hadoop}, Spark~\cite{spark} and Flink~\cite{flink} can provide simple programming interfaces for distributed algorithms, with the underlying assumption that distribution of data and computing tasks can be handled by the system without programmer input. Programmers are given functionality to access data without explicitly managing communication between nodes. These systems are often reliant on coarse grained operations, which in many cases can produce inefficient programs, and limit the programmability of a framework~\cite{husky}\cite{piccolo}. Many data analytics operations are often orders of magnitude slower when implemented in a data analytics framework like Spark, than when written with native high performance computing tools such as MPI~\cite{bridgingthegap}. However, with a simple programming model, support for numerous data formats, underlying fault tolerance and automated data distribution, Spark remains an attractive option for distributed big data workloads~\cite{sparkacm}. 
+Big data frameworks such as Apache Hadoop~\cite{hadoop}, Spark~\cite{spark} and Flink~\cite{flink} can provide simple programming interfaces for distributed algorithms, with the underlying assumption that distribution of data and computing tasks can be handled by the system without programmer input. Programmers are given functionality to access data without explicitly managing communication between nodes. These systems are often reliant on coarse grained operations, which in many cases can produce inefficient programs, and limit the programmability of a framework~\cite{husky}\cite{piccolo}. Many data analytics operations are often orders of magnitude slower when implemented in a data analytics framework like Spark, than when written with native high performance computing tools such as MPI~\cite{bridgingthegap}. However, with a simple programming model, support for numerous data formats, underlying fault tolerance and automated data distribution, Spark remains an attractive option for distributed big data workloads~\cite{sparkarticle}. 
 
-As many scientific applications depend on processing high volumes of data, problems of high performance computing and big data analytics are converging. As the amounts of data increase, so does the importance of developing more efficient analytical tools~\cite{hpcabds}. Features from big data systems can be incorporated into HPC frameworks, to create programming models that are intuitive and higher-level, yet expressive and performant. This thesis presents Saddlebags, a framework that attempts to strike a balance between the two paradigms of parallel computing systems. Inspired by big data frameworks, Saddlebags support automatic distribution of data and computational tasks, and removes the need for specialized communication routines based on physical location. Inspired by HPC frameworks, Saddlebags allows fine grained memory access of distributed data, and leaves data movement during computations explicit and up to the programmer.
+As many scientific applications depend on processing high volumes of data, problems of high performance computing and big data analytics are converging. As the amounts of data increase, so does the importance of developing more efficient analytical tools~\cite{hpcabds}. Features from big data systems can be incorporated into HPC frameworks, to create programming models that are intuitive and higher-level, yet expressive and performant. This thesis presents Saddlebags, a framework that attempts to strike a balance between the two paradigms of parallel computing systems. Inspired by big data frameworks, Saddlebags supports automatic distribution of data and computational tasks, and removes the need for specialized communication routines based on physical location. Inspired by HPC frameworks, Saddlebags allows fine grained memory access of distributed data, and leaves data movement during computations explicit and up to the programmer.
 
-Saddlebags is implemented in C++. It uses parallelization and communication implementations from UPC++, a Partitioned Global Address Space library. With UPC++, a program has a static number of threads, each of which is given the affinity of a unique private memory segment. While data can be shared across segments, a memory segment is mainly accesses by the thread it has affinity to. Saddlebags applications can be used either on a single node or across multiple nodes within a compute cluster, using Ethernet or InfiniBand for network communication.
+Saddlebags is implemented in C++. It uses parallelization and communication implementations from UPC++, a Partitioned Global Address Space library. With UPC++, a program has a static number of threads, each of which is given the affinity of a unique private memory segment. While data can be shared across segments, a memory segment is mainly accessed by the thread it has affinity to. Saddlebags applications can be used either on a single node or across multiple nodes within a compute cluster, using Ethernet or InfiniBand for network communication.
 
 %while still allowing fine grained memory access, 
 
@@ -108,13 +95,25 @@ Saddlebags is implemented in C++. It uses parallelization and communication impl
 %Designing efficient, yet intuitive programming models for distributed computing and data analytics seems to .
 
 \subsection{Contributions}
-A framework for implementing distributed algorithms and applications, created in and for C++, using UPC++, a library that provides PGAS mechanisms for communication. The framework provides an alternate programming model for distributed algorithms, in which a computational task, its data and its communication routines, is represented as a single object. 
+In brief, we make the following contributions
+
+\begin{itemize}
+	\item Saddlebags, a high performance computing framework and programming model that borrows features from several other HPC frameworks and big data systems, with the aim of supporting workloads of different classifications.
+	\item With the implementation of this framework, we use the UPC++ PGAS library as a communication layer for more advanced abstractions. To our knowledge, this is the first general-purpose HPC framework built with UPC++.
+\end{itemize}
+
+
+
+
+
+
+%A framework for implementing distributed algorithms and applications, created in and for C++, using UPC++, a library that provides PGAS mechanisms for communication. The framework provides an alternate programming model for distributed algorithms, in which a computational task, its data and its communication routines, is represented as a single object. 
 
 % Distribution based on 
 
 
 \subsection{Outline}
-123
+This thesis is organized as follows. Section 2 presents background knowledge required to understand the rest of the thesis, including a summary of related work. Section 3 presents principles of Partitioned Global Address Space programming, and provides an overview of the UPC++ library. Section 4 describes the design of Saddlebags. Section 5 describes details of the implementation. Section 6 then covers an experimental evaluation of the system. Section 7 discusses topics related to Saddlebags that has not been covered in other sections. Section 8 describes potential future work and improvements to the system. Section 9 concludes the thesis.
 
 \newpage
 \section{Background}
@@ -147,9 +146,45 @@ In addition to implementing communication routines and data distribution logic, 
 
 \subsection{Data intensive computing}
 
+\subsection{Related work}
+Presentations of several modern high performance computing frameworks and big data systems follow. These systems are described here because they in-part make up the current state of the art high performance computing techniques and programming models. The conflicting principles of compute-oriented and data-oriented computation are exemplified in the features of the systems that are in use today.
 
+\subsubsection{Pregel}
+Pregel \cite{pregel} is a system for distributed graph processing, first presented in 2010. Pregel was designed to scalably process large graphs created by web services. The workflow of Pregel involves distributing the vertices of a graph across nodes in a cluster, and performing independent computational tasks on each vertex. These tasks are performed iteratively, meaning that individual vertices may execute tasks in parallel, but the beginning and end of an iteration is synchronous. In Pregel, these iterations are called \emph{supersteps}. The execution model of supersteps is equivalent to a Bulk Synchronous Parallel execution model, from which Pregel claims inspiration. 
 
-\subsection{Partitioned Global Address Space}
+Vertices are distributed across a cluster by partitioning the graph into subgraphs, consisting of vertices and edges, each of which is assigned a compute node. Each vertex in the graph will execute some user-defined work task, and may as a result of this task vote to end the graph processing. The system will execute supersteps until every vertex is in agreement of ending the computation. Vertices can communicate by sending their value to other vertices, and \emph{aggregators} provide a form of communication through global monitoring of all data. Messages that are received in one superstep is available in computation during the next superstep.
+
+A node is classified as either the master or a worker. A worker contains vertices, and executes the computational tasks associated with them. A master coordinates the activity of the workers, including handling data input, output, and global barrier synchronization. The master is also responsible for detecting faults in the active workers, initiating fault recovery mechanisms that are implemented through checkpointing.
+
+Pregel claims better performance than MapReduce-based workflows through passing messages directly to the nodes containing relevant vertices. This is in contrast to expressing a graph as a chain of application states, where the entire graph must be re-created and re-distributed for each iteration.
+
+\subsubsection{Spark}
+Apache Spark \cite{spark} is a framework for big data applications, initially released in 2014. Spark aims to provide a unified programming model for different distributed workloads that handles large amounts of data. Spark is based around Resilient Distributed Datasets (RDDs), an abstract data type that implicitly distributes data across nodes and provides fault tolerance through re-creation of the data on faulty nodes. Spark provides an extension of the MapReduce model, that aims to support iterative and streaming operations more efficiently through data-sharing across multiple stages of parallel workloads. This is in contrast to earlier MapReduce-systems that, by using a distributed file system for storage, replicated data across all nodes in-between all stages of computation.
+
+RDD operations are coarse-grained and applies to the entire dataset per execution step. This means that operations applied to an RDD can easily be logged, and the entire dataset can be re-created in case of faults. Computations with RDDs can be represented as a directed acyclic graph (DAG), in which the RDD moves from one state to the next, by applying transformations on the entire data structure. RDDs are re-created by replaying the DAG.
+
+Extending the data sharing of the MapReduce model increases its generality. Iterative algorithms, stream processing, and relational queries are among the programming models supported by Spark.
+
+The execution model of RDD operations is more complex than traditional data structures. RDD transformations are lazily evaluated, meaning that they are not performed until the result of the transformation is required by an I/O operation. When writing Spark programs, variables of an RDD type does not necessarily represent a materialized object, and unless the programmer explicitly states otherwise, RDDs are only used for a single operation and will be recomputed the next time the same variable is used for another operation.
+
+\subsubsection{Husky}
+Husky \cite{husky}\cite{husky_website} is a framework for large scale data mining and research of distributed algorithms. It was first presented in 2015. Husky is designed around the observation that high performance can generally be achieved through controlling low-level mechanisms, at the expense of development time. Husky's design aims to provide a system for expressing advanced data interactions, while being cautious about development costs.
+
+The programming model of Husky is based around two main concepts: firstly, distribution of programmer-defined objects that contain some data element, and secondly, programmer-defined computational tasks that can be executed on these objects. This distribution of data and tasks is similar to the Pregel definition of vertices. Objects can communicate with each other using a push-pull model, and functions executed on data can choose to parse through received pushes. Objects are stored in lists, and multiple lists can exist, potentially containing different object types. Computational tasks can be executed on all objects in a list in bulk, and communication is guaranteed to have completed in-between tasks. This classifies Husky's execution model as Bulk Synchronous Parallel. Synchronization mechanisms can also be disabled.
+
+Husky implements a Master-Worker architecture, where workers store data and perform computations, while the master is responsible for synchronization and fault tolerance. Objects are distributed across workers through a programmer-defined partition function. All objects are assigned an identifier, which can be used to implement partitioning logic. Husky's programming model can be extended to imitate other models, such as Pregel's vertex distribution, MapReduce, and machine learning parameter servers.
+
+Fault tolerance is implemented through checkpointing. As the execution model of a Husky program (when synchronization is not explicitly disabled) is iterative, it is easy to recover from a state in-between iterations, as all messages has been delivered and no computation is in progress. Workers will routinely save their state to disk between iterations, and the master checks if all workers are alive through heartbeats. 
+
+The Husky paper shows experimental results in which Husky compares positively to other systems including Spark in several different workloads. With bulk data movement workloads, Husky explains superior performance through fine-grained data access. With graph analytics, Husky explains superior performance through optimized combination of communication messages, which reduces network bandwidth usage. 
+
+%\subsection{Other work}
+% Legion
+% DataMPI
+%% PGAS energy evaluation?
+
+\newpage
+\section{Partitioned Global Address Space}
 \cite{pgas_upc_energy}
 
 Traditionally, parallel programming (and the field of High Performance Computing) has been clustered in two language paradigms: \emph{shared memory }and \emph{message passing} \cite{pgas_languages}.  Shared memory models provide an abstract memory space that is available for access across several concurrent compute threads. Message passing models, such as MPI \cite{MPI}, give a programmer control of the flow of execution by conceptually bundling most of the communication into a message abstraction. This approach can be used to achieve high performance; the programmer can reason about the cost of communication, and messages can be delivered between compute nodes to scale a program to large, multi-node systems.
@@ -159,7 +194,7 @@ Programming languages that achieve parallelism through a shared memory abstracti
 \subsubsection{GASNet}
 GASNet is a communication API for GAS/PGAS languages that aims to provide a portable communication layer to systems that would otherwise be platform specific or network implementation dependent. Portability is achieved through translating PGAS programs to an intermediate C representation, which can be compiled into a platform specific application using the system's standard C compiler \cite{gasnet_description}.
 
-GASNet is distributed with several API implementations with support for different underlying network architectures, called \emph{conduits} \cite{gasnetreadme}. This means that systems built on GASNet can be implemented to utilize different communication interfaces, including, among others, MPI, shared memory, UDP/IP, and InfiniBand verbs.
+GASNet is distributed with several API implementations with support for different underlying network architectures, called \emph{conduits} \cite{gasnetreadme}. This means that systems built on GASNet can be implemented to utilize different communication interfaces, including, among others, MPI, shared memory, and InfiniBand verbs.
 
 \subsection{Unified Parallel C}
 Unified Parallel C, referred to as UPC, is a superset of the C programming language for writing SPMD programs, utilizing a global address space paradigm for parallelism. A complete UPC specification was first standardized in 2001, and several UPC compilers have been under development since, including GNU UPC, which is an extension of GCC \cite{web_gnu_upc}, and Berkeley UPC, which is dependent on GASNet \cite{web_berkeley_upc}.
@@ -245,25 +280,6 @@ A distributed object is used in this example because it can be passed as a refer
 \subsubsection{Global pointers}
 Basic built-in C++ datatypes can be transmitted between partitions as RPC arguments or return values, by passing them as a copy. To communicate pointers to other partitions, the shared memory segment must be utilized. UPC++ can create a pointer to memory allocated in the shared memory segment, and copy local data to this location. The global pointer can be passed to other partitions through RPCs. Accessing global memory from a partition other than the one that initiated the pointer has to be done through asynchronous operations. UPC++ provides functions for remote puts and gets, which require internal progress on the partition that is hosting the shared memory in order to complete.
 
-\newpage
-\section{Related work}
-\subsection{Pregel}
-Pregel \cite{pregel} is a system for distributed graph processing. Pregel was designed to scalably process large graphs created by web services. The workflow of Pregel involves distributing the vertices of a graph across nodes in a cluster, and performing independent computational tasks on each vertex. These tasks are performed iteratively, meaning that individual vertices may execute tasks in parallel, but the beginning and end of an iteration is synchronous. In Pregel, these iterations are called \emph{supersteps}.
-
-Vertices are distributed across a cluster by partitioning the graph into subgraphs, consisting of vertices and edges, each of which is assigned a compute node. Each vertex in the graph will execute some user-defined work task, and may as a result of this task vote to end the graph processing. The system will execute supersteps until every vertex is in agreement of ending the computation. Vertices can communicate by sending their value to other vertices, and \emph{aggregators} provide a form of communication through global monitoring of all data. Messages that are received in one superstep is available in computation during the next superstep.
-
-A node is classified as either the master or a worker. A worker contains vertices, and executes the computational tasks associated with them. A master coordinates the activity of the workers, including handling data input, output, and global barrier synchronization. The master is also responsible for detecting faults in the active workers, initiating fault recovery mechanisms that are implemented through checkpointing.
-
-Pregel claims better performance than MapReduce-based workflows through passing messages directly to the nodes containing relevant vertices. This is in contrast to expressing a graph as a chain of application states, where the entire graph must be re-created and re-distributed for each iteration.
-
-\subsection{Spark}
-
-\subsection{Husky}
-
-\subsection{Legion}
-%\subsection{DataMPI}
-%% Data MPI?
-%% PGAS energy evaluation?
 
 \newpage
 \section{Design}
@@ -273,9 +289,9 @@ This section will cover the design and architecture of the system, outlining its
 
 \subsection{Motivation}
 %pregel states that the synchronisity of iterations makes programs easier to reason about.
-Saddlebags is designed with several key features in mind, all of them related to what responsibilities a parallel computing framework can take off the an application developer's hands. Some of the underlying concepts and the motivation behind expanding upon the functionality of UPC++ follows.
-\\
+Saddlebags is designed with several key features in mind, all of them related to what responsibilities a parallel computing framework can take off the an application developer's hands. Insight from Pregel shows that a synchronous, iterative workflow makes distributed programs easier to reason about \cite{pregel}. Spark shows that capturing flexible applications with a single API makes development easier \cite{sparkarticle}. At the same time, it has been shown that minimizing data movement is of increasing importance in high performance applications \cite{abstractionslocality}, and that developing data  abstractions is a key solution for expressing parallel algorithms that handle an increasing amount of data \cite{hall2013rethinking}.
 
+Some of the underlying concepts in Saddlebags and the motivation behind devising abstractions that expands on the functionality of UPC++ follows.
 
 \hspace{4ex} \textbf{1. Computational tasks should be executed in the same partition in which the data it requires is located}
 
@@ -296,6 +312,8 @@ Saddlebags presents a programming model that is devised from a specific communic
 \\
 
 The goal of building a framework on these specific features is to allow computational parallelism to be expressed with the same semantics as data parallelism, while still allowing tasks to communicate data between each other. The complexity of implementing applications that fit this classification is reduced by utilizing a general communication pattern that relieves programmers of implementing specialized communication. Programmers will in this framework use communication routines by referring to data rather than physical location in the form of partition or computing unit.
+
+Like several of the systems mentioned in section 3, Saddlebags implements a Bulk Synchronous Parallel programming model. Like Pregel, Saddlebags distributes a generic and extendable computational task with every data item. Like Husky, Saddlebags provides a more flexible data movement model between items, and does not aim at supporting graph-oriented workloads exclusively.
 
 \subsection{Programming model}
 The programming model and data flow model of Saddlebags is based around coupling data and functionality together into an object. Objects that serve the purpose of executing computational tasks in Saddlebags are named \emph{Items}. Items contain pre-existing general communication methods, and the main effort of developing an application with Saddlebags is implementing the computational tasks within an item, and integrating communication and data-flow into that task.
@@ -338,7 +356,7 @@ The data flow model of Saddlebags is implemented with the concept of \emph{event
 \end{table}
 
 Table \ref{table:events} lists all methods in the item class that can be triggered by events. Column 1 lists the names of the methods, column 2 lists the circumstances under which the method is called, and column 3 lists what data is moved in the corresponding method. All methods with data movement is called as a result of communication with other items. Communication routines can be initiated in any of the methods listed in the table. Items are referenced by name, so two items with the same name cannot exist in the same table. The \emph{Refresh} method is used to incorporate this behavior in a program.
-\\ \\
+
 \subsubsection{Example: PageRank}
 The programming model that is implied by items and events can be explained further through an example application. Consider the PageRank algorithm, a mathematical expression for ranking the importance of a website \cite{pagerank}. The following expression is a simplified way of calculating the Page Rank ($PR$) of a website ($u$), given a list of pages that link to it ($B_u$), and the total number of links from those websites ($N$):
 
@@ -351,7 +369,7 @@ ${\displaystyle PR(u)=\sum_{v\in B_{u}}{\frac{PR(v)}{N(v)}}}$
 
 It is assumed that every page starts with a PageRank of 1. Given a list of pages and their outgoing links, a PageRank application can be designed with the Saddlebags programming model. Each page is implemented as an item, and each item is given a list of its own outgoing pages, in addition to a PageRank value and a buffer for calculating a new PageRank, set to 0. Only one table and one type of item is needed. The required methods are listed in table \ref{table:pagerankevents}. When the items are created, the algorithm can be ran for as many iterations of PageRank as needed, since one PageRank iteration (one execution of the aforelisted formula for each item) is equivalent to one Saddlebags iteration.
 
-\begin{table}[b]
+\begin{table}[h]
 	\setlength\arrayrulewidth{1pt}
 	\renewcommand{\arraystretch}{2}
 	\begin{tabular}{ | p{3cm} | p{12cm} |}
@@ -444,6 +462,8 @@ Note that in figure \ref{fig:communication}, table 1 is classified as local, whi
 \subsection{Fault tolerance}
 \subsection{View based serialization}
 \subsection{File input}
+%input of file formats?
+%input of filled-out tables, like how rdds can be stored to disk and loaded
 
 \newpage
 \section{Conclusion}
