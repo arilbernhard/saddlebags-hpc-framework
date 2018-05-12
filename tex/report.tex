@@ -1,6 +1,8 @@
 % Use the uit-report.cls to style the document
 \documentclass{uit-report}
 
+
+
 %%%% PREAMBLE ---- here you can add packages if you need extra functionality %%%%
 
 % Provides the \lipsum command to create "Lorem Ipsum" sample text.
@@ -9,13 +11,15 @@
 
 \usepackage{pdfpages}
 
-\setcounter{tocdepth}{2}
+\setcounter{tocdepth}{1}
+
+
+
 
 
 \begin{document}
 \includepdf[pages=-]{front.pdf}
 \title{Saddlebags: An Object-Oriented Parallel Computing Framework for C++}
-\subtitle{}
 \author{Aril Bernhard Ovesen}
 \date{June 1, 2018}
 
@@ -28,15 +32,14 @@
 \pagebreak
 \pagenumbering{roman}
 \pagestyle{firststyle}
-\textbf{\large{Abstract}}
-
+\section*{Abstract}
 
 
 With the increasing importance of big data processing, and the convergence of big data analytics and high performance computing, there is a need for new parallel computing frameworks and workflows that can process the 
 
 
 \newpage
-\textbf{\large{Acknowledgements}}
+\section*{Acknowledgements}
 
 Acknowledgements goes here \lipsum[1]
 
@@ -51,7 +54,10 @@ Acknowledgements goes here \lipsum[1]
 \pagenumbering{arabic}
 \pagestyle{secondstyle}
 \setcounter{page}{1}
-\section{Introduction}
+
+
+
+\chapter{Introduction}
 
 
 %  State of high performance computing
@@ -93,8 +99,8 @@ Saddlebags is implemented in C++. It uses parallelization and communication impl
 
 
 %Designing efficient, yet intuitive programming models for distributed computing and data analytics seems to .
-
-\subsection{Contributions}
+\newpage
+\section{Contributions}
 In brief, we make the following contributions
 
 \begin{itemize}
@@ -112,11 +118,13 @@ In brief, we make the following contributions
 % Distribution based on 
 
 
-\subsection{Outline}
+\section{Outline}
 This thesis is organized as follows. Section 2 presents background knowledge required to understand the rest of the thesis, including a summary of related work. Section 3 presents principles of Partitioned Global Address Space programming, and provides an overview of the UPC++ library. Section 4 describes the design of Saddlebags. Section 5 describes details of the implementation. Section 6 then covers an experimental evaluation of the system. Section 7 discusses topics related to Saddlebags that has not been covered in other sections. Section 8 describes potential future work and improvements to the system. Section 9 concludes the thesis.
 
 \newpage
-\section{Background}
+\chapter{Background}
+This chapter will present an overview of the background behind this thesis. The purpose of this is to provide a technical and historical context of the work that will be presented in the following chapters. A key concept that will be referenced throughout the thesis is High Performance Computing. This term refers to the technical field of working with super computers to solve complex computational problems. This involves the development of parallel algorithms, distributed systems and computing platforms, to meet a demand for high processing speeds~\cite{hpc_def}.
+
 %  History + State of distributed computing / high performance computing
 %  Message passing vs PGAS
 %  Data intensive computing
@@ -125,18 +133,18 @@ This thesis is organized as follows. Section 2 presents background knowledge req
 %  Object oriented high performance computing: object contains data AND task
 %  Distributed objects
 %  
-\subsection{State of High Performance Computing}
+\section{State of High Performance Computing}
 The field of high performance computing has experienced two major disruptions during the 21st century.
 
 Software performance gains from increased frequency in single processing units reached its limits many years ago, and multi-core systems has been prominent in personal computing since. Up until the early 2000s, the speed at which computers could execute sequential programs would steadily increase as clock speed and semiconductor fabrication improved \cite{sutter_larus_2005}. Heat dissipation and energy consumption caused development of the maximum achievable CPU frequency to stall, effectively freezing the number of tasks that can be completed within a certain time frame on a single processing unit \cite{diaz_munoz-caro_nino_2012}. The answers to these problems were multi-core and many-core systems, which bypasses the aforementioned performance wall by utilizing several processing units.
 
 
-Within the field of high performance computing, however, multi-processor systems were not a novelty. Using networks of workstation computers for parallel computation was an attractive alternative to traditional supercomputers, partly because new processor technology could easily be incorporated without replacing the entire system \cite{wilkinson_allen_2005}. While the field of parallel programming was relevant in high-end scientific applications before halt in clock speed development and the following \emph{concurrency revolution}, homogeneous distributed systems now dominate the field of high performance computing.
+Within the field of high performance computing, multi-processor systems were not a novelty. Using networks of workstation computers for parallel computation was already an attractive alternative to traditional supercomputers, partly because new processor technology could easily be incorporated without replacing the entire system \cite{wilkinson_allen_2005}. While the field of parallel programming was relevant in high-end scientific applications before halt in clock speed development and the following concurrency revolution, homogeneous distributed systems now dominate the field of high performance computing. The largest and fastest supercomputers in the world today contain millions of processor cores \cite{top500}.
 
 
 Multi-core and many-core architectures achieve parallelism through explicit task distribution and scheduling, managed by the programmer. Exploiting parallelism is often an application-specific issue, and can pose several challenges. In the fields of distributed- and high performance-computing, aiming for scalability further increases the complexity of the programming task. Several programming models have been devised to support development of distributed, parallel applications, and the current leading models can be clustered into different language paradigms: \emph{shared memory }and \emph{message passing} \cite{pgas_languages}. On top of these communication models, abstractions can be applied to hide complexity from the programmer in order to reduce development time and ease the debugging process. 
 
-\subsection{Programming models}
+\section{Programming models}
 
 There exists a perception that abstraction carry an inherent performance penalty, but abstractions can also be powerful tools in high performance computing \cite{mccandless_lumsdaine_1997}. For example, computing at a large scale can introduce issues relating to handling large amounts of data, scaling to a large or arbitrary number of computation nodes, or developing algorithms that utilizes communication routines and synchronization.
 
@@ -144,12 +152,13 @@ Identifying common patterns in different problems allows for development of fram
 
 In addition to implementing communication routines and data distribution logic, a framework can supply scalability and fault tolerance, due to the information about the application that is implied by the programming model it is utilizing. Other examples of systems specialized in specific programming models include Dryad \cite{dryad}, which models an application's data flow into directed acyclic graphs, and Pregel \cite{pregel}, a framework for graph processing.
 
-\subsection{Data intensive computing}
+\section{Data intensive computing}
+% asdf HPC vs big data
 
-\subsection{Related work}
+\section{Related work}
 Presentations of several modern high performance computing frameworks and big data systems follow. These systems are described here because they in-part make up the current state of the art high performance computing techniques and programming models. The conflicting principles of compute-oriented and data-oriented computation are exemplified in the features of the systems that are in use today.
 
-\subsubsection{Pregel}
+\subsection{Pregel}
 Pregel \cite{pregel} is a system for distributed graph processing, first presented in 2010. Pregel was designed to scalably process large graphs created by web services. The workflow of Pregel involves distributing the vertices of a graph across nodes in a cluster, and performing independent computational tasks on each vertex. These tasks are performed iteratively, meaning that individual vertices may execute tasks in parallel, but the beginning and end of an iteration is synchronous. In Pregel, these iterations are called \emph{supersteps}. The execution model of supersteps is equivalent to a Bulk Synchronous Parallel execution model, from which Pregel claims inspiration. 
 
 Vertices are distributed across a cluster by partitioning the graph into subgraphs, consisting of vertices and edges, each of which is assigned a compute node. Each vertex in the graph will execute some user-defined work task, and may as a result of this task vote to end the graph processing. The system will execute supersteps until every vertex is in agreement of ending the computation. Vertices can communicate by sending their value to other vertices, and \emph{aggregators} provide a form of communication through global monitoring of all data. Messages that are received in one superstep is available in computation during the next superstep.
@@ -158,7 +167,7 @@ A node is classified as either the master or a worker. A worker contains vertice
 
 Pregel claims better performance than MapReduce-based workflows through passing messages directly to the nodes containing relevant vertices. This is in contrast to expressing a graph as a chain of application states, where the entire graph must be re-created and re-distributed for each iteration.
 
-\subsubsection{Spark}
+\subsection{Spark}
 Apache Spark \cite{spark} is a framework for big data applications, initially released in 2014. Spark aims to provide a unified programming model for different distributed workloads that handles large amounts of data. Spark is based around Resilient Distributed Datasets (RDDs), an abstract data type that implicitly distributes data across nodes and provides fault tolerance through re-creation of the data on faulty nodes. Spark provides an extension of the MapReduce model, that aims to support iterative and streaming operations more efficiently through data-sharing across multiple stages of parallel workloads. This is in contrast to earlier MapReduce-systems that, by using a distributed file system for storage, replicated data across all nodes in-between all stages of computation.
 
 RDD operations are coarse-grained and applies to the entire dataset per execution step. This means that operations applied to an RDD can easily be logged, and the entire dataset can be re-created in case of faults. Computations with RDDs can be represented as a directed acyclic graph (DAG), in which the RDD moves from one state to the next, by applying transformations on the entire data structure. RDDs are re-created by replaying the DAG.
@@ -167,7 +176,7 @@ Extending the data sharing of the MapReduce model increases its generality. Iter
 
 The execution model of RDD operations is more complex than traditional data structures. RDD transformations are lazily evaluated, meaning that they are not performed until the result of the transformation is required by an I/O operation. When writing Spark programs, variables of an RDD type does not necessarily represent a materialized object, and unless the programmer explicitly states otherwise, RDDs are only used for a single operation and will be recomputed the next time the same variable is used for another operation.
 
-\subsubsection{Husky}
+\subsection{Husky}
 Husky \cite{husky}\cite{husky_website} is a framework for large scale data mining and research of distributed algorithms. It was first presented in 2015. Husky is designed around the observation that high performance can generally be achieved through controlling low-level mechanisms, at the expense of development time. Husky's design aims to provide a system for expressing advanced data interactions, while being cautious about development costs.
 
 The programming model of Husky is based around two main concepts: firstly, distribution of programmer-defined objects that contain some data element, and secondly, programmer-defined computational tasks that can be executed on these objects. This distribution of data and tasks is similar to the Pregel definition of vertices. Objects can communicate with each other using a push-pull model, and functions executed on data can choose to parse through received pushes. Objects are stored in lists, and multiple lists can exist, potentially containing different object types. Computational tasks can be executed on all objects in a list in bulk, and communication is guaranteed to have completed in-between tasks. This classifies Husky's execution model as Bulk Synchronous Parallel. Synchronization mechanisms can also be disabled.
@@ -178,25 +187,27 @@ Fault tolerance is implemented through checkpointing. As the execution model of 
 
 The Husky paper shows experimental results in which Husky compares positively to other systems including Spark in several different workloads. With bulk data movement workloads, Husky explains superior performance through fine-grained data access. With graph analytics, Husky explains superior performance through optimized combination of communication messages, which reduces network bandwidth usage. 
 
-%\subsection{Other work}
+%\section{Other work}
 % Legion
 % DataMPI
 %% PGAS energy evaluation?
 
 \newpage
-\section{Partitioned Global Address Space}
+\chapter{Partitioned Global Address Space}
 \cite{pgas_upc_energy}
 
-Traditionally, parallel programming (and the field of High Performance Computing) has been clustered in two language paradigms: \emph{shared memory }and \emph{message passing} \cite{pgas_languages}.  Shared memory models provide an abstract memory space that is available for access across several concurrent compute threads. Message passing models, such as MPI \cite{MPI}, give a programmer control of the flow of execution by conceptually bundling most of the communication into a message abstraction. This approach can be used to achieve high performance; the programmer can reason about the cost of communication, and messages can be delivered between compute nodes to scale a program to large, multi-node systems.
+Traditionally, parallel programming (and the field of High Performance Computing) has been clustered in two language paradigms: \emph{shared memory }and \emph{message passing} \cite{pgas_languages}.  Shared memory models provide an abstract memory space that is available for access across several concurrent compute threads. Message passing models, such as MPI \cite{MPI}, give a programmer control of the flow of execution by conceptually bundling most of the communication into a message abstraction. This approach can be used to achieve high performance; the programmer can reason about the cost of communication, and messages can be delivered between compute nodes to scale a program to multi-node systems with predictable use of bandwidth.
+
+%add something about how shared memory is easier?
 
 Programming languages that achieve parallelism through a shared memory abstraction that provides memory access to several compute threads concurrently can be classified as Global Address Space (GAS) langauges. Communication between threads is achieved through reading and writing shared data, rather than explicit message passing \cite{gasnet_description}. Partitioned Global Address Space (PGAS) languages aim to provide a hybrid approach between previous parallelization paradigms, by utilizing the programmability advantages of the shared memory model, and the communication efficiency of message passing.
 
-\subsubsection{GASNet}
+\section{GASNet}
 GASNet is a communication API for GAS/PGAS languages that aims to provide a portable communication layer to systems that would otherwise be platform specific or network implementation dependent. Portability is achieved through translating PGAS programs to an intermediate C representation, which can be compiled into a platform specific application using the system's standard C compiler \cite{gasnet_description}.
 
 GASNet is distributed with several API implementations with support for different underlying network architectures, called \emph{conduits} \cite{gasnetreadme}. This means that systems built on GASNet can be implemented to utilize different communication interfaces, including, among others, MPI, shared memory, and InfiniBand verbs.
 
-\subsection{Unified Parallel C}
+\section{Unified Parallel C}
 Unified Parallel C, referred to as UPC, is a superset of the C programming language for writing SPMD programs, utilizing a global address space paradigm for parallelism. A complete UPC specification was first standardized in 2001, and several UPC compilers have been under development since, including GNU UPC, which is an extension of GCC \cite{web_gnu_upc}, and Berkeley UPC, which is dependent on GASNet \cite{web_berkeley_upc}.
 
 The address space of a UPC program is partitioned into several logical fragments, with each concurrent thread being mapped to one fragment. With this model, each thread has affinity to its own individual memory region, which makes it possible to exploit data locality \cite{evaluation_of_upc} and utilize parallelism with the same language constructs.
@@ -207,10 +218,10 @@ The shared memory abstraction of UPC is provided regardless of underlying hardwa
 
 
 
-\subsection{UPC++}
+\section{UPC++}
 UPC++ is a PGAS extension to the C++ programming language. It is developed at University of California, Berkeley and saw the release of its 1.0 version in September 2017. UPC++ is implemented as a library extension, due to the complexity of developing a separate C++ compiler \cite{zheng_kamil_driscoll_shan_yelick_2014}. The library heavily utilizes C++ template programming \cite{web_cpp_template} for PGAS mechanisms, which allows the creation of library functions that use generic variables that can be adapted to different types. 
 
-\subsubsection{Programming model}
+\subsection{Programming model}
 UPC++ follows the SPMD model and like UPC utilizes threads with affinity to memory partitions. While UPC++ allows the use of C++ functionality such as objects and lambdas, it still aims to provide high performance and explicit communication by leaving much responsibility regarding concurrency and data movement to the programmer.
 
 Each UPC++ partition has access to its own private memory segment, and is identified by its rank, an integer that can range from zero to the total number of partitions. Listing \ref{lst:helloworld} demonstrates a simple program that is started with 4 threads, each printing their rank, illustrating the Single Program Multiple Data property of UPC++ programs. Ranks can communicate through a logical shared memory segment, by utilizing UPC++ communication functionality, including global pointers, remote procedure calls (RPCs), and distributed objects. The number of ranks is static during execution; the total rank count is specified when launching a program and cannot be modified during runtime.
@@ -238,7 +249,7 @@ Through communication or internal operations, a single thread may consist of sev
 
 The 1.0 release of UPC++ introduced the concept of \emph{distributed objects}, which are objects defined by a generic type within UPC++ with the same identifier across all ranks. This means that data stored in the private memory segment of a partition can be referenced by a different rank in RPC calls. The data within the object is not implicitly distributed, but the name of the variable is. Local contents of the distributed objects can as such be explicitly distributed to any rank.
 
-\subsubsection{Progress}
+\subsection{Progress}
 Outstanding asynchronous operations are not completed automatically, because the program consists of a static number of threads. In order to advance the internal state of UPC++ or complete RPC calls, computing resources are yielded from the main thread of execution via the \emph{progress()} function. This concept puts the responsibility of frequently progressing UPC++ state on the programmer's shoulders. The goal of this is to provide visibility of resource usage and parallelism, the latter being important to achieve interoperability with libraries and software packages that would otherwise restrict the use of multi-threading. Being cautious about where to progress RPCs relieves the needs for concurrency control such as mutexes, and implies atomicity in partition-internal operations of basic data types. More complex data structures that are not designed for concurrent access can be safely referenced in RPCs across partitions as long as the \emph{progress()} function is used only between atomic accesses.
 
 \begin{lstlisting}[label={lst:distribobj}, float=t,frame=tlrb, caption={Communication through RPC, referencing a distributed object of an arbitrary C++ class. Rank 1 retrieves and prints \emph{myProperty} from rank 2's instance of \emph{myObj}.}, captionpos=b, language=c++, showstringspaces=false]
@@ -268,7 +279,7 @@ int main(int argc, char *argv[])
 } 
 \end{lstlisting}
 
-\subsubsection{Remote Procedure Calls}
+\subsection{Remote Procedure Calls}
 
 RPCs can be used for both modifying and copying data in the private segment of another rank's memory. The future objects returned by UPC++ RPCs can be used to indicate completion of the remote task, and communicate return values. A program that is dependent on data from a different rank, can halt advancement of the main thread by using the \emph{future.wait()} function, during which progress is attempted until the given future indicates that its corresponding remote operation has completed. This is not possible to achieve in tasks executed by progressing -- futures can only change state during progress, and progress-callbacks cannot themselves initiate further progress of other tasks. This concept provides a clear distinction between execution via the main thread of a rank, and execution via user-initiated progress of the same rank.
 
@@ -277,19 +288,19 @@ Listing \ref{lst:distribobj} demonstrates communication between two ranks using 
 A distributed object is used in this example because it can be passed as a reference to the RPC on the sender's side, and it will be translated to the local copy of the distributed object with the same name on the receiving side. Non-distributed objects can only be passed as copy through RPCs, so distributed objects must be used for retrieving or modifying properties of remote objects. Within the RPC, the distributed object can be de-referenced to access properties of the underlying class. This is exemplified in listing \ref{lst:distribobj} through the access of $myProperty$.
 
 
-\subsubsection{Global pointers}
+\subsection{Global pointers}
 Basic built-in C++ datatypes can be transmitted between partitions as RPC arguments or return values, by passing them as a copy. To communicate pointers to other partitions, the shared memory segment must be utilized. UPC++ can create a pointer to memory allocated in the shared memory segment, and copy local data to this location. The global pointer can be passed to other partitions through RPCs. Accessing global memory from a partition other than the one that initiated the pointer has to be done through asynchronous operations. UPC++ provides functions for remote puts and gets, which require internal progress on the partition that is hosting the shared memory in order to complete.
 
 
 \newpage
-\section{Design}
+\chapter{Design} \label{chapter:design}
+This chapter will cover the design and architecture of the system, outlining its different components, its programming model, and data flow. Section 4.1 explains the core concept and design philosophy of Saddlebags, Section 4.2 explains the programming model, while Section 4.3 outlines the architecture and data flow.
+
 Saddlebags is a framework for parallel computing, aimed at applications and algorithms that can be implemented in C++. It uses UPC++ for thread spawning, communication, and data distribution, which provides PGAS mechanisms and language constructs such as remote procedure calls, virtual shared memory, and distributed objects. Saddlebags provides a programmer with objects and functions that are inherently distributed, and can be extended with methods and data to express different algorithms. This section will sparsely reference UPC++ terminology, and rather refer to general PGAS concepts, with the goal of presenting a design that is agnostic to communication libraries and implementation details.
 
-This section will cover the design and architecture of the system, outlining its different components, its programming model, and data flow. Section 4.1 explains the core concept and design philosophy of Saddlebags, Section 4.2 explains the programming model, while Section 4.3 outlines the architecture and data flow.
-
-\subsection{Motivation}
+\section{Motivation}
 %pregel states that the synchronisity of iterations makes programs easier to reason about.
-Saddlebags is designed with several key features in mind, all of them related to what responsibilities a parallel computing framework can take off the an application developer's hands. Insight from Pregel shows that a synchronous, iterative workflow makes distributed programs easier to reason about \cite{pregel}. Spark shows that capturing flexible applications with a single API makes development easier \cite{sparkarticle}. At the same time, it has been shown that minimizing data movement is of increasing importance in high performance applications \cite{abstractionslocality}, and that developing data  abstractions is a key solution for expressing parallel algorithms that handle an increasing amount of data \cite{hall2013rethinking}.
+Saddlebags is designed with several key features in mind, all of them related to what responsibilities a parallel computing framework can take off the an application developer's hands. Insight from Pregel shows that a synchronous, iterative workflow makes distributed programs easier to reason about \cite{pregel}. Spark shows that capturing flexible applications with a single data structure and API makes development easier \cite{sparkarticle}. At the same time, it has been shown that minimizing data movement is of increasing importance in high performance applications \cite{abstractionslocality}, and that developing data  abstractions is a key solution for expressing parallel algorithms that handle an increasing amount of data \cite{hall2013rethinking}.
 
 Some of the underlying concepts in Saddlebags and the motivation behind devising abstractions that expands on the functionality of UPC++ follows.
 
@@ -309,13 +320,12 @@ Following the principle of a computational task's affinity to its data, full uti
 The purpose of building a framework on top of UPC++ is to provide interfaces for the implementation of distributed applications without the complexity of communication routines. While computation methods are application-specific, communication patterns can be implemented for a general case. When claiming that programmers are relieved of writing communication routines, it refers to the need for knowing where data is physically stored, which partition to communicate with, and the need for ensuring that messages are delivered before continuing computation. Data movement will still be explicit, but expressed in an abstraction level in which data locality and memory partitioning is not considered.
 
 Saddlebags presents a programming model that is devised from a specific communication model, and it is assumed that algorithms that can be expressed within this model can also be implemented to communicate in a general pattern. Predictable communication patterns also allows for optimizations and reduces the need for application-specific synchronization. This also makes the physical distribution of data transparent to the programmer.
-\\
 
-The goal of building a framework on these specific features is to allow computational parallelism to be expressed with the same semantics as data parallelism, while still allowing tasks to communicate data between each other. The complexity of implementing applications that fit this classification is reduced by utilizing a general communication pattern that relieves programmers of implementing specialized communication. Programmers will in this framework use communication routines by referring to data rather than physical location in the form of partition or computing unit.
+The goal of building a a framework on these specific features is to allow computational parallelism to be expressed with the same semantics as data parallelism, while still allowing tasks to communicate data between each other. The complexity of implementing applications that fit this classification is reduced by utilizing a general communication pattern that relieves programmers of implementing specialized communication. Programmers will in this framework use communication routines by referring to data rather than physical location in the form of partition or computing unit.
 
 Like several of the systems mentioned in section 3, Saddlebags implements a Bulk Synchronous Parallel programming model. Like Pregel, Saddlebags distributes a generic and extendable computational task with every data item. Like Husky, Saddlebags provides a more flexible data movement model between items, and does not aim at supporting graph-oriented workloads exclusively.
 
-\subsection{Programming model}
+\section{Programming model}
 The programming model and data flow model of Saddlebags is based around coupling data and functionality together into an object. Objects that serve the purpose of executing computational tasks in Saddlebags are named \emph{Items}. Items contain pre-existing general communication methods, and the main effort of developing an application with Saddlebags is implementing the computational tasks within an item, and integrating communication and data-flow into that task.
 
 Items of different types can be implemented in the same application, and stored in different \emph{tables}. The behavior of tables cannot be extended by the programmer, but every application must define their tables by name and item type. Tables are common for every partition, while an instance and name of an item can only exist on a single partition. This is how distribution of data is achieved: items are spread across partitions, while the tables that contain them exist on every partition, and can reference items regardless of physical location.
@@ -323,7 +333,7 @@ Items of different types can be implemented in the same application, and stored 
 \begin{figure}[h]
 \centering
 \includegraphics[width=16cm]{illustrations/basicmodel.pdf}
-\caption{Overview of the key data structures in a Saddlebags application.}
+\caption{Overview of the organization of data structures in a Saddlebags application.}
 \label{fig:basicmodel}
 \end{figure}
 
@@ -333,7 +343,7 @@ Tables are stored within a \emph{worker}, a distributed object. Tables are refer
 
 Items implement a \emph{work-push-pull} model, in which \emph{work} refers to a computational task implemented in the item class, and \emph{push} and \emph{pull} are the two available modes of communication. The work of an item is designed to be executed iteratively, and each iteration of a Saddlebags application involves executing work and performing any communication routines that was called as a result of the work. An iteration applies to every item in every table, and it is with this iterative model that an application can be executed. 
 
-\subsubsection{Events}
+\subsection{Events} \label{section:events}
 The data flow model of Saddlebags is implemented with the concept of \emph{events}. Within the context of this framework, an event refers to the receiving of any communication message, or reaching specific points of the iteration process. Whenever an event is triggered, for example when receiving a \emph{pull} message, the item that received the message calls a corresponding method, in this case a \emph{foreign pull} method. The contents of this method can be implemented differently in different item types, and it is also able to initiate other communication routines. This is directly related to the data flow of an application: when receiving a pull event, the event-triggered method determines what data to return. When the message returns to the original sender with some data, event-triggered return method determines how to handle the data. 
 
 \begin{table}
@@ -357,7 +367,7 @@ The data flow model of Saddlebags is implemented with the concept of \emph{event
 
 Table \ref{table:events} lists all methods in the item class that can be triggered by events. Column 1 lists the names of the methods, column 2 lists the circumstances under which the method is called, and column 3 lists what data is moved in the corresponding method. All methods with data movement is called as a result of communication with other items. Communication routines can be initiated in any of the methods listed in the table. Items are referenced by name, so two items with the same name cannot exist in the same table. The \emph{Refresh} method is used to incorporate this behavior in a program.
 
-\subsubsection{Example: PageRank}
+\subsection{Example: PageRank}
 The programming model that is implied by items and events can be explained further through an example application. Consider the PageRank algorithm, a mathematical expression for ranking the importance of a website \cite{pagerank}. The following expression is a simplified way of calculating the Page Rank ($PR$) of a website ($u$), given a list of pages that link to it ($B_u$), and the total number of links from those websites ($N$):
 
 \vspace{10pt}
@@ -384,8 +394,8 @@ It is assumed that every page starts with a PageRank of 1. Given a list of pages
 	\label{table:pagerankevents}
 \end{table}
 
-\subsection{Architecture and data flow}
-\subsubsection{Table structure}
+\section{Architecture and data flow}
+\subsection{Table structure}
 Programming a Saddlebags application involves two main tasks: extending item methods to fit a computational purpose, and creating items through data input. In the example illustrated in the previous section, table \ref{table:pagerankevents} shows the extension of an item, and feeding outgoing links to an item is an example of data input. Items are referred to by the name of the table that contains it, and the name of the item itself This is the only way to reference an item in Saddlebags, as tables are responsible for both item initialization and storage.
 
 A table represents an associative array, a collection of unique keys, and values, in which keys are item names and values are item object instances.  Tables are initialized with a name and an item type, and each table can only contain items of a single type. There can be an arbitrary number of tables in a program, and item types are not tied to a single table instance. It is guaranteed that one instance of all tables are available on all partitions.
@@ -393,7 +403,7 @@ A table represents an associative array, a collection of unique keys, and values
 
 
 
-\subsubsection{Data distribution}
+\subsection{Data distribution}
 Each table is initialized with a distributor type, a specific class with a distribution method that determines the partition items should be located in. Since all data is stored in items, and all items are stored in tables, the distribution type of tables is the only component of a Saddlebags application that manages distribution of data and computation.
 
 The distribution method that is common for all distributor classes takes an item name as parameter, and returns a partition identifier. By default, distribution is based on the hash digest of the item name, assuming uniform hashing where items will be evenly spread around all partitions \cite{uniform_hashing}. The motivation behind this is to distribute computational tasks as evenly as possible. The default distribution logic uses consistent hashing \cite{consistent_hashing}. Cyclic distribution logic is also available. 
@@ -407,7 +417,7 @@ It is possible for different tables within the same program to use different dis
 	\label{fig:communication}
 \end{figure}
 
-\subsubsection{Table locality}
+\subsection{Table locality}
 When a table is created, it is specified whether it is a local or global table. Global tables utilize distributors, that can potentially distribute data across all partitions that are available in the system. Local tables does not utilize any distribution logic, and all items are stored within the same partition as they were created. While local tables are created on every partition, their items cannot be remotely accessed. The items in global tables can always be remotely accessed, regardless of their distribution~model.
 
 Note that in figure \ref{fig:communication}, table 1 is classified as local, while table 2 is classified as global. Table 1 has the same items on both partitions, while table 2 has different items. If the same items were added to table 2 from both partitions, they would still only be stored in one partition, as the distributor would redirect the item creation. From a programming standpoint, communication with local or global tables looks identical, but setting the locality of a table can have an impact from a data movement and optimization standpoint, since communication with a local table will never implicitly invoke remote operations.
@@ -417,56 +427,86 @@ Note that in figure \ref{fig:communication}, table 1 is classified as local, whi
 
 %Saddlebags is designed with the goal that abstractions provided by the programming model, through C++ mechanisms such as inheritance and type templates, should not affect algorithmic complexity. This will likely only be true for algorithms that can be tailored to the push/pull/work paradigm. 
 
-%\subsection{Fault tolerance}
+%\section{Fault tolerance}
 %Saddlebags presents an approach to achieving a degree of fault tolerance by utilizing replication and fault tolerance. Similar to a hash ring \cite{chord} used in consistent hashing models, each partition will act as a replica for the partition with the subsequent rank value, looping back to partition 0 at the highest rank. 
 
 
 
 
 \newpage
-\section{Implementation}
-\subsection{Overview}
-\begin{figure}[h]
+\chapter{Implementation}
+This chapter will present the implementation of Saddlebags, explaining how the design translates into different components, and how programs can be written within this framework. Saddlebags was implemented in the C++ programming language, and it can be used to write parallel programs in C++ by importing its header file. Saddlebags is built on the UPC++ library for C++, and this library is a requirement in order to compile Saddlebags programs. Because of this dependency, Saddlebags poses the same system requirements as UPC++. In brief, it can be used on Linux with $gcc$, on macOS version 10.11 or newer, and on Cray XC supercomputers \cite{upcreq}. On Linux clusters with MPI support, UPC++ programs can be executed with MPI commands~\cite{upcmpi}.
+
+\section{Overview}
+The previous chapter presented an object-oriented approach to parallel computation, in which problems were split up into separate items that could be distributed and accessed independently of other items. Defining computational tasks in items, and passing data as messages between items with different tasks, is the main effort of implementing programs in Saddlebags. The final program structure of the framework was devised in the development of an interface in which items of different types were interoperable, through a common messaging interface.
+
+\texttt{Item} is implemented as a C++ class, consisting of pre-defined communication methods, in addition to several empty methods, corresponding to the events listed in section \ref{section:events}. To develop meaningful programs, some of these events must be extended. This is done through inheritance. Event-methods are marked as \texttt{virtual}, so that they can be overridden. Non-event methods, such as push and pull, implement generic functionality that will remain the same for all item classes. This leaves the \texttt{virtual} methods to indicate the interface in which events can be implemented. 
+
+Items are stored in hash maps, which are defined in a \texttt{TableContainer} class. The hash map and table container makes up the functionality of the Table described in chapter~\ref{chapter:design}. \texttt{TableContainer} inherits from a \texttt{TableContainerBase} class that contains functionality that is applicable for all item types. The reason for this will be expanded on in section \ref{section:templates}. Table containers have default logic for distributing items across partitions, and this can be exchanged for specialized solutions by passing a \texttt{Distributor} object. The \texttt{Distributor} class implements a \texttt{Distribute()} method that takes a item key as parameter, and returns an integer corresponding to the rank in which that item should be stored. 
+
+An application can consist of multiple tables, containing different item types. Tables are stored in the \texttt{Worker} class, which is responsible for synchronization, initiating computational tasks through the events \emph{Work} and \emph{Finishing work}, and providing a common interface for different items to access each other in order to deliver messages. Every table and item in a program can be referenced through its worker. A Saddlebags program is initiated by creating a worker, and there is little purpose in having multiple simultaneous workers.
+
+
+
+
+The main classes in the Saddlebags implementation is shown as a UML diagram in figure \ref{fig:uml}. In practice, an application will have at least one additional class, inheriting from the \texttt{Item} class. 
+
+
+
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=16cm]{illustrations/uml.png}
+	\includegraphics[width=15cm]{illustrations/uml.pdf}
 	\caption{UML diagram of Saddlebags' main classes.}
 	\label{fig:uml}
 \end{figure}
 
 
+\section{Template types} \label{section:templates}
+Template programming is a feature of C++ that enables the use of generic types when defining classes and functions. A generic name can be used in place of a specific data type in the definition of a class or function, enabling more flexible declarations and reducing code duplication. When an instance 
 
-\subsection{Distributed objects}
+% for two reasons: item types and generic framework
+% templates in each class: tablekey itemkey messagetype
+% table defined with inherited item class
+% item class in table is transparent to worker, worker has basetablecontainer
+% this allows aribtrary number of tables with any item class
+% <listing of declaration of worker and table from pagerank (with strings as item key)>
 
-\subsection{Templates}
-\subsection{Table}
-\subsection{Communication}
+\section{Distributed objects}
+
+
+\section{Table}
+\section{Communication}
 %message
-\subsection{Synchronization}
+%sending modes!
+\section{Synchronization}
 %barriers in cycle
-\subsection{Usage}
+\section{Usage}
 
 \newpage
-\section{Evaluation}
-\subsection{Expressiveness}
-\subsection{Energy efficiency}
-\subsection{Abstraction costs}
-\subsection{Comparison with other systems}
+\chapter{Evaluation}
+\section{Expressiveness}
+\section{Energy efficiency}
+\section{Abstraction costs}
+\section{Comparison with other systems}
 
 \newpage
-\section{Discussion}
+\chapter{Discussion}
 %other features from spark
-\subsection{Differences from Husky}
+\section{Differences from Husky}
+\section{Message types}
+%global pointers
+%boost any
 
 \newpage
-\section{Future work}
-\subsection{Fault tolerance}
-\subsection{View based serialization}
-\subsection{File input}
+\chapter{Future work}
+\section{Fault tolerance}
+\section{View based serialization}
+\section{File input}
 %input of file formats?
 %input of filled-out tables, like how rdds can be stored to disk and loaded
 
 \newpage
-\section{Conclusion}
+\chapter{Conclusion}
 
 
 

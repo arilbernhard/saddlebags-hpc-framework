@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{uit-report}[2014/12/10 UiT report class]
-\def\baseclass{article}
+\def\baseclass{report}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{\baseclass}}
 \PassOptionsToClass{12pt}{\baseclass}
 \PassOptionsToClass{a4paper}{\baseclass}
@@ -103,10 +103,11 @@
 
 
 
-\allsectionsfont{\rmfamily\bfseries}
-\renewcommand{\cftsecfont}{\rmfamily\bfseries\upshape}
-\renewcommand{\cftsecpagefont}{\rmfamily\bfseries\upshape}
+%\allsectionsfont{\rmfamily\bfseries}
+%\renewcommand{\cftsecfont}{\rmfamily\bfseries\upshape}
+%\renewcommand{\cftsecpagefont}{\rmfamily\bfseries\upshape}
 \setlength{\headheight}{15pt}
+
 
 \usepackage{amsfonts}
 \usepackage{amsmath}

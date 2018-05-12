@@ -52,6 +52,11 @@ J.~Qiu, S.~Jha, A.~Luckow, and G.~C. Fox, ``{Towards HPC-ABDS: an initial
   high-performance big data stack},'' {\em Building Robust Big Data Ecosystem
   ISO/IEC JTC}, vol.~1, pp.~18--21, 2014.
 
+\bibitem{hpc_def}
+``{Definitions - High Performance Computing}.''
+  \url{http://www.hpc4poland.pl/en/definitions/}.
+\newblock [Online; accessed 11-May-2018].
+
 \bibitem{sutter_larus_2005}
 H.~Sutter and J.~Larus, ``Software and the concurrency revolution,'' {\em
   Queue}, vol.~3, p.~54, Jan 2005.
@@ -65,6 +70,11 @@ J.~Diaz, C.~Munoz-Caro, and A.~Nino, ``A survey of parallel programming models
 B.~Wilkinson and M.~Allen, {\em Parallel Programming Techniques and
   Applications Using Networked Workstations and Parallel Computers}.
 \newblock Prentice-Hall, 2~ed., 2005.
+
+\bibitem{top500}
+``{November 2017 - TOP500 Supercomputer Sites}.''
+  \url{https://www.top500.org/lists/2017/11/}.
+\newblock [Online; accessed 12-May-2018].
 
 \bibitem{pgas_languages}
 M.~De~Wael, S.~Marr, B.~De~Fraine, T.~Van~Cutsem, and W.~De~Meuter,
@@ -157,5 +167,16 @@ L.~Page, S.~Brin, R.~Motwani, and T.~Winograd, ``{The PageRank Citation
   Ranking: Bringing Order to the Web.},'' Technical Report 1999-66, Stanford
   InfoLab, 1999.
 \newblock Previous number = SIDL-WP-1999-0120.
+
+\bibitem{upcreq}
+``{berkeleylab / upcxx / wiki}.''
+  \url{https://bitbucket.org/berkeleylab/upcxx/wiki/README}.
+\newblock [Online; accessed 11-May-2018].
+
+\bibitem{upcmpi}
+``{Correctly distributing UPC++ partitions on Infiniband cluster with Slurm
+  workload manager - Google groups}.''
+  \url{https://groups.google.com/forum/#!topic/upcxx/fuuJ6TNJXxw}.
+\newblock [Online; accessed 2-May-2018].
 
 \end{thebibliography}

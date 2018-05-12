@@ -11,36 +11,36 @@ Warning--empty year in piccolo
 Warning--empty journal in gasnet_description
 Warning--empty journal in upc_language_specification
 Warning--empty booktitle in abstractionslocality
-You've used 31 entries,
+You've used 35 entries,
             1876 wiz_defined-function locations,
-            634 strings with 9234 characters,
-and the built_in function-call counts, 6659 in all, are:
-= -- 580
-> -- 388
+            649 strings with 9778 characters,
+and the built_in function-call counts, 7107 in all, are:
+= -- 628
+> -- 392
 < -- 1
-+ -- 143
++ -- 147
 - -- 112
-* -- 456
-:= -- 985
-add.period$ -- 44
-call.type$ -- 31
-change.case$ -- 28
+* -- 468
+:= -- 1029
+add.period$ -- 52
+call.type$ -- 35
+change.case$ -- 32
 chr.to.int$ -- 0
-cite$ -- 36
-duplicate$ -- 317
-empty$ -- 636
+cite$ -- 40
+duplicate$ -- 333
+empty$ -- 708
 format.name$ -- 112
-if$ -- 1600
+if$ -- 1728
 int.to.chr$ -- 0
-int.to.str$ -- 31
+int.to.str$ -- 35
 missing$ -- 25
-newline$ -- 111
+newline$ -- 127
 num.names$ -- 23
-pop$ -- 155
+pop$ -- 187
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 191
+skip$ -- 203
 stack$ -- 0
 substring$ -- 199
 swap$ -- 100
@@ -50,6 +50,6 @@ top$ -- 0
 type$ -- 0
 warning$ -- 5
 while$ -- 41
-width$ -- 33
-write$ -- 274
+width$ -- 37
+write$ -- 306
 (There were 8 warnings)
