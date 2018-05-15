@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.30)  12 MAY 2018 03:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.30)  15 MAY 2018 19:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1587,26 +1587,64 @@ Package pdftex.def Info: illustrations/uml.pdf used on input line 458.
 pdfTeX warning: /usr/bin/pdflatex (file ./illustrations/uml.pdf): PDF inclusion
 : invalid other resource which is no dict (key 'ProcSets', type <array>); ignor
 ed.
->] [31]
+>]
+Underfull \hbox (badness 10000) in paragraph at lines 467--486
+
+ []
+
+[31]
+Underfull \hbox (badness 10000) in paragraph at lines 489--491
+
+ []
+
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 492.
+
+Underfull \hbox (badness 10000) in paragraph at lines 492--496
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 497--501
+
+ []
+
+[32] [33]
+Underfull \hbox (badness 10000) in paragraph at lines 536--539
+
+ []
+
+[34]
+Overfull \hbox (4.52539pt too wide) in paragraph at lines 540--543
+\T1/lmr/m/n/12 Operations are not stored in-ter-me-di-ately as mes-sages, but r
+ather only ex-pressed through
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 540--543
+
+ []
+
+[35]
 Chapter 6.
-[32
+[36
 
 ]
 Chapter 7.
-[33
+[37
 
 ]
 Chapter 8.
-[34
+[38
 
 ]
 Chapter 9.
-[35
+[39
 
 ] (./report.bbl
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 17.
- [36
+ [40
 
 ]
 Underfull \hbox (badness 1681) in paragraph at lines 91--94
@@ -1614,34 +1652,34 @@ Underfull \hbox (badness 1681) in paragraph at lines 91--94
 : / / www . microsoft . com / en -[] us / research /
  []
 
-[37]
+[41]
 Underfull \hbox (badness 2608) in paragraph at lines 149--152
 []\T1/lmr/m/n/12 ``Function tem-plate, cp-pref-er-ence.com.'' []$\T1/lmtt/m/n/1
 0.95 http : / / en . cppreference . com / w / cpp /
  []
 
-[38]) 
+[42]) 
 AED: lastpage setting LastPage
-[39]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 519.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 519.
+[43]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 597.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 597.
  (./report.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 519.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 519.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 597.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 597.
 Package rerunfilecheck Info: File `report.out' has not changed.
-(rerunfilecheck)             Checksum: 42B20D22C572CE5D4E1EECF720FFB5FB;2279.
+(rerunfilecheck)             Checksum: CEA7FB64DEA0FB5F2D1DEAA5EEDF6311;2271.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 519.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 597.
  ) 
 Here is how much of TeX's memory you used:
- 22944 strings out of 493029
- 386913 string characters out of 6136233
- 603498 words of memory out of 5000000
- 25891 multiletter control sequences out of 15000+600000
- 80276 words of font info for 75 fonts, out of 8000000 for 9000
+ 22985 strings out of 493029
+ 387440 string characters out of 6136233
+ 603597 words of memory out of 5000000
+ 25909 multiletter control sequences out of 15000+600000
+ 80594 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,18n,60p,10369b,1338s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf/fonts/enc/dvips/lm/lm-ec.enc}{/usr/share/texmf/fonts/enc/dv
@@ -1659,14 +1697,14 @@ pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/t
 ype1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></u
 sr/share/texmf/fonts/type1/public/lm/lmri12.pfb></usr/share/texmf/fonts/type1/p
 ublic/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/sha
-re/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/
-lm/lmtt12.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qbkb.pfb></usr/shar
-e/texmf/fonts/type1/public/tex-gyre/qbkr.pfb></usr/share/texmf/fonts/type1/publ
-ic/tex-gyre/qbkri.pfb>
-Output written on report.pdf (46 pages, 5483147 bytes).
+re/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/
+lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/te
+xmf/fonts/type1/public/tex-gyre/qbkb.pfb></usr/share/texmf/fonts/type1/public/t
+ex-gyre/qbkr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qbkri.pfb>
+Output written on report.pdf (50 pages, 5521111 bytes).
 PDF statistics:
- 839 PDF objects out of 1000 (max. 8388607)
- 695 compressed objects within 7 object streams
- 178 named destinations out of 1000 (max. 500000)
+ 890 PDF objects out of 1000 (max. 8388607)
+ 740 compressed objects within 8 object streams
+ 199 named destinations out of 1000 (max. 500000)
  368 words of extra memory for PDF output out of 10000 (max. 10000000)
 

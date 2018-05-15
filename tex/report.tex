@@ -447,7 +447,7 @@ Items are stored in hash maps, which are defined in a \texttt{TableContainer} cl
 An application can consist of multiple tables, containing different item types. Tables are stored in the \texttt{Worker} class, which is responsible for synchronization, initiating computational tasks through the events \emph{Work} and \emph{Finishing work}, and providing a common interface for different items to access each other in order to deliver messages. Every table and item in a program can be referenced through its worker. A Saddlebags program is initiated by creating a worker, and there is little purpose in having multiple simultaneous workers.
 
 
-
+%message class
 
 The main classes in the Saddlebags implementation is shown as a UML diagram in figure \ref{fig:uml}. In practice, an application will have at least one additional class, inheriting from the \texttt{Item} class. 
 
@@ -462,7 +462,56 @@ The main classes in the Saddlebags implementation is shown as a UML diagram in f
 
 
 \section{Template types} \label{section:templates}
-Template programming is a feature of C++ that enables the use of generic types when defining classes and functions. A generic name can be used in place of a specific data type in the definition of a class or function, enabling more flexible declarations and reducing code duplication. When an instance 
+Template programming is a feature of C++ that enables the use of generic types when defining classes and functions. A generic name can be used in place of a specific data type in the definition of a class or function, enabling more flexible declarations and reducing code duplication. When an object is initialized, generic types must provided, in addition to the regular constructor parameters. Template programming was used heavily in the implementation of UPC++ \cite{upc_language_specification}. Listing \ref{lst:template} shows an example of the syntax of declaring a template class with one template typed property, and declaration of a child class.
+
+Template programming is used in the implementation of Saddlebags for two reasons. Firstly, to achieve a general-purpose programming model, a framework user should be able choose the data types that suits a particular problem. Secondly, the item extension model described in chapter \ref{chapter:design} requires the framework to be able handle different item classes.
+\\ \\
+\begin{lstlisting}[label={lst:template}, float=h,frame=tlrb, caption={Declaration and initialization of an inherited template class in C++}, captionpos=t, language=c++, showstringspaces=false]
+
+template<class T>
+class MyClass
+{
+  T value;
+};
+
+template<class T>
+class MyChildClass : public MyClass<T>
+{
+  T otherValue;
+};
+
+auto obj = MyChildClass<int>();
+obj.value = 34; //obj.value is of integer type
+\end{lstlisting}
+\newpage
+\subsection{Parameters}
+
+Every class listed in the diagram in figure \ref{fig:uml} is a template class. The \texttt{Worker}, \texttt{TableContainerBase}, \texttt{TableContainer}, \texttt{Item}, and \texttt{Message} classes take at least the three following template parameters.
+\\
+
+\hspace{4ex} \textbf{\texttt{TableKey\_T}}
+\\
+The type of the variables that tables are referenced by. Every table has a name that is stored with the same type, defined by this template parameter. The parameter is needed in the Worker because references to the tables are stored in this class. It is needed by Item classes because communication methods require a table name to reference other items to communicate with. It is needed in the TableContainer class because the table is responsible for initializing items. It is needed by the message class because the destination table and object must be stored in outgoing messages.
+\\
+ 
+\hspace{4ex} \textbf{\texttt{ItemKey\_T}}
+\\
+The type of the variables that items are referenced with in a table. A value of this type is used whenever an item is accessed. A worker and table can access items by looking up its key, and items can communicate with other items by initializing messages that contain item keys. Furthermore, items can only be initialized by passing an item key to the table.
+\\
+
+\hspace{4ex} \textbf{\texttt{Message\_T}}
+\\
+The type of the data that is communicated through messages, i.e. push and pull operations. The Message class itself has several fields, all of which are listed in the diagram in figure \ref{fig:uml}. However, the payload of this message is a single field of \texttt{Message\_T} type, which is delivered to push and pull methods. Messages are delivered to items between iterations, so other classes also require this template parameter because messages can be buffered on delivery. Optional methods for communicating data is explained in the next section, but this type determines the data type to send~regardless.
+  
+The \texttt{TableContainer} class takes an additional template parameter that is the Item type stored in that table. Since multiple tables can have different item types, the item type is given only to the table. The Item type of each table is transparent to the Worker, so that it can store an arbitrary number of tables in its \emph{tables} hash map. This is achieved through referencing \texttt{TableContainer} instances as \texttt{TableContainerBase} types - a parent class that does not take an Item type template parameter. This is possible because the only methods from an Item that is relevant for a Worker is the methods that are available in the parent Item class. Tables are stored in a Worker as values in an \texttt{unordered\_map} from the C++ standard library.
+
+In practice, this mean that the Worker contains a map with the key type 
+\texttt{TableKey\_T} and value type \texttt{TableContainerBase<TableKey\_T, ItemKey\_T, Message\_T>*}. This allows the Worker to store all tables, in actuality of different types derived from\\ \texttt{TableContainerBase}, within the same data structure. When a table is created, the pointer that is passed to the Worker is of type \texttt{TableContainer<TableKey\_T, ItemKey\_T, Message\_T, ItemType<TableKey\_T, ItemKey\_T, Message\_T> >*}\\ replacing \texttt{ItemType} with a relevant child of the Item class.
+
+Similarly, a table can be given a \texttt{DistributorType} as a template parameter to customize the distribution logic. This is also not present in the \texttt{TableContainerBase} class and is transparent to the Worker.
+
+From this design, it seems possible to move the transparency of Item types from the Worker to the Table, so that there is only one \texttt{TableContainer} class; the same logic that allows a Worker to access tables from a common parent class also applies to accessing items from their parent class, since there is already need for at least one Item child class. However, a parameter with the child item class is needed in the Table because this is where Items are initialized. The \texttt{TableContainer} class is responsible for initializing items because item keys are unique, and attempts to initialize an item with a pre-existing key will result in calls to the Refresh method rather than actual initialization, as shown in table \ref{table:events}.
+
 
 % for two reasons: item types and generic framework
 % templates in each class: tablekey itemkey messagetype
@@ -471,13 +520,39 @@ Template programming is a feature of C++ that enables the use of generic types w
 % this allows aribtrary number of tables with any item class
 % <listing of declaration of worker and table from pagerank (with strings as item key)>
 
-\section{Distributed objects}
+% table could be used with base item type and no template since api is the same, but child item class is needed for initialization within table, and initialization in table is necessary since table ID is the only way to reference item
 
-
-\section{Table}
 \section{Communication}
+Partitions are executed in parallel, and the thread spawning and memory partitioning is handled by UPC++. Communication between partitions is achieved through UPC++ Remote Procedure Calls, in which a function is passed from one partition to another, where it is executed. As parameters, RPCs can use variables passed as value, or references to distributed objects from UPC++. In Saddlebags, partitions need to perform RPCs to initialize remote items, or perform remote pushes and pulls. For this, it is necessary for items to communicate with other items, even those in different tables. In order to achieve a design where every table can reference every other table, the worker is declared as the only distributed object in a Saddlebags program. The UPC++ Distributed Object class is a template class with a parameter to indicate the type of the target object. In this case, the distributed worker that can be used in RPCs is of type \texttt{upcxx::dist\_object<Worker<TableKey\_T, ItemKey\_T, Message\_T> >}. The underlying Worker object can be accessed using the dereferencing operator \texttt{*}.
+
+A worker is initialized as a distributed object synchronously across all partitions, which is recommended by the UPC++ specification \cite{upc_language_specification}. Additionally, tables are created synchronously, to match the transparent distribution of items. With tables having a reference to the distributed worker, all items and tables can be referenced via RPC.
+
+Communication between items based on push and pull methods. Saddlebags implements several different techniques for handling these communication routines, which is determined by a \texttt{sending\_mode} property in the worker. The following modes are implemented:
+
+\hspace{4ex} \textbf{\texttt{Buffering}}
+\\
+Push and pull operations are stored as messages, in which the table and item name of both the sender and receiver is stored. Messages are sent when the communication method is called, but received messages are buffered and not applied until after the work-phase is finished. The purpose of the buffering is to enforce a bulk synchronous parallel execution model.
+
+\hspace{4ex} \textbf{\texttt{Combining}}
+\\
+Similar to the Buffering mode, but messages are not sent until the work-phase is completed, so that all messages with the same source and destination partitions are sent in a single RPC. \\
+
+\hspace{4ex} \textbf{\texttt{Direct}}
+\\
+Operations are not stored intermediately as messages, but rather only expressed through the execution of its RPC. Does not enforce any synchronization, so push and pull operations can be executed both before or after work. \\
+
+\hspace{4ex} \textbf{\texttt{GasnetBuffering}}
+\\
+Like the Direct mode, operations are only represented as an RPC. Like the Buffering mode, operations are performed in a bulk asynchronous parallel pattern. This is achieved by not advancing UPC++ state, by not calling the \texttt{progress} function until all partitions has completed the work phase. This means that the internal communication routines, implemented by GASNet, 
+
+%rpc, distributed object
+%caching futures
 %message
 %sending modes!
+
+\section{Table}
+
+
 \section{Synchronization}
 %barriers in cycle
 \section{Usage}
@@ -496,6 +571,9 @@ Template programming is a feature of C++ that enables the use of generic types w
 \section{Message types}
 %global pointers
 %boost any
+\section{Hash tables}
+
+
 
 \newpage
 \chapter{Future work}
