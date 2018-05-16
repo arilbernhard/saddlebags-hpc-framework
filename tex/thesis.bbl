@@ -1,0 +1,187 @@
+\begin{thebibliography}{10}
+
+\bibitem{engineering}
+G.~Hager, {\em {Introduction to High Performance Computing for Scientists and
+  Engineers}}.
+\newblock CRC PRESS, 2017.
+
+\bibitem{subcommittee}
+J.~Chen, A.~Choudhary, S.~Feldman, B.~Hendrickson, C.~Johnson, R.~Mount,
+  V.~Sarkar, V.~White, and D.~Williams, {\em Synergistic Challenges in
+  Data-Intensive Science and Exascale Computing: DOE ASCAC Data Subcommittee
+  Report}.
+\newblock Department of Energy Office of Science, 3 2013.
+\newblock Type: Report.
+
+\bibitem{hadoop}
+``{Apache Hadoop}.'' \url{http://hadoop.apache.org/}.
+\newblock [Online; accessed 02-May-2018].
+
+\bibitem{spark}
+M.~Zaharia, {\em An architecture for fast and general data processing on large
+  clusters}.
+\newblock Morgan \& Claypool, 2016.
+
+\bibitem{flink}
+``{Apache Flink}.'' \url{http://flink.apache.org/}.
+\newblock [Online; accessed 02-May-2018].
+
+\bibitem{husky}
+F.~Yang, J.~Li, and J.~Cheng, ``Husky: Towards a more efficient and expressive
+  distributed computing framework,'' {\em Proceedings of the VLDB Endowment},
+  vol.~9, no.~5, pp.~420--431, 2016.
+
+\bibitem{piccolo}
+R.~Power and J.~Li, ``Piccolo: Building fast, distributed programs with
+  partitioned tables.,''
+
+\bibitem{bridgingthegap}
+M.~Anderson, S.~Smith, N.~Sundaram, M.~Capot{\u{a}}, Z.~Zhao, S.~Dulloor,
+  N.~Satish, and T.~L. Willke, ``Bridging the gap between hpc and big data
+  frameworks,'' {\em Proceedings of the VLDB Endowment}, vol.~10, no.~8,
+  pp.~901--912, 2017.
+
+\bibitem{sparkarticle}
+M.~Zaharia, R.~S. Xin, P.~Wendell, T.~Das, M.~Armbrust, A.~Dave, X.~Meng,
+  J.~Rosen, S.~Venkataraman, M.~J. Franklin, A.~Ghodsi, J.~Gonzalez,
+  S.~Shenker, and I.~Stoica, ``Apache spark: A unified engine for big data
+  processing,'' {\em Commun. ACM}, vol.~59, pp.~56--65, Oct. 2016.
+
+\bibitem{hpcabds}
+J.~Qiu, S.~Jha, A.~Luckow, and G.~C. Fox, ``{Towards HPC-ABDS: an initial
+  high-performance big data stack},'' {\em Building Robust Big Data Ecosystem
+  ISO/IEC JTC}, vol.~1, pp.~18--21, 2014.
+
+\bibitem{hpc_def}
+``{Definitions - High Performance Computing}.''
+  \url{http://www.hpc4poland.pl/en/definitions/}.
+\newblock [Online; accessed 11-May-2018].
+
+\bibitem{sutter_larus_2005}
+H.~Sutter and J.~Larus, ``Software and the concurrency revolution,'' {\em
+  Queue}, vol.~3, p.~54, Jan 2005.
+
+\bibitem{diaz_munoz-caro_nino_2012}
+J.~Diaz, C.~Munoz-Caro, and A.~Nino, ``A survey of parallel programming models
+  and tools in the multi and many-core era,'' {\em IEEE Transactions on
+  Parallel and Distributed Systems}, vol.~23, no.~8, p.~1369–1386, 2012.
+
+\bibitem{wilkinson_allen_2005}
+B.~Wilkinson and M.~Allen, {\em Parallel Programming Techniques and
+  Applications Using Networked Workstations and Parallel Computers}.
+\newblock Prentice-Hall, 2~ed., 2005.
+
+\bibitem{top500}
+``{November 2017 - TOP500 Supercomputer Sites}.''
+  \url{https://www.top500.org/lists/2017/11/}.
+\newblock [Online; accessed 12-May-2018].
+
+\bibitem{pgas_languages}
+M.~De~Wael, S.~Marr, B.~De~Fraine, T.~Van~Cutsem, and W.~De~Meuter,
+  ``{Partitioned Global Address Space Languages},'' {\em ACM Comput. Surv.},
+  vol.~47, pp.~62:1--62:27, May 2015.
+
+\bibitem{mccandless_lumsdaine_1997}
+B.~C. Mccandless and A.~Lumsdaine, ``The role of abstraction in
+  high-performance computing,'' {\em Lecture Notes in Computer Science
+  Scientific Computing in Object-Oriented Parallel Environments}, p.~203–210,
+  1997.
+
+\bibitem{dryad}
+``{Dryad - Microsoft Research}.''
+  \url{https://www.microsoft.com/en-us/research/project/dryad/}.
+\newblock [Online; accessed 03-April-2017].
+
+\bibitem{pregel}
+G.~Malewicz, M.~H. Austern, A.~J. Bik, J.~C. Dehnert, I.~Horn, N.~Leiser, and
+  G.~Czajkowski, ``Pregel: A system for large-scale graph processing,'' {\em
+  Proceedings of the 28th ACM symposium on Principles of distributed computing
+  - PODC 09}, 2009.
+
+\bibitem{husky_website}
+``{www.husky-project.com}.'' \url{http://www.husky-project.com}.
+\newblock [Online; accessed 09-March-2018].
+
+\bibitem{pgas_upc_energy}
+J.~Lagraviere, J.~Langguth, M.~Sourouri, P.~H. Ha, and X.~Cai, ``On the
+  performance and energy efficiency of the pgas programming model on multicore
+  architectures,'' {\em 2016 International Conference on High Performance
+  Computing \& Simulation (HPCS)}, 2016.
+
+\bibitem{MPI}
+``{Message Passing Interface}.''
+  \url{https://computing.llnl.gov/tutorials/mpi/}.
+\newblock [Online; accessed 26-April-2018].
+
+\bibitem{gasnet_description}
+D.~Bonachea and J.~Jeong, ``{{GASNet: A Portable High-Performance Communication
+  Layer for Global Address-Space Languages}},'' 2002.
+\newblock [Online; accessed 23-April-2018].
+
+\bibitem{gasnetreadme}
+D.~Bonachea and P.~Hargrove, ``{GASNet Specification, v1.8.1}.''
+
+\bibitem{web_gnu_upc}
+``{GNU UPC}.'' \url{http://www.gccupc.org}.
+\newblock [Online; accessed 13-March-2018].
+
+\bibitem{web_berkeley_upc}
+``{Berkeley UPC}.'' \url{http://upc.lbl.gov}.
+\newblock [Online; accessed 13-March-2018].
+
+\bibitem{evaluation_of_upc}
+C.~Coarfa, Y.~Dotsenko, J.~Mellor-Crummey, F.~Cantonnet, T.~El-Ghazawi,
+  A.~Mohanti, Y.~Yao, and D.~Chavarría-Miranda, ``{An Evaluation of Global
+  Address Space Languages},'' {\em Proceedings of the tenth ACM SIGPLAN
+  symposium on Principles and practice of parallel programming - PPoPP 05},
+  2005.
+
+\bibitem{upc_language_specification}
+W.~W. Carlson, D.~E. Culler, and E.~Brooks, ``{Introduction to UPC and Language
+  Specification},'' 1999.
+
+\bibitem{zheng_kamil_driscoll_shan_yelick_2014}
+Y.~Zheng, A.~Kamil, M.~B. Driscoll, H.~Shan, and K.~Yelick, ``{UPC++ : A PGAS
+  Extension for C++},'' {\em 2014 IEEE 28th International Parallel and
+  Distributed Processing Symposium}, 2014.
+
+\bibitem{web_cpp_template}
+``{Function template, cppreference.com}.''
+  \url{http://en.cppreference.com/w/cpp/language/function_template}.
+\newblock [Online; accessed 26-April-2018].
+
+\bibitem{abstractionslocality}
+A.~Tate, A.~Kamil, A.~Dubey, A.~Gr{\"o}{\ss}linger, B.~Chamberlain, B.~Goglin,
+  C.~Edwards, C.~J. Newburn, D.~Padua, D.~Unat, {\em et~al.}, ``Programming
+  abstractions for data locality,'' PADAL Workshop 2014, April 28--29, Swiss
+  National Supercomputing Center (CSCS), Lugano, Switzerland, 2014.
+
+\bibitem{hall2013rethinking}
+M.~Hall, R.~M. Kirby, F.~Li, M.~Meyer, V.~Pascucci, J.~M. Phillips, R.~Ricci,
+  J.~Van~der Merwe, and S.~Venkatasubramanian, ``Rethinking abstractions for
+  big data: Why, where, how, and what,'' {\em arXiv preprint arXiv:1306.3295},
+  2013.
+
+\bibitem{pagerank}
+L.~Page, S.~Brin, R.~Motwani, and T.~Winograd, ``{The PageRank Citation
+  Ranking: Bringing Order to the Web.},'' Technical Report 1999-66, Stanford
+  InfoLab, 1999.
+\newblock Previous number = SIDL-WP-1999-0120.
+
+\bibitem{upcreq}
+``{berkeleylab / upcxx / wiki}.''
+  \url{https://bitbucket.org/berkeleylab/upcxx/wiki/README}.
+\newblock [Online; accessed 11-May-2018].
+
+\bibitem{upcmpi}
+``{Correctly distributing UPC++ partitions on Infiniband cluster with Slurm
+  workload manager - Google groups}.''
+  \url{https://groups.google.com/forum/#!topic/upcxx/fuuJ6TNJXxw}.
+\newblock [Online; accessed 2-May-2018].
+
+\bibitem{gasnetpresentation}
+P.~H. Hargrove, ``{The Future of GASNet}.''
+  \url{https://crd.lbl.gov/assets/Uploads/FTG/Projects/DEGAS/RetreatSummer13/GASNet-Jun-2013.pdf}.
+\newblock [Online; accessed 2-February-2018].
+
+\end{thebibliography}

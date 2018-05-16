@@ -1,0 +1,52 @@
+\contentsline {chapter}{List of Figures}{v}{chapter*.4}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Contributions}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Outline}{3}{section.1.2}
+\contentsline {chapter}{\numberline {2}Background}{4}{chapter.2}
+\contentsline {section}{\numberline {2.1}State of High Performance Computing}{4}{section.2.1}
+\contentsline {section}{\numberline {2.2}Programming models}{5}{section.2.2}
+\contentsline {section}{\numberline {2.3}Data intensive computing}{6}{section.2.3}
+\contentsline {section}{\numberline {2.4}Related work}{6}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Pregel}{7}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Spark}{8}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Husky}{9}{subsection.2.4.3}
+\contentsline {chapter}{\numberline {3}Partitioned Global Address Space}{11}{chapter.3}
+\contentsline {section}{\numberline {3.1}GASNet}{12}{section.3.1}
+\contentsline {section}{\numberline {3.2}Unified Parallel C}{12}{section.3.2}
+\contentsline {section}{\numberline {3.3}UPC++}{13}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Programming model}{13}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Progress}{15}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Remote Procedure Calls}{15}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Global pointers}{17}{subsection.3.3.4}
+\contentsline {chapter}{\numberline {4}Design}{18}{chapter.4}
+\contentsline {section}{\numberline {4.1}Motivation}{18}{section.4.1}
+\contentsline {section}{\numberline {4.2}Programming model}{21}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Events}{22}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Example: PageRank}{23}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Architecture and data flow}{24}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Table structure}{24}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Data distribution}{25}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Table locality}{26}{subsection.4.3.3}
+\contentsline {chapter}{\numberline {5}Implementation}{28}{chapter.5}
+\contentsline {section}{\numberline {5.1}Overview}{28}{section.5.1}
+\contentsline {section}{\numberline {5.2}Template types}{31}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Parameters}{32}{subsection.5.2.1}
+\contentsline {section}{\numberline {5.3}Communication}{34}{section.5.3}
+\contentsline {section}{\numberline {5.4}Table}{35}{section.5.4}
+\contentsline {section}{\numberline {5.5}Synchronization}{35}{section.5.5}
+\contentsline {section}{\numberline {5.6}Usage}{35}{section.5.6}
+\contentsline {chapter}{\numberline {6}Evaluation}{36}{chapter.6}
+\contentsline {section}{\numberline {6.1}Expressiveness}{36}{section.6.1}
+\contentsline {section}{\numberline {6.2}Energy efficiency}{36}{section.6.2}
+\contentsline {section}{\numberline {6.3}Abstraction costs}{36}{section.6.3}
+\contentsline {section}{\numberline {6.4}Comparison with other systems}{36}{section.6.4}
+\contentsline {chapter}{\numberline {7}Discussion}{37}{chapter.7}
+\contentsline {section}{\numberline {7.1}Differences from Husky}{37}{section.7.1}
+\contentsline {section}{\numberline {7.2}Message types}{37}{section.7.2}
+\contentsline {section}{\numberline {7.3}Hash tables}{37}{section.7.3}
+\contentsline {chapter}{\numberline {8}Future work}{38}{chapter.8}
+\contentsline {section}{\numberline {8.1}Fault tolerance}{38}{section.8.1}
+\contentsline {section}{\numberline {8.2}View based serialization}{38}{section.8.2}
+\contentsline {section}{\numberline {8.3}File input}{38}{section.8.3}
+\contentsline {chapter}{\numberline {9}Conclusion}{39}{chapter.9}
+\contentsline {chapter}{Bibliography}{40}{chapter*.10}
