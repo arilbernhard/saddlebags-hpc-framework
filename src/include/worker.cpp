@@ -511,17 +511,19 @@ void send_pushes(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worke
                 worker->out[i][table_iterator.first] = buf;
             }
         }
+
+        upcxx::progress();
     }
     else if(worker->sending_mode == BufferingWorker)
     {
         for(auto msg_iterator : worker->out_push_buffer)
         {
             perform_remote_push(worker, msg_iterator.dest_table, msg_iterator.dest_item, msg_iterator.value);
+            upcxx::progress();
         }
         worker->out_push_buffer.clear();
     }
 
-    upcxx::progress();
 }
 
 template<typename TableKey_T, typename ItemKey_T, typename Msg_T>
@@ -538,7 +540,6 @@ void perform_remote_push(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>
             Msg_T val, TableKey_T tk, ItemKey_T ok) {
                 dw->tables[tk]->push(ok, val);
             }, worker, msg_val, dest_table, dest_obj));
-            upcxx::progress();
             return;
         }
     }
@@ -558,13 +559,14 @@ void perform_direct_remote_push(upcxx::dist_object<Worker<TableKey_T, ItemKey_T,
         {
             worker_futures.push_back(upcxx::rpc(target_partition, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw,
             Msg_T val, TableKey_T tk, ItemKey_T ok) {
-                dw->tables[tk]->push(ok, val);
+                dw->tables[tk]->direct_push(ok, val);
             }, worker, msg_val, dest_table, dest_obj));
             upcxx::progress();
             return;
         }
     }
-    target_table->push(dest_obj, msg_val);
+    target_table->direct_push(dest_obj, msg_val);
+    upcxx::progress();
 }
 
 
@@ -605,7 +607,9 @@ void send_pulls(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker
                                 obj_iterator.second->add_returning_pull_buffer(new_msg);
                             });
                         worker_futures.push_back(fut);
-                        upcxx::progress();
+                        if(worker->sending_mode != GasnetDirect) {
+                            upcxx::progress();
+                        }
                         continue;
                     }
                 }
@@ -621,7 +625,9 @@ void send_pulls(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker
             }
         }
     }
-    upcxx::progress();
+    if(worker->sending_mode != GasnetDirect) {
+        upcxx::progress();
+    }
 }
 
 

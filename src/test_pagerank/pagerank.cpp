@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
         std::cout << "running with " << upcxx::rank_n() << " ranks" << std::endl;
 
 
-    auto worker = saddlebags::create_worker<int, int, float>(BufferingWorker);
+    auto worker = saddlebags::create_worker<int, int, float>(Direct);
 
     saddlebags::add_table<SiteObject>(worker, 0, true);
 

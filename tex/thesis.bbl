@@ -92,6 +92,47 @@ B.~C. Mccandless and A.~Lumsdaine, ``The role of abstraction in
   \url{https://www.microsoft.com/en-us/research/project/dryad/}.
 \newblock [Online; accessed 03-April-2017].
 
+\bibitem{bigdataconvergence}
+J.~C.~Andre, G.~Antoniu, M.~Asch, R.~M. Badia, M.~Beck, P.~Beckman, T.~Bidot,
+  F.~Bodin, F.~Cappello, A.~Choudhary, B.~De~Supinski, E.~Deelman, J.~Dongarra,
+  A.~Dubey, G.~Fox, H.~Fu, S.~Girona, W.~Gropp, M.~Heroux, and I.~Zacharov,
+  ``Big data and extreme-scale computing: Pathways to convergence toward a
+  shaping strategy for a future software and data ecosystem for scientific
+  inquiry,'' 01 2018.
+
+\bibitem{microscopy}
+D.~Sage, H.~Kirshner, T.~Pengo, N.~Stuurman, J.~Min, S.~Manley, and M.~Unser,
+  ``Quantitative evaluation of software packages for single-molecule
+  localization microscopy,'' {\em Nature Methods}, vol.~12, no.~8,
+  p.~717–724, 2015.
+
+\bibitem{mapreduce_locality}
+Z.~Guo, G.~Fox, and M.~Zhou, ``{Investigation of Data Locality in MapReduce},''
+  in {\em Proceedings of the 2012 12th IEEE/ACM International Symposium on
+  Cluster, Cloud and Grid Computing (Ccgrid 2012)}, CCGRID '12, (Washington,
+  DC, USA), pp.~419--426, IEEE Computer Society, 2012.
+
+\bibitem{Hey2009JimGO}
+A.~J.~G. Hey, S.~Tansley, and K.~M. Tolle, ``Jim gray on escience: a
+  transformed scientific method,'' in {\em The Fourth Paradigm}, 2009.
+
+\bibitem{honavar2016accelerating}
+V.~G. Honavar, M.~D. Hill, and K.~Yelick, ``Accelerating science: a computing
+  research agenda,'' {\em arXiv preprint arXiv:1604.02006}, 2016.
+
+\bibitem{gittens2016matrix}
+A.~Gittens, A.~Devarakonda, E.~Racah, M.~Ringenburg, L.~Gerhardt, J.~Kottalam,
+  J.~Liu, K.~Maschhoff, S.~Canon, J.~Chhugani, {\em et~al.}, ``Matrix
+  factorizations at scale: A comparison of scientific data analytics in spark
+  and c+ mpi using three case studies,'' in {\em Big Data (Big Data), 2016 IEEE
+  International Conference on}, pp.~204--213, IEEE, 2016.
+
+\bibitem{yang2017best}
+F.~Yang, Y.~Huang, Y.~Zhao, J.~Li, G.~Jiang, and J.~Cheng, ``The best of both
+  worlds: Big data programming with both productivity and performance,'' in
+  {\em Proceedings of the 2017 ACM International Conference on Management of
+  Data}, pp.~1619--1622, ACM, 2017.
+
 \bibitem{pregel}
 G.~Malewicz, M.~H. Austern, A.~J. Bik, J.~C. Dehnert, I.~Horn, N.~Leiser, and
   G.~Czajkowski, ``Pregel: A system for large-scale graph processing,'' {\em
@@ -101,12 +142,6 @@ G.~Malewicz, M.~H. Austern, A.~J. Bik, J.~C. Dehnert, I.~Horn, N.~Leiser, and
 \bibitem{husky_website}
 ``{www.husky-project.com}.'' \url{http://www.husky-project.com}.
 \newblock [Online; accessed 09-March-2018].
-
-\bibitem{pgas_upc_energy}
-J.~Lagraviere, J.~Langguth, M.~Sourouri, P.~H. Ha, and X.~Cai, ``On the
-  performance and energy efficiency of the pgas programming model on multicore
-  architectures,'' {\em 2016 International Conference on High Performance
-  Computing \& Simulation (HPCS)}, 2016.
 
 \bibitem{MPI}
 ``{Message Passing Interface}.''
@@ -183,5 +218,22 @@ L.~Page, S.~Brin, R.~Motwani, and T.~Winograd, ``{The PageRank Citation
 P.~H. Hargrove, ``{The Future of GASNet}.''
   \url{https://crd.lbl.gov/assets/Uploads/FTG/Projects/DEGAS/RetreatSummer13/GASNet-Jun-2013.pdf}.
 \newblock [Online; accessed 2-February-2018].
+
+\bibitem{robinhash}
+P.~Celis, P.-A. Larson, and J.~I. Munro, ``{Robin Hood Hashing},'' 1985.
+
+\bibitem{hashbenchmark}
+``{Benchmark of major hash map implementations}.''
+  \url{https://tessil.github.io/2016/08/29/benchmark-hopscotch-map.html}.
+\newblock [Online; accessed 01-March-2018].
+
+\bibitem{openmp}
+``{OpenMP}.'' \url{https://www.openmp.org}.
+\newblock [Online; accessed 18-May-2018].
+
+\bibitem{huskyexample}
+``{husky/examples at master - husky-team/husky - GitHub}.''
+  \url{https://github.com/husky-team/husky/tree/master/examples}.
+\newblock [Online; accessed 19-May-2018].
 
 \end{thebibliography}

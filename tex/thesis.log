@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.21)  16 MAY 2018 13:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.30)  19 MAY 2018 23:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1469,37 +1469,43 @@ LaTeX Font Warning: Font shape `U/wasy/b/n' in size <6> not available
 
  [5
 
+] (./thesis.lot)
+\tf@lot=\write6
+\openout6 = `thesis.lot'.
+
+ [6
+
 ]
 Chapter 1.
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.83 
+l.85 
       [1
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.102 \newpage
+l.104 \newpage
                [2]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 107.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 109.
 
  (/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 107.
- [3]
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 109.
+ [3] [4]
 Chapter 2.
-[4
+[5
 
-] [5] [6] [7] [8] [9] [10]
+] [6] [7] [8] [9] [10] [11] [12]
 Chapter 3.
-[11
+[13
 
-] [12] [13] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+] [14] [15] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -1509,142 +1515,158 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 230.
- [14] [15]
-[16] [17]
+nput line 238.
+ [16] [17]
+[18] [19] [20]
 Chapter 4.
-[18
+[21
 
 ]
 
-LaTeX Warning: Citation `data_parallelism' on page 19 undefined on input line 3
-10.
+LaTeX Warning: Citation `data_parallelism' on page 22 undefined on input line 3
+19.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 310--312
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 315--317
+Underfull \hbox (badness 10000) in paragraph at lines 319--321
 
  []
 
-[19] [20] <illustrations/basicmodel.pdf, id=569, 1011.78pt x 401.5pt>
+
+Underfull \hbox (badness 10000) in paragraph at lines 324--326
+
+ []
+
+[22] [23] <illustrations/basicmodel.pdf, id=605, 1011.78pt x 401.5pt>
 File: illustrations/basicmodel.pdf Graphic file (type pdf)
 
 <use illustrations/basicmodel.pdf>
-Package pdftex.def Info: illustrations/basicmodel.pdf used on input line 335.
+Package pdftex.def Info: illustrations/basicmodel.pdf used on input line 344.
 (pdftex.def)             Requested size: 455.24408pt x 180.65494pt.
 
-Overfull \hbox (16.72997pt too wide) in paragraph at lines 335--336
+Overfull \hbox (16.72997pt too wide) in paragraph at lines 344--345
  [][] 
  []
 
-[21 <./illustrations/basicmodel.pdf>]
-Overfull \hbox (28.27719pt too wide) in paragraph at lines 352--364
+[24 <./illustrations/basicmodel.pdf>]
+Overfull \hbox (28.27719pt too wide) in paragraph at lines 361--373
 [][] 
  []
 
-[22] [23]
-Overfull \hbox (15.2772pt too wide) in paragraph at lines 385--393
+[25] [26]
+Overfull \hbox (15.2772pt too wide) in paragraph at lines 394--402
 [][] 
  []
 
-[24]
+[27]
 
-LaTeX Warning: Citation `uniform_hashing' on page 25 undefined on input line 40
-9.
+LaTeX Warning: Citation `uniform_hashing' on page 28 undefined on input line 41
+8.
 
 
-LaTeX Warning: Citation `consistent_hashing' on page 25 undefined on input line
- 409.
+LaTeX Warning: Citation `consistent_hashing' on page 28 undefined on input line
+ 418.
 
-<illustrations/communication.pdf, id=616, 556.0775pt x 556.0775pt>
+<illustrations/communication.pdf, id=650, 556.0775pt x 556.0775pt>
 File: illustrations/communication.pdf Graphic file (type pdf)
 
 <use illustrations/communication.pdf>
-Package pdftex.def Info: illustrations/communication.pdf used on input line 415
+Package pdftex.def Info: illustrations/communication.pdf used on input line 424
 .
 (pdftex.def)             Requested size: 369.88582pt x 369.88872pt.
- [25] [26 <./illustrations/communication.pdf>] [27]
+ [28] [29 <./illustrations/communication.pdf>] [30]
 Chapter 5.
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 443.
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 452.
 
 (/usr/share/texmf/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [28
+) [31
 
 ]
-<illustrations/uml.pdf, id=658, 447.6725pt x 621.32124pt>
+<illustrations/uml.pdf, id=692, 447.6725pt x 621.32124pt>
 File: illustrations/uml.pdf Graphic file (type pdf)
 
 <use illustrations/uml.pdf>
-Package pdftex.def Info: illustrations/uml.pdf used on input line 458.
+Package pdftex.def Info: illustrations/uml.pdf used on input line 467.
 (pdftex.def)             Requested size: 426.79134pt x 592.35654pt.
- [29] [30 <./illustrations/uml.pdf
+ [32] [33 <./illustrations/uml.pdf
 
 pdfTeX warning: /usr/bin/pdflatex (file ./illustrations/uml.pdf): PDF inclusion
 : invalid other resource which is no dict (key 'ProcSets', type <array>); ignor
 ed.
 >]
-Underfull \hbox (badness 10000) in paragraph at lines 467--486
-
- []
-
-[31]
-Underfull \hbox (badness 10000) in paragraph at lines 489--491
-
- []
-
-LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 492.
-
-Underfull \hbox (badness 10000) in paragraph at lines 492--496
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 497--501
-
- []
-
-[32] [33]
-Underfull \hbox (badness 10000) in paragraph at lines 536--539
+Underfull \hbox (badness 10000) in paragraph at lines 476--495
 
  []
 
 [34]
-Overfull \hbox (4.52539pt too wide) in paragraph at lines 540--543
+Underfull \hbox (badness 10000) in paragraph at lines 498--500
+
+ []
+
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 501.
+
+Underfull \hbox (badness 10000) in paragraph at lines 501--505
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 506--510
+
+ []
+
+[35] [36] [37]
+Underfull \hbox (badness 10000) in paragraph at lines 542--545
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 546--549
+
+ []
+
+
+Overfull \hbox (4.52539pt too wide) in paragraph at lines 550--553
 \T1/lmr/m/n/12 Operations are not stored in-ter-me-di-ately as mes-sages, but r
 ather only ex-pressed through
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 540--543
+Underfull \hbox (badness 10000) in paragraph at lines 550--553
 
  []
 
-[35]
+[38] [39] [40]
 Chapter 6.
-[36
+[41
 
 ]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[42]
+
+LaTeX Warning: Text page 43 contains only floats.
+
+[43] [44]
 Chapter 7.
-[37
+[45
 
 ]
 Chapter 8.
-[38
+[46
 
 ]
 Chapter 9.
-[39
+[47
 
 ] (./thesis.bbl
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 17.
- [40
+ [48
 
 ]
 Underfull \hbox (badness 1681) in paragraph at lines 91--94
@@ -1652,33 +1674,33 @@ Underfull \hbox (badness 1681) in paragraph at lines 91--94
 : / / www . microsoft . com / en -[] us / research /
  []
 
-[41]
-Underfull \hbox (badness 2608) in paragraph at lines 149--152
+[49] [50]
+Underfull \hbox (badness 2608) in paragraph at lines 184--187
 []\T1/lmr/m/n/12 ``Function tem-plate, cp-pref-er-ence.com.'' []$\T1/lmtt/m/n/1
 0.95 http : / / en . cppreference . com / w / cpp /
  []
 
-[42]) 
+[51]) 
 AED: lastpage setting LastPage
-[43]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 597.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 597.
+[52]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 702.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 702.
  (./thesis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 597.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 597.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 702.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 702.
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: CEA7FB64DEA0FB5F2D1DEAA5EEDF6311;2271.
+(rerunfilecheck)             Checksum: E0BCA239534AD5A73ADED5A703B45F14;2262.
 
 
 LaTeX Warning: There were undefined references.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 597.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 702.
  ) 
 Here is how much of TeX's memory you used:
- 22988 strings out of 493029
- 387489 string characters out of 6136233
- 603641 words of memory out of 5000000
- 25910 multiletter control sequences out of 15000+600000
+ 23181 strings out of 493029
+ 390105 string characters out of 6136233
+ 630954 words of memory out of 5000000
+ 26015 multiletter control sequences out of 15000+600000
  80594 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,18n,60p,10369b,1338s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1701,10 +1723,10 @@ re/texmf/fonts/type1/public/lm/lmtk10.pfb></usr/share/texmf/fonts/type1/public/
 lm/lmtt10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt12.pfb></usr/share/te
 xmf/fonts/type1/public/tex-gyre/qbkb.pfb></usr/share/texmf/fonts/type1/public/t
 ex-gyre/qbkr.pfb></usr/share/texmf/fonts/type1/public/tex-gyre/qbkri.pfb>
-Output written on thesis.pdf (50 pages, 5523049 bytes).
+Output written on thesis.pdf (60 pages, 5542659 bytes).
 PDF statistics:
- 894 PDF objects out of 1000 (max. 8388607)
- 744 compressed objects within 8 object streams
- 200 named destinations out of 1000 (max. 500000)
+ 1054 PDF objects out of 1200 (max. 8388607)
+ 893 compressed objects within 9 object streams
+ 285 named destinations out of 1000 (max. 500000)
  368 words of extra memory for PDF output out of 10000 (max. 10000000)
 

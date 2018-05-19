@@ -36,7 +36,7 @@ class Item {
 
     void direct_push(TableKey_T destTableKey, ItemKey_T destItemKey, Msg_T val)
     {
-        perform_remote_push((*parent_dist_worker), destTableKey, destItemKey, val);
+        perform_direct_remote_push((*parent_dist_worker), destTableKey, destItemKey, val);
     }
 
     void push(TableKey_T destTableKey, ItemKey_T destItemKey, Msg_T val)
@@ -63,7 +63,7 @@ class Item {
                 break;
 
             case GasnetDirect :
-                perform_direct_remote_push(*(parent_dist_worker), destTableKey, destItemKey, val);
+                perform_remote_push(*(parent_dist_worker), destTableKey, destItemKey, val);
                 break;
 
         }

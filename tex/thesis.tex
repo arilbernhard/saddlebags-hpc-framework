@@ -49,6 +49,8 @@ Acknowledgements goes here \lipsum[1]
 \pagebreak
 \listoffigures
 \pagebreak
+\listoftables
+\pagebreak
 
 \newpage
 \pagenumbering{arabic}
@@ -122,6 +124,7 @@ In brief, we make the following contributions
 This thesis is organized as follows. Section 2 presents background knowledge required to understand the rest of the thesis, including a summary of related work. Section 3 presents principles of Partitioned Global Address Space programming, and provides an overview of the UPC++ library. Section 4 describes the design of Saddlebags. Section 5 describes details of the implementation. Section 6 then covers an experimental evaluation of the system. Section 7 discusses topics related to Saddlebags that has not been covered in other sections. Section 8 describes potential future work and improvements to the system. Section 9 concludes the thesis.
 
 \newpage
+\mbox{} \pagebreak
 \chapter{Background}
 This chapter will present an overview of the background behind this thesis. The purpose of this is to provide a technical and historical context of the work that will be presented in the following chapters. A key concept that will be referenced throughout the thesis is High Performance Computing. This term refers to the technical field of working with super computers to solve complex computational problems. This involves the development of parallel algorithms, distributed systems and computing platforms, to meet a demand for high processing speeds~\cite{hpc_def}.
 
@@ -133,10 +136,10 @@ This chapter will present an overview of the background behind this thesis. The 
 %  Object oriented high performance computing: object contains data AND task
 %  Distributed objects
 %  
-\section{State of High Performance Computing}
-The field of high performance computing has experienced two major disruptions during the 21st century.
+\section{High Performance Computing}
+%The field of high performance computing has experienced two major disruptions during the 21st century.
 
-Software performance gains from increased frequency in single processing units reached its limits many years ago, and multi-core systems has been prominent in personal computing since. Up until the early 2000s, the speed at which computers could execute sequential programs would steadily increase as clock speed and semiconductor fabrication improved \cite{sutter_larus_2005}. Heat dissipation and energy consumption caused development of the maximum achievable CPU frequency to stall, effectively freezing the number of tasks that can be completed within a certain time frame on a single processing unit \cite{diaz_munoz-caro_nino_2012}. The answers to these problems were multi-core and many-core systems, which bypasses the aforementioned performance wall by utilizing several processing units.
+Software performance gains from increased frequency in single processing units reached its limits many years ago, and multi-core systems has been prominent in personal computing since. Up until the early 2000s, the speed at which computers could execute sequential programs would steadily increase as clock speed and semiconductor fabrication improved \cite{sutter_larus_2005}. Heat dissipation and energy consumption caused development of the maximum achievable CPU frequency to stall, effectively freezing the number of tasks that can be completed within a certain time frame on a single processing unit \cite{diaz_munoz-caro_nino_2012}. The answers to these problems were multi-core and many-core systems, which bypasses the aforementioned performance wall by utilizing several processing~units.
 
 
 Within the field of high performance computing, multi-processor systems were not a novelty. Using networks of workstation computers for parallel computation was already an attractive alternative to traditional supercomputers, partly because new processor technology could easily be incorporated without replacing the entire system \cite{wilkinson_allen_2005}. While the field of parallel programming was relevant in high-end scientific applications before halt in clock speed development and the following concurrency revolution, homogeneous distributed systems now dominate the field of high performance computing. The largest and fastest supercomputers in the world today contain millions of processor cores \cite{top500}.
@@ -150,10 +153,17 @@ There exists a perception that abstraction carry an inherent performance penalty
 
 Identifying common patterns in different problems allows for development of frameworks and libraries that are optimized to handle classes of problems matching the same patterns. For example, the MapReduce framework hides significant programming overhead of problems that can be expressed within semantics provided by the framework and the programming model it represents. In its most primitive, data is supplied to the \emph{Map} function and a function to execute on the data is supplied to the \emph{Reduce} function. The MapReduce programming model is designed for algorithms and problems that can be expressed using these two functions, and the MapReduce framework is implemented to provide functionality that can be applied generally to problems within that programming model.
 
-In addition to implementing communication routines and data distribution logic, a framework can supply scalability and fault tolerance, due to the information about the application that is implied by the programming model it is utilizing. Other examples of systems specialized in specific programming models include Dryad \cite{dryad}, which models an application's data flow into directed acyclic graphs, and Pregel \cite{pregel}, a framework for graph processing.
+In addition to implementing communication routines and data distribution logic, a framework can supply scalability and fault tolerance, due to the information about the application that is implied by the programming model it is utilizing. Other examples of systems specialized in specific programming models include Dryad \cite{dryad}, which models an application's data flow into directed acyclic graphs.
 
 \section{Data intensive computing}
 % asdf HPC vs big data
+Many scientific fields are driven by collection and analysis of large amounts of data, and the workflows of many scientific communities based on either data analysis or computing tasks have in recent years converged towards solving similar problems \cite{bigdataconvergence}. Terms like \emph{data deluge} and \emph{Big Data revolution} are used to describe the volume of data generated by modern scientific tools and web applications. For example, large data volumes are generated by instruments such as high resolution microscopes \cite{microscopy} and gene sequencers \cite{mapreduce_locality}, or online enterprises such as Google, Facebook and Amazon. In fields of research, applications can use workflows that interweave simulations and data analysis, or that utilize both data generation and data consumption. 
+
+Historically, data intensive sciences and computational science has been considered separate scientific fields, which has required different classes of applications and platforms \cite{Hey2009JimGO}. It has also been proposed that data analysis and intensive computation can be considered different steps in a generalized scientific process, in which data analysis is the fundamental observation of reality, and computation is used to deduct conclusions from theories built on the available data \cite{honavar2016accelerating}. Such an understanding of a contemporary scientific method would incur that the field of computer science, traditionally aimed at solving computational problems given a problem and a set of input data, would be expanded to data gathering and exploration as well, not as an end goal, but as a step in a larger process.
+
+A view of unified challenges in data intensive computing and high performance computing can formulate opportunities that benefit both fields. This can apply for two classes of workloads. Firstly, problems that require interweaved tasks of data analysis and computations will require unified application ecosystems and platforms. Secondly, problems that are defined with discrete steps of either data consumption and data analysis can benefit from the improvement in technology from both fields and their applications separately. In practice, the use of multiple platforms for solving a single pipelined problem can incur performance penalties due to differences in data structure and problem formulations~\cite{husky}. This penalty may grow larger as data volumes increase.
+
+The convergence of workloads in high performance computing and big data analysis has caused many to conclude that there is a need for new applications, platforms, or data abstractions that can be applied to problems of both classes. Work has gone into merging existing big data frameworks with high performance computing technology~\cite{bridgingthegap}\cite{gittens2016matrix}, and devising new abstractions and data structures \cite{yang2017best}. Detailed descriptions of problems that benefit from merging workflows from big data analytics and high performance computing are given in \cite{subcommittee} and \cite{bigdataconvergence}.
 
 \section{Related work}
 Presentations of several modern high performance computing frameworks and big data systems follow. These systems are described here because they in-part make up the current state of the art high performance computing techniques and programming models. The conflicting principles of compute-oriented and data-oriented computation are exemplified in the features of the systems that are in use today.
@@ -194,8 +204,6 @@ The Husky paper shows experimental results in which Husky compares positively to
 
 \newpage
 \chapter{Partitioned Global Address Space}
-\cite{pgas_upc_energy}
-
 Traditionally, parallel programming (and the field of High Performance Computing) has been clustered in two language paradigms: \emph{shared memory }and \emph{message passing} \cite{pgas_languages}.  Shared memory models provide an abstract memory space that is available for access across several concurrent compute threads. Message passing models, such as MPI \cite{MPI}, give a programmer control of the flow of execution by conceptually bundling most of the communication into a message abstraction. This approach can be used to achieve high performance; the programmer can reason about the cost of communication, and messages can be delivered between compute nodes to scale a program to multi-node systems with predictable use of bandwidth.
 
 %add something about how shared memory is easier?
@@ -293,6 +301,7 @@ Basic built-in C++ datatypes can be transmitted between partitions as RPC argume
 
 
 \newpage
+\mbox{} \pagebreak
 \chapter{Design} \label{chapter:design}
 This chapter will cover the design and architecture of the system, outlining its different components, its programming model, and data flow. Section 4.1 explains the core concept and design philosophy of Saddlebags, Section 4.2 explains the programming model, while Section 4.3 outlines the architecture and data flow.
 
@@ -527,15 +536,16 @@ Partitions are executed in parallel, and the thread spawning and memory partitio
 
 A worker is initialized as a distributed object synchronously across all partitions, which is recommended by the UPC++ specification \cite{upc_language_specification}. Additionally, tables are created synchronously, to match the transparent distribution of items. With tables having a reference to the distributed worker, all items and tables can be referenced via RPC.
 
-Communication between items based on push and pull methods. Saddlebags implements several different techniques for handling these communication routines, which is determined by a \texttt{sending\_mode} property in the worker. The following modes are implemented:
-
+\subsection{Sending modes}
+Communication between items based on push and pull methods. Saddlebags implements several different techniques for handling these communication routines, which is determined by a \texttt{sending\_mode} property in the worker. The following modes are implemented.
+\newpage
 \hspace{4ex} \textbf{\texttt{Buffering}}
 \\
-Push and pull operations are stored as messages, in which the table and item name of both the sender and receiver is stored. Messages are sent when the communication method is called, but received messages are buffered and not applied until after the work-phase is finished. The purpose of the buffering is to enforce a bulk synchronous parallel execution model.
+Push and pull operations are stored as messages, in which the table and item name of both the sender and receiver is stored. Messages are sent when the communication method is called, but received messages are buffered and not applied until after the work-phase is finished. The purpose of the buffering is to enforce a bulk synchronous parallel execution model.\\
 
 \hspace{4ex} \textbf{\texttt{Combining}}
 \\
-Similar to the Buffering mode, but messages are not sent until the work-phase is completed, so that all messages with the same source and destination partitions are sent in a single RPC. \\
+Similar to the Buffering mode, but messages are not sent until the work-phase is completed, so that all messages with the same source and destination partitions are sent in a single RPC. This is implemented on the sender-side by buffering messages in an associative data structure with destination partition as key, and a vector of messages to that partition as value.\\
 
 \hspace{4ex} \textbf{\texttt{Direct}}
 \\
@@ -543,7 +553,15 @@ Operations are not stored intermediately as messages, but rather only expressed 
 
 \hspace{4ex} \textbf{\texttt{GasnetBuffering}}
 \\
-Like the Direct mode, operations are only represented as an RPC. Like the Buffering mode, operations are performed in a bulk asynchronous parallel pattern. This is achieved by not advancing UPC++ state, by not calling the \texttt{progress} function until all partitions has completed the work phase. This means that any buffering of operations is handled by the internal communication routines of GASNet. Other buffering techniques were implemented because GASNet cannot store more than 65536 outstanding operations \cite{gasnetpresentation}. This mode is expected to achieve the best performance due to lower overhead, up until this limit is reached.
+Like the Direct mode, operations are only represented as an RPC. Like the Buffering mode, operations are performed in a bulk synchronous parallel pattern. This is achieved by not advancing UPC++ state, by not calling the \texttt{progress} function until all partitions has completed the work phase. This means that any buffering of operations is handled by the internal communication routines of GASNet. Other buffering techniques were implemented because GASNet cannot store more than 65536 outstanding operations \cite{gasnetpresentation}. This mode is expected to achieve the best performance due to lower overhead, up until this limit is reached.
+
+
+\subsection{Ordering}
+Messages are by default not received in a deterministic order. A configuration parameter can be set to execute returning pull-messages in the same order as they were sent out. Pushes does not have a defined desired order, since they, from the receiver's perspective, are sent in parallel from multiple items acting independently. Pulls has a defined desired order in which they are returned, and that order is the same that as they were sent out in. 
+
+Ordered pulls functionality is implemented by each item creating a buffer for returning pulls equal to the size of outgoing pulls, and attaching a sequence number to every message before sending them. When a pull returns, the message is stored at the location in the buffer equal to its sequence number. This results in an ordered list of pulls. This approach is possible because the total number of outgoing messages is known at a point before any messages return, so that the buffer can be created with the desired size ahead of time.
+
+It is not possible to order pulls using the Direct sending mode, because in this mode, some messages can be returned before all messages have been sent. It is also not possible to order pulls with the GasnetBuffering sending mode, since the ordering techniques requires using the message data structure. 
 
 %rpc, distributed object
 %caching futures
@@ -551,15 +569,102 @@ Like the Direct mode, operations are only represented as an RPC. Like the Buffer
 %sending modes!
 
 \section{Table}
+Items are stored in a hash table, which is implemented with a Robin Hood Hashing model~\cite{robinhash}. This hash table design is based around open addressing, meaning that all entries are stored in a single contiguous array, and linear probing, meaning that hash table collisions during insertions are handled by attempting to perform the insertion in the next entry in the array instead. When performing linear probing, a Robin Hood table will swap entries if the item that is currently being inserted is further from its desired position than the item in the entry that the probe is inspecting.
+\newpage
+For the correctness of the program, the necessary factors are the hash maps semantics: one-to-one association between keys and item instances, and the functionality of iterating through the map, accessing each item once. Further implementation details about the hash table are optimization decisions. Robin Hood hashing was chosen because it demonstrates a lower worst-case lookup time in comparison to other common designs, including the unordered map from the C++ standard library  \cite{hashbenchmark}. A custom hash table implementation was used so that parameters such as maximum load factor and initial table size could be tweaked for optimization.
 
+The item type of a specific table is transparent to a Worker, which is the object that a programmer will primarily interact with. A function is provided that returns a C++ iterator to the hash table in which entries, which are pointers to a child of the Item class, are reinterpreted to the actual child item type. This allows a programmer to use C++ iterators to lookup all items stored in a partition, without only using references to objects of the parent item type, which is what is provided to workers.
 
 \section{Synchronization}
-%barriers in cycle
-\section{Usage}
+The only synchronization mechanisms adopted in Saddlebags are barriers and futures. UPC++ programs consist of a fixed number of threads, in which only one thread has access to each private memory segment. Multiple threads per partition can be used with libraries such as OpenMP \cite{openmp}, but this technique is not used in Saddlebags. This means that sequential data structures can be used internally in the framework, since each partition contain their own instances of objects. For example, the hash table implementation does not contain any synchronization mechanisms or other parallel features. Pitfalls like hash table expansions during insertions, or insertions to the same hash table entry, are resolved by only calling UPC++ Progress in-between atomic operations. It is guaranteed that entire RPCs will be completed before yielding control back to the main execution of a partition. Calling progress to resolve outstanding operations is handled internally and is not the responsibility of a Saddlebags user.
+
+
+% no synch for expansion etc due to progress
+% one way communication futures are stored
+% barriers in cycle
+%
+%\section{Usage}
 
 \newpage
 \chapter{Evaluation}
-\section{Expressiveness}
+\newpage
+\section{Programmability}
+This section will overview of the programmability of Saddlebags in comparison with other systems with similar data distribution and execution models, namely Pregel and Husky. Both these frameworks provide examples of implementations of the PageRank algorithm in their papers \cite{husky} \cite{pregel} to demonstrate programming models, and therefore this application is used as a baseline for a comparison of programmability. Listing \ref{lst:pagerankhusky} contains C++ code for definition of a PageRank vertex in Husky, taken from an official repository of Husky example programs \cite{huskyexample}. Listing \ref{lst:pageranksaddle} contains C++ code for a PageRank item class in Saddlebags. Listing \ref{lst:pagerankpregel} contains C++ code for a PageRank vertex class in Pregel, taken from the Pregel paper.
+
+\begin{lstlisting}[label={lst:pagerankhusky}, float=h!,frame=tlrb,numbers=left, caption={PageRank vertex class in Husky}, captionpos=t, language=c++, showstringspaces=false]
+
+class Vertex {
+  public:
+  using KeyT = int;
+  Vertex() : pr(0.15) {}
+  explicit Vertex(const KeyT& id) : vertexId(id), pr(0.15) {}
+  const KeyT& id() const {
+    return vertexId;
+  }
+  friend husky::BinStream& operator<<(
+         husky::BinStream& stream,const Vertex& u) {
+    stream << u.vertexId << u.adj << u.pr;
+    return stream;
+  }
+  friend husky::BinStream& operator>>(
+         husky::BinStream& stream, Vertex& u) {
+    stream >> u.vertexId >> u.adj >> u.pr;
+    return stream;
+  }
+  int vertexId;
+  std::vector<int> adj;
+  float pr;
+};
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:pageranksaddle}, float=h!,frame=tlrb,numbers=left, caption={PageRank item class in Saddlebags}, captionpos=t, language=c++, showstringspaces=false]
+
+class SiteItem : public saddlebags::Item<int, int, float> {
+  public:
+  float page_rank = 1;
+  float new_page_rank = 0;
+  std::vector<int> links;
+  void do_work() override {
+    for(auto it : this->links) {
+      this->push(0, it, page_rank/((float)links.size()));
+    }
+  }
+  void foreign_push(float val) override {
+    new_page_rank += val;
+  }
+  void finishing_work() override {
+    page_rank = new_page_rank;
+    new_page_rank = 0;
+  }
+};
+\end{lstlisting}
+
+\begin{lstlisting}[label={lst:pagerankpregel}, float=h!,frame=tlrb, numbers=left,caption={PageRank vertex class in Pregel}, captionpos=t, language=c++, showstringspaces=false]
+
+class PageRankVertex : public Vertex<double, void, double> {
+  public:
+  virtual void Compute(MessageIterator* msgs) {
+    if (superstep() >= 1) {
+      double sum = 0;
+      for (; !msgs->Done(); msgs->Next())
+        sum += msgs->Value();
+      *MutableValue() = sum;
+    }
+    if (superstep() < 30) {
+      const int64 n = GetOutEdgeIterator().size();
+      SendMessageToAllNeighbors(GetValue() / n);
+    } else {
+      VoteToHalt();
+    }
+  }
+};
+
+\end{lstlisting}
+\newpage
+In terms of code length, all three frameworks are similar. Husky shows the longest class definition, at 23 lines of code, and Pregel shows the shortest, with 18 lines of code. A large portion of the Husky class is used to define communication routines with stream objects. Saddlebags and Pregel avoids having to explicitly define specialized communication routines, by using a template parameter to define a specific messaging type. In this example, Saddlebags uses floats, while Pregel uses doubles.
+
+Both Saddlebags and Pregel define the computational task within the class
+
 \section{Energy efficiency}
 \section{Abstraction costs}
 \section{Comparison with other systems}
@@ -591,7 +696,7 @@ Like the Direct mode, operations are only represented as an RPC. Like the Buffer
 
 \pagebreak
 \bibliographystyle{ieeetr}
-\bibliography{report}
+\bibliography{thesis}
 
 % End of document
 \end{document}
