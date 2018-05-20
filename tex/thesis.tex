@@ -8,7 +8,7 @@
 % Provides the \lipsum command to create "Lorem Ipsum" sample text.
 \usepackage{lipsum}
 \usepackage{listings,multicol}
-
+\usepackage{varwidth} %for the varwidth minipage environment
 \usepackage{pdfpages}
 
 \setcounter{tocdepth}{1}
@@ -587,8 +587,14 @@ The only synchronization mechanisms adopted in Saddlebags are barriers and futur
 
 \newpage
 \chapter{Evaluation}
+This chapter will provide an overview of the features and performance of Saddlebags in comparison with other systems. Section \ref{section:programmability} focuses on programmability features, providing an overview of the features that are available when expressing algorithms in bulk synchronous parallel frameworks, comparing Saddlebags, Husky and Pregel.
+
+Section \ref{section:performance} will provide experimental performance comparisons with other systems, through PageRank and Term Frequency-Inverse Document Frequency benchmarks in Saddlebags, Spark and Husky.
+
+Section \ref{section:configuration} provides experimental performance comparisons between different configurations of a Saddlebags application, providing an overview of the expected performance penalties of sending modes and message ordering.
+
 \newpage
-\section{Programmability}
+\section{Programmability}\label{section:programmability}
 This section will overview of the programmability of Saddlebags in comparison with other systems with similar data distribution and execution models, namely Pregel and Husky. Both these frameworks provide examples of implementations of the PageRank algorithm in their papers \cite{husky} \cite{pregel} to demonstrate programming models, and therefore this application is used as a baseline for a comparison of programmability. Listing \ref{lst:pagerankhusky} contains C++ code for definition of a PageRank vertex in Husky, taken from an official repository of Husky example programs \cite{huskyexample}. Listing \ref{lst:pageranksaddle} contains C++ code for a PageRank item class in Saddlebags. Listing \ref{lst:pagerankpregel} contains C++ code for a PageRank vertex class in Pregel, taken from the Pregel paper.
 
 \begin{lstlisting}[label={lst:pagerankhusky}, float=h!,frame=tlrb,numbers=left, caption={PageRank vertex class in Husky}, captionpos=t, language=c++, showstringspaces=false]
@@ -661,13 +667,49 @@ class PageRankVertex : public Vertex<double, void, double> {
 
 \end{lstlisting}
 \newpage
-In terms of code length, all three frameworks are similar. Husky shows the longest class definition, at 23 lines of code, and Pregel shows the shortest, with 18 lines of code. A large portion of the Husky class is used to define communication routines with stream objects. Saddlebags and Pregel avoids having to explicitly define specialized communication routines, by using a template parameter to define a specific messaging type. In this example, Saddlebags uses floats, while Pregel uses doubles.
+In terms of code length, all three frameworks are similar. Husky shows the longest class definition, at 23 lines of code, and Pregel shows the shortest, with 18 lines of code. This can likely be considered insignificant. A large portion of the Husky class is used to define communication routines with stream objects. Saddlebags and Pregel avoids having to explicitly define specialized communication routines, by using a template parameter to define a specific messaging type. In this example, Saddlebags uses floats, while Pregel uses doubles.
 
-Both Saddlebags and Pregel define the computational task within the class
+Both Saddlebags and Pregel define the computational task within the class. The Pregel class defines a single method, Compute, that contains all application-specific logic. Saddlebags splits this into several methods: work before communication, methods to call as a result of communication, and work after communication. The single compute method in Pregel allows iteration over all incoming messages, a feature that in Saddlebags is available through the \texttt{foreign\_push} and \texttt{foreign\_pull} methods. These methods are equivalent to message iterator code blocks in Pregel.
 
-\section{Energy efficiency}
-\section{Abstraction costs}
-\section{Comparison with other systems}
+Messages that are delivered in the Compute method in Pregel is equivalent to push-messages in Saddlebags, and it is in both frameworks implemented in the receiver how to handle these messages. Saddlebags' pull messages and \texttt{foreign\_pull} method does not have an equivalent implementation in Pregel. Instead, each vertex has a defined \texttt{MutableValue} that can be fetched by other vertices, and it is assumed that a vertex will always transfer the same data item. In Saddlebags, what value is fetched is defined by the receiver. The Saddlebags approach offers more flexibility, at the cost of implementation complexity. In Saddlebags, all data properties in an Item must be defined per-application, and there are no implicit assumptions about what data to return on incoming pulls, save for the template parameter \texttt{Message\_T}. Both Saddlebags and Husky explicitly defines a variable \texttt{pr} or \texttt{page\_rank} for storing relevant data, while in Pregel, only the \texttt{MutableValue} property is used.
+
+The number of iterations of the algorithm to perform is expressed in the Pregel class through the \texttt{supersteps} function. Neither Saddlebags nor Husky has this expressed, and must rely on other parts of the program to initiate iterations and manage termination. A larger portion of the runtime of the algorithm is expressed in Pregel vertices than in Husky vertices and Saddlebags items, as it is able to define data, computational task, and termination, with some implicit communication routines. Saddlebags items are able to define data, computational tasks, and communication routines. Husky vertices can express data, and communication routines. Notice that in this example, the mathematical PageRank algorithm and initiation of messaging is not implemented in the Husky class, and is deferred to the main function of the program, after vertices has been created. However, this differentiation of computation code is only semantic, as all three frameworks distributes execution of tasks to the same computing units as where the relevant data items are stored.
+
+Expressiveness features are difficult to quantify, and is in this comparison presented through observation of code examples and design overviews. The findings are shown in table \ref{table:programmability}.
+
+
+\begin{table}[b!]
+	\begin{center}
+
+	\setlength\arrayrulewidth{1pt}
+	\renewcommand{\arraystretch}{2}
+	\begin{tabular}{ | p{4cm} | p{3.5cm} | p{3.5cm} | p{3.5cm} |}
+		\hline
+		\textbf{Functionality} & \textbf{Saddlebags} & \textbf{Pregel} & \textbf{Husky}\\ \hline
+		Implicit distribution of data & Yes & Yes & Yes \\ \hline
+		Message types & push/pull & push/pull & push/pull \\ \hline
+		Payload of messages &Return values of methods  & One common data element & Per-application definition of in/out streams\\ \hline
+		Ordering of messages & Available, for pulls & No & No \\ \hline
+		Computation code & In item, in multiple stages, in methods & In vertex, in one stage, in method & Defined in main program, iterating over vertices \\ \hline
+		Terminate on convergence & No & Yes (explicit in task) & No \\ \hline
+		Adjacent vertices & Per-application & Yes & Per-application \\ \hline
+	\end{tabular}
+	\caption{Features of data item/vertex definitions in Saddlebags, Pregel and Husky}
+	\label{table:programmability}
+
+	\end{center}
+\end{table}
+
+\section{Performance comparison} \label{section:performance}
+\subsection{Husky}
+
+\subsection{Spark}
+
+\section{Internal configuration} \label{section:configuration}
+
+%\section{Energy efficiency}
+%\section{Abstraction costs}
+%\section{Comparison with other systems}
 
 \newpage
 \chapter{Discussion}
@@ -693,10 +735,13 @@ Both Saddlebags and Pregel define the computational task within the class
 
 
 
-
 \pagebreak
 \bibliographystyle{ieeetr}
 \bibliography{thesis}
+
+\appendix
+\chapter{Installing and using Saddlebags}
+\chapter{API Reference}
 
 % End of document
 \end{document}

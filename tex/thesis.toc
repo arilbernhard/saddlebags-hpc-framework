@@ -39,16 +39,19 @@
 \contentsline {section}{\numberline {5.5}Synchronization}{40}{section.5.5}
 \contentsline {chapter}{\numberline {6}Evaluation}{41}{chapter.6}
 \contentsline {section}{\numberline {6.1}Programmability}{42}{section.6.1}
-\contentsline {section}{\numberline {6.2}Energy efficiency}{44}{section.6.2}
-\contentsline {section}{\numberline {6.3}Abstraction costs}{44}{section.6.3}
-\contentsline {section}{\numberline {6.4}Comparison with other systems}{44}{section.6.4}
-\contentsline {chapter}{\numberline {7}Discussion}{45}{chapter.7}
-\contentsline {section}{\numberline {7.1}Differences from Husky}{45}{section.7.1}
-\contentsline {section}{\numberline {7.2}Message types}{45}{section.7.2}
-\contentsline {section}{\numberline {7.3}Hash tables}{45}{section.7.3}
-\contentsline {chapter}{\numberline {8}Future work}{46}{chapter.8}
-\contentsline {section}{\numberline {8.1}Fault tolerance}{46}{section.8.1}
-\contentsline {section}{\numberline {8.2}View based serialization}{46}{section.8.2}
-\contentsline {section}{\numberline {8.3}File input}{46}{section.8.3}
-\contentsline {chapter}{\numberline {9}Conclusion}{47}{chapter.9}
-\contentsline {chapter}{Bibliography}{48}{chapter*.11}
+\contentsline {section}{\numberline {6.2}Performance comparison}{46}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Husky}{46}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Spark}{46}{subsection.6.2.2}
+\contentsline {section}{\numberline {6.3}Internal configuration}{46}{section.6.3}
+\contentsline {chapter}{\numberline {7}Discussion}{47}{chapter.7}
+\contentsline {section}{\numberline {7.1}Differences from Husky}{47}{section.7.1}
+\contentsline {section}{\numberline {7.2}Message types}{47}{section.7.2}
+\contentsline {section}{\numberline {7.3}Hash tables}{47}{section.7.3}
+\contentsline {chapter}{\numberline {8}Future work}{48}{chapter.8}
+\contentsline {section}{\numberline {8.1}Fault tolerance}{48}{section.8.1}
+\contentsline {section}{\numberline {8.2}View based serialization}{48}{section.8.2}
+\contentsline {section}{\numberline {8.3}File input}{48}{section.8.3}
+\contentsline {chapter}{\numberline {9}Conclusion}{49}{chapter.9}
+\contentsline {chapter}{Bibliography}{50}{chapter*.12}
+\contentsline {chapter}{\numberline {A}Installing and using Saddlebags}{55}{appendix.A}
+\contentsline {chapter}{\numberline {B}API Reference}{56}{appendix.B}

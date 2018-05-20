@@ -1,0 +1,30 @@
+#!/bin/bash
+# spark-init.batch - sbatch script to initialize Spark stand-alone cluster with SLURM
+
+#SBATCH --account=nn9342k
+#SBATCH --nodes=16
+#  ntasks per node MUST be one, because multiple slaves per node doesn't
+#  work well with slurm + spark in this script (they would need increasing
+#  ports among other things)
+#SBATCH --ntasks-per-node=1
+#SBATCH --mem-per-cpu=8G
+#SBATCH --time=01:30:00
+
+module purge
+module load spark/2.0.2-bin-hadoop2.7
+module list
+
+# This section will be run when started by sbatch
+if [ "$1" != 'srunning' ]; then
+    source /cluster/bin/jobsetup
+
+    source $SPARK_HOME/bin/sparksetup.sh
+
+    #get full path of this script
+    script=$(scontrol show job $SLURM_JOBID | grep Command | cut -d = -f 2)
+    srun bash $script 'srunning'
+
+# If run by srun, then use start_spark_slurm.sh to start master and workers
+else
+    source $SPARK_HOME/bin/start_spark_slurm.sh
+fi
