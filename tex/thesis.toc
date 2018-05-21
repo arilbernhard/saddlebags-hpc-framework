@@ -41,17 +41,16 @@
 \contentsline {section}{\numberline {6.1}Programmability}{42}{section.6.1}
 \contentsline {section}{\numberline {6.2}Performance comparison}{46}{section.6.2}
 \contentsline {subsection}{\numberline {6.2.1}Husky}{46}{subsection.6.2.1}
-\contentsline {subsection}{\numberline {6.2.2}Spark}{46}{subsection.6.2.2}
-\contentsline {section}{\numberline {6.3}Internal configuration}{46}{section.6.3}
-\contentsline {chapter}{\numberline {7}Discussion}{47}{chapter.7}
-\contentsline {section}{\numberline {7.1}Differences from Husky}{47}{section.7.1}
-\contentsline {section}{\numberline {7.2}Message types}{47}{section.7.2}
-\contentsline {section}{\numberline {7.3}Hash tables}{47}{section.7.3}
-\contentsline {chapter}{\numberline {8}Future work}{48}{chapter.8}
-\contentsline {section}{\numberline {8.1}Fault tolerance}{48}{section.8.1}
-\contentsline {section}{\numberline {8.2}View based serialization}{48}{section.8.2}
-\contentsline {section}{\numberline {8.3}File input}{48}{section.8.3}
-\contentsline {chapter}{\numberline {9}Conclusion}{49}{chapter.9}
-\contentsline {chapter}{Bibliography}{50}{chapter*.12}
+\contentsline {subsection}{\numberline {6.2.2}Spark}{47}{subsection.6.2.2}
+\contentsline {section}{\numberline {6.3}Internal configuration}{48}{section.6.3}
+\contentsline {chapter}{\numberline {7}Discussion and Concluding Remarks}{49}{chapter.7}
+\contentsline {section}{\numberline {7.1}Fault tolerance}{49}{section.7.1}
+\contentsline {section}{\numberline {7.2}View based serialization}{49}{section.7.2}
+\contentsline {section}{\numberline {7.3}File input}{49}{section.7.3}
+\contentsline {section}{\numberline {7.4}Differences from Husky}{49}{section.7.4}
+\contentsline {section}{\numberline {7.5}Message types}{49}{section.7.5}
+\contentsline {section}{\numberline {7.6}Hash tables}{49}{section.7.6}
+\contentsline {section}{\numberline {7.7}Conclusion}{49}{section.7.7}
+\contentsline {chapter}{Bibliography}{50}{chapter*.17}
 \contentsline {chapter}{\numberline {A}Installing and using Saddlebags}{55}{appendix.A}
 \contentsline {chapter}{\numberline {B}API Reference}{56}{appendix.B}

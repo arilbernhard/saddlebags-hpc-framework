@@ -26,15 +26,14 @@
 \BOOKMARK [1][-]{section.6.1}{Programmability}{chapter.6}% 26
 \BOOKMARK [1][-]{section.6.2}{Performance comparison}{chapter.6}% 27
 \BOOKMARK [1][-]{section.6.3}{Internal configuration}{chapter.6}% 28
-\BOOKMARK [0][-]{chapter.7}{Discussion}{}% 29
-\BOOKMARK [1][-]{section.7.1}{Differences from Husky}{chapter.7}% 30
-\BOOKMARK [1][-]{section.7.2}{Message types}{chapter.7}% 31
-\BOOKMARK [1][-]{section.7.3}{Hash tables}{chapter.7}% 32
-\BOOKMARK [0][-]{chapter.8}{Future work}{}% 33
-\BOOKMARK [1][-]{section.8.1}{Fault tolerance}{chapter.8}% 34
-\BOOKMARK [1][-]{section.8.2}{View based serialization}{chapter.8}% 35
-\BOOKMARK [1][-]{section.8.3}{File input}{chapter.8}% 36
-\BOOKMARK [0][-]{chapter.9}{Conclusion}{}% 37
-\BOOKMARK [0][-]{chapter*.12}{Bibliography}{}% 38
-\BOOKMARK [0][-]{appendix.A}{Installing and using Saddlebags}{}% 39
-\BOOKMARK [0][-]{appendix.B}{API Reference}{}% 40
+\BOOKMARK [0][-]{chapter.7}{Discussion and Concluding Remarks}{}% 29
+\BOOKMARK [1][-]{section.7.1}{Fault tolerance}{chapter.7}% 30
+\BOOKMARK [1][-]{section.7.2}{View based serialization}{chapter.7}% 31
+\BOOKMARK [1][-]{section.7.3}{File input}{chapter.7}% 32
+\BOOKMARK [1][-]{section.7.4}{Differences from Husky}{chapter.7}% 33
+\BOOKMARK [1][-]{section.7.5}{Message types}{chapter.7}% 34
+\BOOKMARK [1][-]{section.7.6}{Hash tables}{chapter.7}% 35
+\BOOKMARK [1][-]{section.7.7}{Conclusion}{chapter.7}% 36
+\BOOKMARK [0][-]{chapter*.17}{Bibliography}{}% 37
+\BOOKMARK [0][-]{appendix.A}{Installing and using Saddlebags}{}% 38
+\BOOKMARK [0][-]{appendix.B}{API Reference}{}% 39

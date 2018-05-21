@@ -7,8 +7,11 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces UML diagram of Saddlebags' main classes.\relax }}{33}{figure.caption.10}
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Comparison Husky\relax }}{46}{figure.caption.12}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Comparison Spark\relax }}{47}{figure.caption.13}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison Spark\relax }}{47}{figure.caption.14}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Sending modes single node\relax }}{48}{figure.caption.15}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Sending modes cluster\relax }}{48}{figure.caption.16}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

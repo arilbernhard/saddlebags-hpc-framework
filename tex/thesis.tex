@@ -553,7 +553,7 @@ Operations are not stored intermediately as messages, but rather only expressed 
 
 \hspace{4ex} \textbf{\texttt{GasnetBuffering}}
 \\
-Like the Direct mode, operations are only represented as an RPC. Like the Buffering mode, operations are performed in a bulk synchronous parallel pattern. This is achieved by not advancing UPC++ state, by not calling the \texttt{progress} function until all partitions has completed the work phase. This means that any buffering of operations is handled by the internal communication routines of GASNet. Other buffering techniques were implemented because GASNet cannot store more than 65536 outstanding operations \cite{gasnetpresentation}. This mode is expected to achieve the best performance due to lower overhead, up until this limit is reached.
+Like the Direct mode, operations are only represented as an RPC. Like the Buffering mode, operations are performed in a bulk synchronous parallel pattern. This is achieved by not advancing UPC++ state, by not calling the \texttt{progress} function until all partitions has completed the work phase. This means that any buffering of operations is handled by the internal communication routines of GASNet. Other buffering techniques are preferred because GASNet cannot store more than 65536 outstanding operations \cite{gasnetpresentation}. This mode was implemented for the experimental purpose of removing the overhead of the Message abstraction.
 
 
 \subsection{Ordering}
@@ -675,7 +675,7 @@ Messages that are delivered in the Compute method in Pregel is equivalent to pus
 
 The number of iterations of the algorithm to perform is expressed in the Pregel class through the \texttt{supersteps} function. Neither Saddlebags nor Husky has this expressed, and must rely on other parts of the program to initiate iterations and manage termination. A larger portion of the runtime of the algorithm is expressed in Pregel vertices than in Husky vertices and Saddlebags items, as it is able to define data, computational task, and termination, with some implicit communication routines. Saddlebags items are able to define data, computational tasks, and communication routines. Husky vertices can express data, and communication routines. Notice that in this example, the mathematical PageRank algorithm and initiation of messaging is not implemented in the Husky class, and is deferred to the main function of the program, after vertices has been created. However, this differentiation of computation code is only semantic, as all three frameworks distributes execution of tasks to the same computing units as where the relevant data items are stored.
 
-Expressiveness features are difficult to quantify, and is in this comparison presented through observation of code examples and design overviews. The findings are shown in table \ref{table:programmability}.
+Expressiveness features are difficult to quantify, and is in this comparison presented through observation of code examples and design overviews. The findings are shown in table \ref{table:programmability}. "Per application" refers to features that can be expressed, but are not present by default.
 
 
 \begin{table}[b!]
@@ -686,13 +686,13 @@ Expressiveness features are difficult to quantify, and is in this comparison pre
 	\begin{tabular}{ | p{4cm} | p{3.5cm} | p{3.5cm} | p{3.5cm} |}
 		\hline
 		\textbf{Functionality} & \textbf{Saddlebags} & \textbf{Pregel} & \textbf{Husky}\\ \hline
-		Implicit distribution of data & Yes & Yes & Yes \\ \hline
-		Message types & push/pull & push/pull & push/pull \\ \hline
-		Payload of messages &Return values of methods  & One common data element & Per-application definition of in/out streams\\ \hline
-		Ordering of messages & Available, for pulls & No & No \\ \hline
-		Computation code & In item, in multiple stages, in methods & In vertex, in one stage, in method & Defined in main program, iterating over vertices \\ \hline
-		Terminate on convergence & No & Yes (explicit in task) & No \\ \hline
-		Adjacent vertices & Per-application & Yes & Per-application \\ \hline
+		\textbf{Implicit distribution of data} & Yes & Yes & Yes \\ \hline
+		\textbf{Message types} & push/pull & push/pull & push/pull \\ \hline
+		\textbf{Payload of messages} &Return values of methods  & One common data element & Per-application definition of in/out streams\\ \hline
+		\textbf{Ordering of messages} & Available, for pulls & No & No \\ \hline
+		\textbf{Computation code} & In item, in multiple stages, in methods & In vertex, in one stage, in method & Defined in main program, iterating over vertices \\ \hline
+		\textbf{Terminate on convergence} & No & Yes (explicit in task) & No \\ \hline
+		\textbf{Adjacent vertices} & Per-application & Yes & Per-application \\ \hline
 	\end{tabular}
 	\caption{Features of data item/vertex definitions in Saddlebags, Pregel and Husky}
 	\label{table:programmability}
@@ -703,36 +703,66 @@ Expressiveness features are difficult to quantify, and is in this comparison pre
 \section{Performance comparison} \label{section:performance}
 \subsection{Husky}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15cm]{illustrations/huskypagerank.pdf}
+	\caption{Comparison Husky}
+	\label{fig:huskypagerank}
+\end{figure}
+
 \subsection{Spark}
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15cm]{illustrations/sparkpagerank.pdf}
+	\caption{Comparison Spark}
+	\label{fig:sparkpagerank}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15cm]{illustrations/sparktfidf.pdf}
+	\caption{Comparison Spark}
+	\label{fig:sparktfidf}
+\end{figure}
+
+
 \section{Internal configuration} \label{section:configuration}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15cm]{illustrations/sendingmodes.pdf}
+	\caption{Sending modes single node}
+	\label{fig:sendingmodes}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=15cm]{illustrations/sendingmodesabel.pdf}
+	\caption{Sending modes cluster}
+	\label{fig:sendingmodesabel}
+\end{figure}
 
 %\section{Energy efficiency}
 %\section{Abstraction costs}
 %\section{Comparison with other systems}
 
 \newpage
-\chapter{Discussion}
-%other features from spark
-\section{Differences from Husky}
-\section{Message types}
-%global pointers
-%boost any
-\section{Hash tables}
+\chapter{Discussion and Concluding Remarks}
 
-
-
-\newpage
-\chapter{Future work}
 \section{Fault tolerance}
 \section{View based serialization}
 \section{File input}
 %input of file formats?
 %input of filled-out tables, like how rdds can be stored to disk and loaded
 
-\newpage
-\chapter{Conclusion}
-
+%other features from spark
+\section{Differences from Husky}
+\section{Message types}
+%global pointers
+%boost any
+\section{Hash tables}
+\section{Conclusion}
 
 
 \pagebreak

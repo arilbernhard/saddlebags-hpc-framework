@@ -7,12 +7,18 @@ font = {'family' : 'serif',
 
 matplotlib.rc('font', **font)
 
-husky = [       [1.243], 
+'''husky = [       [1.243], 
                 [1.256],
                 [1.128], 
                 [1.382], 
                 [1.383], 
                 [1.764], 
+                [1.995],
+                [2.897],
+                [5.109]]
+'''
+
+husky = [
                 [1.995],
                 [2.897],
                 [5.109]]
@@ -45,16 +51,11 @@ pure_upc = [    [0.107, 0.107, 0.153],
                 [0.395, 0.390, 0.434],
                 [0.798, 0.791, 0.824]]
 
-robin_upc = [   [0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0],
-                [0.0, 0.0, 0.0],
+robin_upc = [
                 [0.284, 0.318, 0.280],
                 [0.460, 0.496, 0.467],
                 [0.818, 0.814, 0.815]]
-
+'''
 x_axis_labels = [   "4 iters\n16 nodes\n21 edges",
                     "6 iters\n64 nodes\n99 edges",
                     "10 iters\n1k nodes\n2k edges",
@@ -64,30 +65,38 @@ x_axis_labels = [   "4 iters\n16 nodes\n21 edges",
                     "15 iters\n32k nodes\n99k edges",
                     "16 iters\n65k nodes\n214k edges",
                     "17 iters\n131k nodes\n461k edges"]
+'''
 
-plt.scatter(range(0,len(old_upc)), [np.average(x) for x in old_upc], label='Old UPC++ Framework', linewidths=3)
-plt.scatter(range(0,len(new_upc)), [np.average(x) for x in new_upc], label='Fixed UPC++ Framework', linewidths=3)
-plt.scatter(range(0,len(pure_upc)), [np.average(x) for x in pure_upc], label='Pure UPC++', linewidths=3)
-plt.scatter(range(0,len(husky)), [np.average(x) for x in husky], label='Husky', linewidths=3)
-plt.scatter(range(0,len(robin_upc)), [np.average(x) for x in robin_upc], label='UPC++ RobinHood Map', linewidths=3)
+x_axis_labels = [   
+                    "15 iters\n32k nodes\n99k edges",
+                    "16 iters\n65k nodes\n214k edges",
+                    "17 iters\n131k nodes\n461k edges"]
+
+
+plt.grid()
+
+
+#plt.scatter(range(0,len(old_upc)), [np.average(x) for x in old_upc], label='Old UPC++ Framework', linewidths=3)
+#plt.scatter(range(0,len(new_upc)), [np.average(x) for x in new_upc], label='Fixed UPC++ Framework', linewidths=3)
+#plt.scatter(range(0,len(pure_upc)), [np.average(x) for x in pure_upc], label='Pure UPC++', linewidths=3)
+plt.scatter(range(0,len(husky)), [np.average(x) for x in husky], label='Husky', linewidths=3, color='RED')
+plt.scatter(range(0,len(robin_upc)), [np.average(x) for x in robin_upc], label='Saddlebags', linewidths=3, color='BLACK')
 
 #plt.plot(range(0,len(old_upc)), [np.average(x) for x in old_upc], linestyle=':')
 #plt.plot(range(0,len(new_upc)), [np.average(x) for x in new_upc])
 #plt.plot(range(0,len(pure_upc)), [np.average(x) for x in pure_upc])
 #plt.plot(range(0,len(husky)), [np.average(x) for x in husky])
 
-plt.errorbar(range(0,len(old_upc)), [np.average(x) for x in old_upc], [np.std(x) for x in old_upc])
-plt.errorbar(range(0,len(new_upc)), [np.average(x) for x in new_upc], [np.std(x) for x in new_upc])
-plt.errorbar(range(0,len(pure_upc)), [np.average(x) for x in pure_upc], [np.std(x) for x in pure_upc])
-plt.errorbar(range(0,len(husky)), [np.average(x) for x in husky], [np.std(x) for x in husky])
-plt.errorbar(range(0,len(robin_upc)), [np.average(x) for x in robin_upc], [np.std(x) for x in robin_upc])
+#plt.errorbar(range(0,len(old_upc)), [np.average(x) for x in old_upc], [np.std(x) for x in old_upc])
+#plt.errorbar(range(0,len(new_upc)), [np.average(x) for x in new_upc], [np.std(x) for x in new_upc])
+#plt.errorbar(range(0,len(pure_upc)), [np.average(x) for x in pure_upc], [np.std(x) for x in pure_upc])
+plt.errorbar(range(0,len(husky)), [np.average(x) for x in husky], [np.std(x) for x in husky], color='RED')
+plt.errorbar(range(0,len(robin_upc)), [np.average(x) for x in robin_upc], [np.std(x) for x in robin_upc], color='BLACK')
 
 
 
 plt.legend()
-plt.grid()
 
-plt.grid()
 
 index = np.arange(len(x_axis_labels))
 plt.xticks(index, x_axis_labels)
