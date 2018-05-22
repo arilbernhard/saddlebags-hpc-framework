@@ -56,6 +56,7 @@ class Worker {
     public:
     std::unordered_map<TableKey_T, TableContainerBase<TableKey_T, ItemKey_T, Msg_T>*> tables;
     
+
     std::vector<std::unordered_map<TableKey_T, std::unordered_map<ItemKey_T, std::vector<Msg_T>>, std::hash<int>>> out;
     
     std::vector<Message<TableKey_T, ItemKey_T, Msg_T>> out_push_buffer;
@@ -64,6 +65,8 @@ class Worker {
     SendingMode sending_mode;
     bool ordered_pulls = false;
     bool pulls_before_pushes = true;
+
+    int replication_nodes = 0;
 
     Worker(SendingMode mode)
     {
@@ -156,7 +159,19 @@ class Worker {
             {
                 obj_iterator.second->finishing_work();
             }
+
+            /*for(int i = 0; i < replication_nodes; i++)
+            {
+                int target = (upcxx::rank_me() + i) % upcxx::rank_n();
+                upcxx::rpc(target_partition, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw, TableKey_T tk, ) {
+                    dw->tables[tk]->insert(ok);
+                }, worker, tableKey, item_key)
+            }*/
+
+            //table_iterator.second->replicate();
         }
+
+
     }
 
     void clear_buffers()
@@ -209,7 +224,7 @@ void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &work
     worker->tables.insert({tableKey, new TableContainer<TableKey_T, ItemKey_T, Msg_Type, ObjectType<TableKey_T, ItemKey_T, Msg_Type>>(
         new DistributorType<ItemKey_T>())
         });
-        
+
     worker->tables[tableKey]->is_global = is_global;
     worker->tables[tableKey]->myTableKey = tableKey;
     worker->tables[tableKey]->parent_worker = &(*worker);
@@ -231,6 +246,7 @@ template<template<class TableKey_T, class ItemKey_T, class Msg_Type> class Objec
 void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker, TableKey_T tableKey, bool is_global)
 {
     worker->tables.insert({tableKey, new TableContainer<TableKey_T, ItemKey_T, Msg_Type, ObjectType<TableKey_T, ItemKey_T, Msg_Type>>()});
+    
     worker->tables[tableKey]->is_global = is_global;
     worker->tables[tableKey]->myTableKey = tableKey;
     worker->tables[tableKey]->parent_worker = &(*worker);

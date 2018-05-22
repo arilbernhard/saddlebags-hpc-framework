@@ -41,6 +41,8 @@ class TableContainerBase
     virtual Msg_T foreign_pull(ItemKey_T key, int tag) = 0;
     virtual void bulk_push(std::unordered_map<ItemKey_T, std::vector<Msg_T>> messages) = 0;
     virtual void direct_push(ItemKey_T key, Msg_T val) = 0;
+
+    virtual void replicate() = 0;
 };
 
 template <typename TableKey_T, typename ItemKey_T, typename Msg_T, typename ItemType>
@@ -52,6 +54,8 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
     
     #ifdef ROBIN_HASH
     Robin_Map<ItemKey_T, ItemType*> mapped_items;
+    Robin_Map<ItemKey_T, ItemType*> replicated_items;
+    std::vector<std::pair<ItemKey_T, ItemType>> replicated_buf;
 
     Robin_Map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>* get_items() override
     {
@@ -60,6 +64,7 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
     #else
 
     std::unordered_map<ItemKey_T, ItemType*> mapped_items;
+    std::unordered_map<ItemKey_T, ItemType*> replicated_items;
 
     std::unordered_map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>* get_items() override
     {
@@ -77,6 +82,29 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
     {
         distributor = NULL;
         key_partition_space = INT32_MAX / upcxx::rank_n();
+    }
+
+    void replicate() override 
+    {
+        int target_partition = (upcxx::rank_me() + 1) % upcxx::rank_n();
+        
+        std::vector<std::pair<ItemKey_T, ItemType>> my_items;
+        for(auto obj_iterator : mapped_items)
+        {
+            my_items.push_back(std::make_pair(obj_iterator.first, *obj_iterator.second));
+        }
+        upcxx::rpc(target_partition, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw, TableKey_T tk, std::vector<std::pair<ItemKey_T, ItemType>> buf) {
+            //dw->tables[tk]->insert(ok);
+            auto base_table = dw->tables[tk];
+            auto derived_table = reinterpret_cast<TableContainer<TableKey_T, ItemKey_T, Msg_T, ItemType>*>(base_table);
+            derived_table->receive_replication(buf);
+        }, *(this->parent_dist_worker), this->myTableKey, my_items);
+        
+    }
+
+    void receive_replication(std::vector<std::pair<ItemKey_T, ItemType>> incoming_replica)
+    {
+        replicated_buf = incoming_replica;
     }
 
     ItemType* create_new_item(ItemKey_T key)
