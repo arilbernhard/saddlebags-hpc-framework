@@ -60,6 +60,7 @@
 \citation{bigdataconvergence}
 \citation{pregel}
 \@writefile{toc}{\contentsline {section}{\numberline {2.4}Related work}{8}{section.2.4}}
+\newlabel{section:relatedwork}{{2.4}{8}{Related work}{section.2.4}{}}
 \citation{spark}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.4.1}Pregel}{9}{subsection.2.4.1}}
 \citation{husky}
@@ -107,86 +108,109 @@
 \newlabel{fig:basicmodel}{{4.1}{24}{Overview of the organization of data structures in a Saddlebags application.\relax }{figure.caption.6}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Events}{25}{subsection.4.2.1}}
 \newlabel{section:events}{{4.2.1}{25}{Events}{subsection.4.2.1}{}}
-\citation{pagerank}
 \@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces All events and their corresponding methods\relax }}{26}{table.caption.7}}
 \newlabel{table:events}{{4.1}{26}{All events and their corresponding methods\relax }{table.caption.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Example: PageRank}{26}{subsection.4.2.2}}
+\citation{pagerank}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Example: PageRank}{27}{subsection.4.2.2}}
+\newlabel{section:examplepagerank}{{4.2.2}{27}{Example: PageRank}{subsection.4.2.2}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {4.2}{\ignorespaces The methods required to implement PageRank with Saddlebags\relax }}{27}{table.caption.8}}
 \newlabel{table:pagerankevents}{{4.2}{27}{The methods required to implement PageRank with Saddlebags\relax }{table.caption.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Architecture and data flow}{27}{section.4.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Table structure}{27}{subsection.4.3.1}}
-\citation{uniform_hashing}
-\citation{consistent_hashing}
+\citation{consistenthashing}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Architecture and data flow}{28}{section.4.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Table structure}{28}{subsection.4.3.1}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Data distribution}{28}{subsection.4.3.2}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Example of communication between tables on different partitions.\relax }}{29}{figure.caption.9}}
 \newlabel{fig:communication}{{4.2}{29}{Example of communication between tables on different partitions.\relax }{figure.caption.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Table locality}{29}{subsection.4.3.3}}
+\citation{dynamo}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.3}Table locality}{30}{subsection.4.3.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Fault tolerance}{30}{section.4.4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Hash ring-view of Saddlebags application with 8 nodes and a fault tolerance degree of 2\relax }}{31}{figure.caption.10}}
+\newlabel{fig:ring}{{4.3}{31}{Hash ring-view of Saddlebags application with 8 nodes and a fault tolerance degree of 2\relax }{figure.caption.10}{}}
 \citation{upcreq}
 \citation{upcmpi}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Implementation}{31}{chapter.5}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Implementation}{33}{chapter.5}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Overview}{31}{section.5.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Overview}{33}{section.5.1}}
 \citation{upc_language_specification}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces UML diagram of Saddlebags' main classes.\relax }}{33}{figure.caption.10}}
-\newlabel{fig:uml}{{5.1}{33}{UML diagram of Saddlebags' main classes.\relax }{figure.caption.10}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Template types}{34}{section.5.2}}
-\newlabel{section:templates}{{5.2}{34}{Template types}{section.5.2}{}}
-\newlabel{lst:template}{{5.1}{34}{Declaration and initialization of an inherited template class in C++}{lstlisting.5.1}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.1}Declaration and initialization of an inherited template class in C++}{34}{lstlisting.5.1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Parameters}{35}{subsection.5.2.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces UML diagram of Saddlebags' main classes.\relax }}{35}{figure.caption.11}}
+\newlabel{fig:uml}{{5.1}{35}{UML diagram of Saddlebags' main classes.\relax }{figure.caption.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Template types}{36}{section.5.2}}
+\newlabel{section:templates}{{5.2}{36}{Template types}{section.5.2}{}}
+\newlabel{lst:template}{{5.1}{36}{Declaration and initialization of an inherited template class in C++}{lstlisting.5.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {5.1}Declaration and initialization of an inherited template class in C++}{36}{lstlisting.5.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Parameters}{37}{subsection.5.2.1}}
 \citation{upc_language_specification}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Communication}{37}{section.5.3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Sending modes}{37}{subsection.5.3.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Communication}{39}{section.5.3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Sending modes}{39}{subsection.5.3.1}}
 \citation{gasnetpresentation}
 \citation{robinhash}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Ordering}{39}{subsection.5.3.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Table}{39}{section.5.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Ordering}{41}{subsection.5.3.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Table}{41}{section.5.4}}
 \citation{hashbenchmark}
 \citation{openmp}
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Synchronization}{40}{section.5.5}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Evaluation}{41}{chapter.6}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Synchronization}{42}{section.5.5}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Evaluation}{43}{chapter.6}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
 \citation{husky}
 \citation{pregel}
 \citation{huskyexample}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Programmability}{42}{section.6.1}}
-\newlabel{section:programmability}{{6.1}{42}{Programmability}{section.6.1}{}}
-\newlabel{lst:pagerankhusky}{{6.1}{42}{PageRank vertex class in Husky}{lstlisting.6.1}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {6.1}PageRank vertex class in Husky}{42}{lstlisting.6.1}}
-\newlabel{lst:pageranksaddle}{{6.2}{43}{PageRank item class in Saddlebags}{lstlisting.6.2}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {6.2}PageRank item class in Saddlebags}{43}{lstlisting.6.2}}
-\newlabel{lst:pagerankpregel}{{6.3}{43}{PageRank vertex class in Pregel}{lstlisting.6.3}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {6.3}PageRank vertex class in Pregel}{43}{lstlisting.6.3}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Features of data item/vertex definitions in Saddlebags, Pregel and Husky\relax }}{45}{table.caption.11}}
-\newlabel{table:programmability}{{6.1}{45}{Features of data item/vertex definitions in Saddlebags, Pregel and Husky\relax }{table.caption.11}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Performance comparison}{46}{section.6.2}}
-\newlabel{section:performance}{{6.2}{46}{Performance comparison}{section.6.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Husky}{46}{subsection.6.2.1}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Comparison Husky\relax }}{46}{figure.caption.12}}
-\newlabel{fig:huskypagerank}{{6.1}{46}{Comparison Husky\relax }{figure.caption.12}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Spark}{47}{subsection.6.2.2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Comparison Spark\relax }}{47}{figure.caption.13}}
-\newlabel{fig:sparkpagerank}{{6.2}{47}{Comparison Spark\relax }{figure.caption.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Comparison Spark\relax }}{47}{figure.caption.14}}
-\newlabel{fig:sparktfidf}{{6.3}{47}{Comparison Spark\relax }{figure.caption.14}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Internal configuration}{48}{section.6.3}}
-\newlabel{section:configuration}{{6.3}{48}{Internal configuration}{section.6.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Sending modes single node\relax }}{48}{figure.caption.15}}
-\newlabel{fig:sendingmodes}{{6.4}{48}{Sending modes single node\relax }{figure.caption.15}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces Sending modes cluster\relax }}{48}{figure.caption.16}}
-\newlabel{fig:sendingmodesabel}{{6.5}{48}{Sending modes cluster\relax }{figure.caption.16}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Discussion and Concluding Remarks}{49}{chapter.7}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Programmability}{44}{section.6.1}}
+\newlabel{section:programmability}{{6.1}{44}{Programmability}{section.6.1}{}}
+\newlabel{lst:pagerankhusky}{{6.1}{44}{PageRank vertex class in Husky}{lstlisting.6.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6.1}PageRank vertex class in Husky}{44}{lstlisting.6.1}}
+\newlabel{lst:pageranksaddle}{{6.2}{45}{PageRank item class in Saddlebags}{lstlisting.6.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6.2}PageRank item class in Saddlebags}{45}{lstlisting.6.2}}
+\newlabel{lst:pagerankpregel}{{6.3}{45}{PageRank vertex class in Pregel}{lstlisting.6.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {6.3}PageRank vertex class in Pregel}{45}{lstlisting.6.3}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Features of item/vertex objects in Saddlebags, Pregel and Husky\relax }}{47}{table.caption.12}}
+\newlabel{table:programmability}{{6.1}{47}{Features of item/vertex objects in Saddlebags, Pregel and Husky\relax }{table.caption.12}{}}
+\citation{abel}
+\citation{abeluserguide}
+\citation{abelspark}
+\citation{leskovec2010kronecker}
+\citation{wang2014bigdatabench}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Performance evaluation}{48}{section.6.2}}
+\newlabel{section:performance}{{6.2}{48}{Performance evaluation}{section.6.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Husky}{49}{subsection.6.2.1}}
+\newlabel{section:huskycomp}{{6.2.1}{49}{Husky}{subsection.6.2.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Execution time of PageRank in Saddlebags and Husky\relax }}{49}{figure.caption.13}}
+\newlabel{fig:huskypagerank}{{6.1}{49}{Execution time of PageRank in Saddlebags and Husky\relax }{figure.caption.13}{}}
+\citation{graphx}
+\citation{sparkpagerank}
+\citation{graphxpagerank}
+\citation{tfidf}
+\citation{husky}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Spark}{50}{subsection.6.2.2}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Execution time of PageRank in Saddlebags and Spark\relax }}{51}{figure.caption.14}}
+\newlabel{fig:pagerankspark}{{6.2}{51}{Execution time of PageRank in Saddlebags and Spark\relax }{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Execution time of TF-IDF in Saddlebags and Spark\relax }}{51}{figure.caption.15}}
+\newlabel{fig:tfidfspark}{{6.3}{51}{Execution time of TF-IDF in Saddlebags and Spark\relax }{figure.caption.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Replication}{52}{subsection.6.2.3}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Sending modes cluster\relax }}{53}{figure.caption.16}}
+\newlabel{fig:huskyfaulttolerance}{{6.4}{53}{Sending modes cluster\relax }{figure.caption.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Internal configuration}{54}{section.6.3}}
+\newlabel{section:configuration}{{6.3}{54}{Internal configuration}{section.6.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Sending modes}{54}{subsection.6.3.1}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces Sending modes single node\relax }}{55}{figure.caption.17}}
+\newlabel{fig:sendingmodes}{{6.5}{55}{Sending modes single node\relax }{figure.caption.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Sending modes cluster\relax }}{55}{figure.caption.18}}
+\newlabel{fig:sendingmodesabel}{{6.6}{55}{Sending modes cluster\relax }{figure.caption.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Message ordering}{56}{subsection.6.3.2}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Discussion and Future Work}{57}{chapter.7}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {7.1}Fault tolerance}{49}{section.7.1}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.2}View based serialization}{49}{section.7.2}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.3}File input}{49}{section.7.3}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.4}Differences from Husky}{49}{section.7.4}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.5}Message types}{49}{section.7.5}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.6}Hash tables}{49}{section.7.6}}
-\@writefile{toc}{\contentsline {section}{\numberline {7.7}Conclusion}{49}{section.7.7}}
+\newlabel{section:discussion}{{7}{57}{Discussion and Future Work}{chapter.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Benchmarks}{57}{section.7.1}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}Fault tolerance}{57}{section.7.2}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Message types}{57}{section.7.3}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.4}Future work}{57}{section.7.4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4.1}View based serialization}{57}{subsection.7.4.1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4.2}File input}{57}{subsection.7.4.2}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}Conclusion}{58}{chapter.8}}
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
 \bibstyle{ieeetr}
 \bibdata{thesis}
 \bibcite{engineering}{1}
@@ -198,7 +222,7 @@
 \bibcite{piccolo}{7}
 \bibcite{bridgingthegap}{8}
 \bibcite{sparkarticle}{9}
-\@writefile{toc}{\contentsline {chapter}{Bibliography}{50}{chapter*.17}}
+\@writefile{toc}{\contentsline {chapter}{Bibliography}{59}{chapter*.19}}
 \bibcite{hpcabds}{10}
 \bibcite{hpc_def}{11}
 \bibcite{sutter_larus_2005}{12}
@@ -229,19 +253,31 @@
 \bibcite{abstractionslocality}{37}
 \bibcite{hall2013rethinking}{38}
 \bibcite{pagerank}{39}
-\bibcite{upcreq}{40}
-\bibcite{upcmpi}{41}
-\bibcite{gasnetpresentation}{42}
-\bibcite{robinhash}{43}
-\bibcite{hashbenchmark}{44}
-\bibcite{openmp}{45}
-\bibcite{huskyexample}{46}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Installing and using Saddlebags}{55}{appendix.A}}
+\bibcite{consistenthashing}{40}
+\bibcite{chord}{41}
+\bibcite{dynamo}{42}
+\bibcite{upcreq}{43}
+\bibcite{upcmpi}{44}
+\bibcite{gasnetpresentation}{45}
+\bibcite{robinhash}{46}
+\bibcite{hashbenchmark}{47}
+\bibcite{openmp}{48}
+\bibcite{huskyexample}{49}
+\bibcite{abel}{50}
+\bibcite{abeluserguide}{51}
+\bibcite{abelspark}{52}
+\bibcite{leskovec2010kronecker}{53}
+\bibcite{wang2014bigdatabench}{54}
+\bibcite{graphx}{55}
+\bibcite{sparkpagerank}{56}
+\bibcite{graphxpagerank}{57}
+\bibcite{tfidf}{58}
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Installing and using Saddlebags}{65}{appendix.A}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {chapter}{\numberline {B}API Reference}{56}{appendix.B}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}API Reference}{66}{appendix.B}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{LastPage}{{}{56}{}{page.56}{}}
-\xdef\lastpage@lastpage{56}
-\xdef\lastpage@lastpageHy{56}
+\newlabel{LastPage}{{}{66}{}{page.66}{}}
+\xdef\lastpage@lastpage{66}
+\xdef\lastpage@lastpageHy{66}

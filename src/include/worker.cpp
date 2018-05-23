@@ -85,6 +85,11 @@ class Worker {
         }
     }
 
+    void set_replication(int replication_level)
+    {
+        replication_nodes = replication_level;
+    }
+
     void set_mode(SendingMode mode)
     {
         sending_mode = mode;
@@ -160,15 +165,7 @@ class Worker {
                 obj_iterator.second->finishing_work();
             }
 
-            /*for(int i = 0; i < replication_nodes; i++)
-            {
-                int target = (upcxx::rank_me() + i) % upcxx::rank_n();
-                upcxx::rpc(target_partition, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw, TableKey_T tk, ) {
-                    dw->tables[tk]->insert(ok);
-                }, worker, tableKey, item_key)
-            }*/
-
-            //table_iterator.second->replicate();
+            table_iterator.second->replicate();
         }
 
 
@@ -229,6 +226,7 @@ void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &work
     worker->tables[tableKey]->myTableKey = tableKey;
     worker->tables[tableKey]->parent_worker = &(*worker);
     worker->tables[tableKey]->parent_dist_worker = &worker;
+    worker->tables[tableKey]->set_replication_level(worker->replication_nodes);
 
     if(worker->sending_mode == Combining)
     {
@@ -251,6 +249,7 @@ void add_table(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &work
     worker->tables[tableKey]->myTableKey = tableKey;
     worker->tables[tableKey]->parent_worker = &(*worker);
     worker->tables[tableKey]->parent_dist_worker = &worker;
+    worker->tables[tableKey]->set_replication_level(worker->replication_nodes);
 
     if(worker->sending_mode == Combining)
     {

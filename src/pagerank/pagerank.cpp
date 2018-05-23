@@ -46,12 +46,12 @@ int main(int argc, char* argv[]) {
         std::cout << "running with " << upcxx::rank_n() << " ranks" << std::endl;
 
     auto worker = saddlebags::create_worker<int, int, float>(BufferingWorker);
-
+    worker->set_replication(3);
     saddlebags::add_table<SiteObject>(worker, 0, true);
 
     //std::ifstream infile("example_data/simple_graph.txt");
    // std::ifstream infile("/home/aril/BigDataBench_MPI_V3.1/SearchEngine/MPI_Pagerank/data-PageRank/Google_genGraph_20.txt");
-    std::ifstream infile("/home/aril/Documents/Google_genGraph_20.txt");
+    std::ifstream infile("/home/aril/Documents/Google_genGraph_15.txt");
     //std::ifstream infile("graph.txt");
 
     std::string src_buffer, dst_buffer;
@@ -71,14 +71,14 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    saddlebags::cycles(worker, 10);
+    saddlebags::cycles(worker, 3);
 
 
-    int url = 123;
+    /*int url = 123;
     auto item = saddlebags::lookup_item<SiteObject>(worker, 0, url);
     if(item != NULL)
         std::cout << "Pagerank of page '" << url << "' is " << item->page_rank << std::endl; 
-
+*/
 	saddlebags::finalize();
 }
 

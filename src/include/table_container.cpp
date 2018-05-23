@@ -43,6 +43,7 @@ class TableContainerBase
     virtual void direct_push(ItemKey_T key, Msg_T val) = 0;
 
     virtual void replicate() = 0;
+    virtual void set_replication_level(int lvl) = 0;
 };
 
 template <typename TableKey_T, typename ItemKey_T, typename Msg_T, typename ItemType>
@@ -52,10 +53,12 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
     BaseDistributor<ItemKey_T>* distributor;
     int key_partition_space;
     
+    std::vector<std::vector<std::pair<ItemKey_T, ItemType>>> replicated_buf;
+    int replication_level = 0;
+
     #ifdef ROBIN_HASH
     Robin_Map<ItemKey_T, ItemType*> mapped_items;
     Robin_Map<ItemKey_T, ItemType*> replicated_items;
-    std::vector<std::pair<ItemKey_T, ItemType>> replicated_buf;
 
     Robin_Map<ItemKey_T, Item<TableKey_T, ItemKey_T, Msg_T>*>* get_items() override
     {
@@ -84,27 +87,41 @@ class TableContainer : public TableContainerBase<TableKey_T, ItemKey_T, Msg_T> {
         key_partition_space = INT32_MAX / upcxx::rank_n();
     }
 
+    void set_replication_level(int lvl) override
+    {
+        for(int i = 0; i < lvl; i++)
+        {
+            std::vector<std::pair<ItemKey_T, ItemType>> buf;
+            replicated_buf.push_back(buf);
+        }
+        replication_level = lvl;
+    }
+
     void replicate() override 
     {
-        int target_partition = (upcxx::rank_me() + 1) % upcxx::rank_n();
+        if(replication_level < 1)
+            return;
         
         std::vector<std::pair<ItemKey_T, ItemType>> my_items;
         for(auto obj_iterator : mapped_items)
         {
             my_items.push_back(std::make_pair(obj_iterator.first, *obj_iterator.second));
         }
-        upcxx::rpc(target_partition, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw, TableKey_T tk, std::vector<std::pair<ItemKey_T, ItemType>> buf) {
-            //dw->tables[tk]->insert(ok);
-            auto base_table = dw->tables[tk];
-            auto derived_table = reinterpret_cast<TableContainer<TableKey_T, ItemKey_T, Msg_T, ItemType>*>(base_table);
-            derived_table->receive_replication(buf);
-        }, *(this->parent_dist_worker), this->myTableKey, my_items);
-        
+        for(int i = 0; i < replication_level; i++)
+        {
+            int target_partition = (upcxx::rank_me() + i+1) % upcxx::rank_n();
+
+            upcxx::rpc(target_partition, [](upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &dw, TableKey_T tk, std::vector<std::pair<ItemKey_T, ItemType>> buf, int index) {
+                auto base_table = dw->tables[tk];
+                auto derived_table = reinterpret_cast<TableContainer<TableKey_T, ItemKey_T, Msg_T, ItemType>*>(base_table);
+                derived_table->receive_replication(buf, index);
+            }, *(this->parent_dist_worker), this->myTableKey, my_items, i);
+        }
     }
 
-    void receive_replication(std::vector<std::pair<ItemKey_T, ItemType>> incoming_replica)
+    void receive_replication(std::vector<std::pair<ItemKey_T, ItemType>> incoming_replica, int index)
     {
-        replicated_buf = incoming_replica;
+        replicated_buf[index] = incoming_replica;
     }
 
     ItemType* create_new_item(ItemKey_T key)

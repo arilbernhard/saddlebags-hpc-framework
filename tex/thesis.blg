@@ -3,9 +3,11 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 The style file: ieeetr.bst
 Database file #1: thesis.bib
+Repeated entry---line 931 of file thesis.bib
+ : @inproceedings{consistenthashing
+ :                                 ,
+I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "data_parallelism"
-Warning--I didn't find a database entry for "uniform_hashing"
-Warning--I didn't find a database entry for "consistent_hashing"
 Warning--empty booktitle in piccolo
 Warning--empty year in piccolo
 Warning--empty journal in bigdataconvergence
@@ -13,45 +15,45 @@ Warning--empty journal in gasnet_description
 Warning--empty journal in upc_language_specification
 Warning--empty booktitle in abstractionslocality
 Warning--empty journal in robinhash
-You've used 46 entries,
+You've used 58 entries,
             1876 wiz_defined-function locations,
-            705 strings with 12148 characters,
-and the built_in function-call counts, 9972 in all, are:
-= -- 871
-> -- 566
+            759 strings with 14640 characters,
+and the built_in function-call counts, 12841 in all, are:
+= -- 1138
+> -- 704
 < -- 1
-+ -- 210
-- -- 164
-* -- 675
-:= -- 1435
-add.period$ -- 67
-call.type$ -- 46
-change.case$ -- 43
++ -- 262
+- -- 204
+* -- 870
+:= -- 1820
+add.period$ -- 85
+call.type$ -- 58
+change.case$ -- 55
 chr.to.int$ -- 0
-cite$ -- 53
-duplicate$ -- 471
-empty$ -- 977
-format.name$ -- 164
-if$ -- 2415
+cite$ -- 65
+duplicate$ -- 598
+empty$ -- 1271
+format.name$ -- 204
+if$ -- 3123
 int.to.chr$ -- 0
-int.to.str$ -- 46
-missing$ -- 32
-newline$ -- 164
-num.names$ -- 31
-pop$ -- 254
+int.to.str$ -- 58
+missing$ -- 38
+newline$ -- 206
+num.names$ -- 37
+pop$ -- 326
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 297
+skip$ -- 388
 stack$ -- 0
-substring$ -- 321
-swap$ -- 149
+substring$ -- 476
+swap$ -- 193
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 7
-while$ -- 59
-width$ -- 48
-write$ -- 404
-(There were 10 warnings)
+while$ -- 80
+width$ -- 60
+write$ -- 512
+(There was 1 error message)

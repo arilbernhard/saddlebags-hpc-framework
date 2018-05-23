@@ -203,6 +203,25 @@ L.~Page, S.~Brin, R.~Motwani, and T.~Winograd, ``{The PageRank Citation
   InfoLab, 1999.
 \newblock Previous number = SIDL-WP-1999-0120.
 
+\bibitem{consistenthashing}
+D.~Karger, E.~Lehman, T.~Leighton, R.~Panigrahy, M.~Levine, and D.~Lewin,
+  ``Consistent hashing and random trees: Distributed caching protocols for
+  relieving hot spots on the world wide web,'' in {\em Proceedings of the
+  twenty-ninth annual ACM symposium on Theory of computing}, pp.~654--663, ACM,
+  1997.
+
+\bibitem{chord}
+I.~Stoica, R.~Morris, D.~Liben-Nowell, D.~R. Karger, M.~F. Kaashoek, F.~Dabek,
+  and H.~Balakrishnan, ``Chord: a scalable peer-to-peer lookup protocol for
+  internet applications,'' {\em IEEE/ACM Transactions on Networking (TON)},
+  vol.~11, no.~1, pp.~17--32, 2003.
+
+\bibitem{dynamo}
+G.~Decandia, D.~Hastorun, M.~Jampani, G.~Kakulapati, A.~Lakshman, A.~Pilchin,
+  S.~Sivasubramanian, P.~Vosshall, and W.~Vogels, ``Dynamo,'' {\em Proceedings
+  of twenty-first ACM SIGOPS symposium on Operating systems principles - SOSP
+  07}, 2007.
+
 \bibitem{upcreq}
 ``{berkeleylab / upcxx / wiki}.''
   \url{https://bitbucket.org/berkeleylab/upcxx/wiki/README}.
@@ -235,5 +254,50 @@ P.~Celis, P.-A. Larson, and J.~I. Munro, ``{Robin Hood Hashing},'' 1985.
 ``{husky/examples at master - husky-team/husky - GitHub}.''
   \url{https://github.com/husky-team/husky/tree/master/examples}.
 \newblock [Online; accessed 19-May-2018].
+
+\bibitem{abel}
+``{About Abel - University of Oslo}.''
+  \url{http://www.uio.no/english/services/it/research/hpc/abel/more/}.
+\newblock [Online; accessed 23-May-2018].
+
+\bibitem{abeluserguide}
+``{Job Scripts - University of Oslo}.''
+  \url{http://www.uio.no/english/services/it/research/hpc/abel/help/user-guide/job-scripts.html#toc3}.
+\newblock [Online; accessed 23-May-2018].
+
+\bibitem{abelspark}
+``{Spark - University of Oslo}.''
+  \url{https://www.uio.no/english/services/it/research/hpc/abel/help/software/Spark.html#toc5}.
+\newblock [Online; accessed 23-May-2018].
+
+\bibitem{leskovec2010kronecker}
+J.~Leskovec, D.~Chakrabarti, J.~Kleinberg, C.~Faloutsos, and Z.~Ghahramani,
+  ``Kronecker graphs: An approach to modeling networks,'' {\em Journal of
+  Machine Learning Research}, vol.~11, no.~Feb, pp.~985--1042, 2010.
+
+\bibitem{wang2014bigdatabench}
+L.~Wang, J.~Zhan, C.~Luo, Y.~Zhu, Q.~Yang, Y.~He, W.~Gao, Z.~Jia, Y.~Shi,
+  S.~Zhang, {\em et~al.}, ``Bigdatabench: A big data benchmark suite from
+  internet services,'' in {\em High Performance Computer Architecture (HPCA),
+  2014 IEEE 20th International Symposium on}, pp.~488--499, IEEE, 2014.
+
+\bibitem{graphx}
+``{GraphX - Apache Spark}.'' \url{https://spark.apache.org/graphx/}.
+\newblock [Online; accessed 3-May-2018].
+
+\bibitem{sparkpagerank}
+``{spark/pagerank.py - apache/spark - GitHub}.''
+  \url{https://github.com/apache/spark/blob/7013eea11cb32b1e0038dc751c485da5c94a484b/examples/src/main/python/pagerank.py}.
+\newblock [Online; accessed 5-April-2018].
+
+\bibitem{graphxpagerank}
+``{graphx/pagerank.py - amplab/graphx - GitHub}.''
+  \url{https://github.com/amplab/graphx/blob/24f02082c7cb6c259b21495bed074af19ce1d374/python/examples/pagerank.py}.
+\newblock [Online; accessed 5-April-2018].
+
+\bibitem{tfidf}
+J.~Ramos {\em et~al.}, ``Using tf-idf to determine word relevance in document
+  queries,'' in {\em Proceedings of the first instructional conference on
+  machine learning}, vol.~242, pp.~133--142, 2003.
 
 \end{thebibliography}

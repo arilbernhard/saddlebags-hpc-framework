@@ -53,6 +53,8 @@ int main(int argc, char* argv[])
 
 
     auto worker = saddlebags::create_worker<int, int, float>(Direct);
+    
+    //worker->set_replication(1);
 
     saddlebags::add_table<SiteObject>(worker, 0, true);
 
