@@ -23,8 +23,8 @@
 \RequirePackage{type1cm}
 \RequirePackage{fixltx2e}
 
-%\usepackage[a4paper, bottom=1.0in, left=1.1in, right=1.1in]{geometry}
-\usepackage[a4paper, bottom=1.0in, outer=1.0in, inner=1.2in, headsep=140pt, twoside]{geometry}
+\usepackage[a4paper, bottom=1.0in, left=1.1in, right=1.1in]{geometry}
+%\usepackage[a4paper, bottom=1.0in, outer=1.25in, inner=0.95in, headsep=140pt, twoside]{geometry}
 \usepackage[usenames,dvipsnames]{color}
 \usepackage[table]{xcolor}
 \usepackage{soul}

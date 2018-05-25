@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
     if(saddlebags::rank_me() == 0)
         std::cout << "running with " << upcxx::rank_n() << " ranks" << std::endl;
 
-    auto worker = saddlebags::create_worker<int, int, float>(BufferingWorker);
+    auto worker = saddlebags::create_worker<int, int, float>(Buffering);
     worker->set_replication(3);
     saddlebags::add_table<SiteObject>(worker, 0, true);
 

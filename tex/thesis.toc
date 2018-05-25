@@ -11,7 +11,7 @@
 \contentsline {subsection}{\numberline {2.4.1}Pregel}{9}{subsection.2.4.1}
 \contentsline {subsection}{\numberline {2.4.2}Spark}{10}{subsection.2.4.2}
 \contentsline {subsection}{\numberline {2.4.3}Husky}{11}{subsection.2.4.3}
-\contentsline {chapter}{\numberline {3}Partitioned Global Address Space}{13}{chapter.3}
+\contentsline {chapter}{\numberline {3}PGAS programming and UPC++}{13}{chapter.3}
 \contentsline {section}{\numberline {3.1}GASNet}{14}{section.3.1}
 \contentsline {section}{\numberline {3.2}Unified Parallel C}{14}{section.3.2}
 \contentsline {section}{\numberline {3.3}UPC++}{15}{section.3.3}
@@ -55,6 +55,6 @@
 \contentsline {subsection}{\numberline {7.4.1}View based serialization}{57}{subsection.7.4.1}
 \contentsline {subsection}{\numberline {7.4.2}File input}{57}{subsection.7.4.2}
 \contentsline {chapter}{\numberline {8}Conclusion}{58}{chapter.8}
-\contentsline {chapter}{Bibliography}{59}{chapter*.19}
+\contentsline {chapter}{Bibliography}{59}{chapter*.20}
 \contentsline {chapter}{\numberline {A}Installing and using Saddlebags}{65}{appendix.A}
 \contentsline {chapter}{\numberline {B}API Reference}{66}{appendix.B}

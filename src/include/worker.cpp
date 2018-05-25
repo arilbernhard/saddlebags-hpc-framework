@@ -182,6 +182,11 @@ class Worker {
         }
     }
 
+    void set_ordered_pulls(bool mode)
+    {
+        ordered_pulls = mode;
+    }
+
 };
 
 std::vector<upcxx::future<>> worker_futures;
@@ -340,7 +345,7 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* get_item(upcxx::dist_object<Worker<
 template<class key_T, class value_T, class message_T>
 upcxx::dist_object<Worker<key_T, value_T, message_T>> create_worker()
 {
-    Worker<key_T, value_T, message_T> w(BufferingWorker);
+    Worker<key_T, value_T, message_T> w(Buffering);
     return upcxx::dist_object<Worker<key_T, value_T, message_T>>(w);
 }
 
@@ -376,7 +381,7 @@ void cycle(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker, boo
 
     //2) Communication phase
     //std::cout << upcxx::rank_me() << " communication phase" << std::endl;    
-    if(worker->sending_mode != Direct && worker->sending_mode != GasnetDirect)
+    if(worker->sending_mode != Direct && worker->sending_mode != GasnetBuffering)
     {
         send_pushes(worker);
     }
@@ -529,7 +534,7 @@ void send_pushes(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worke
 
         upcxx::progress();
     }
-    else if(worker->sending_mode == BufferingWorker)
+    else if(worker->sending_mode == Buffering)
     {
         for(auto msg_iterator : worker->out_push_buffer)
         {
@@ -622,7 +627,7 @@ void send_pulls(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker
                                 obj_iterator.second->add_returning_pull_buffer(new_msg);
                             });
                         worker_futures.push_back(fut);
-                        if(worker->sending_mode != GasnetDirect) {
+                        if(worker->sending_mode != GasnetBuffering) {
                             upcxx::progress();
                         }
                         continue;
@@ -640,7 +645,7 @@ void send_pulls(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker
             }
         }
     }
-    if(worker->sending_mode != GasnetDirect) {
+    if(worker->sending_mode != GasnetBuffering) {
         upcxx::progress();
     }
 }

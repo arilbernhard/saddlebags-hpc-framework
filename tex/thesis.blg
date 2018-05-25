@@ -3,7 +3,7 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 The style file: ieeetr.bst
 Database file #1: thesis.bib
-Repeated entry---line 931 of file thesis.bib
+Repeated entry---line 949 of file thesis.bib
  : @inproceedings{consistenthashing
  :                                 ,
 I'm skipping whatever remains of this entry
@@ -17,43 +17,43 @@ Warning--empty booktitle in abstractionslocality
 Warning--empty journal in robinhash
 You've used 58 entries,
             1876 wiz_defined-function locations,
-            759 strings with 14640 characters,
-and the built_in function-call counts, 12841 in all, are:
-= -- 1138
-> -- 704
+            757 strings with 14553 characters,
+and the built_in function-call counts, 12594 in all, are:
+= -- 1117
+> -- 682
 < -- 1
-+ -- 262
-- -- 204
-* -- 870
-:= -- 1820
-add.period$ -- 85
++ -- 255
+- -- 197
+* -- 841
+:= -- 1776
+add.period$ -- 86
 call.type$ -- 58
 change.case$ -- 55
 chr.to.int$ -- 0
 cite$ -- 65
-duplicate$ -- 598
-empty$ -- 1271
-format.name$ -- 204
-if$ -- 3123
+duplicate$ -- 587
+empty$ -- 1262
+format.name$ -- 197
+if$ -- 3072
 int.to.chr$ -- 0
 int.to.str$ -- 58
-missing$ -- 38
-newline$ -- 206
-num.names$ -- 37
-pop$ -- 326
+missing$ -- 37
+newline$ -- 207
+num.names$ -- 36
+pop$ -- 333
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 388
+skip$ -- 380
 stack$ -- 0
-substring$ -- 476
-swap$ -- 193
+substring$ -- 452
+swap$ -- 186
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 7
-while$ -- 80
+while$ -- 76
 width$ -- 60
-write$ -- 512
+write$ -- 509
 (There was 1 error message)

@@ -210,12 +210,6 @@ D.~Karger, E.~Lehman, T.~Leighton, R.~Panigrahy, M.~Levine, and D.~Lewin,
   twenty-ninth annual ACM symposium on Theory of computing}, pp.~654--663, ACM,
   1997.
 
-\bibitem{chord}
-I.~Stoica, R.~Morris, D.~Liben-Nowell, D.~R. Karger, M.~F. Kaashoek, F.~Dabek,
-  and H.~Balakrishnan, ``Chord: a scalable peer-to-peer lookup protocol for
-  internet applications,'' {\em IEEE/ACM Transactions on Networking (TON)},
-  vol.~11, no.~1, pp.~17--32, 2003.
-
 \bibitem{dynamo}
 G.~Decandia, D.~Hastorun, M.~Jampani, G.~Kakulapati, A.~Lakshman, A.~Pilchin,
   S.~Sivasubramanian, P.~Vosshall, and W.~Vogels, ``Dynamo,'' {\em Proceedings
@@ -299,5 +293,10 @@ L.~Wang, J.~Zhan, C.~Luo, Y.~Zhu, Q.~Yang, Y.~He, W.~Gao, Z.~Jia, Y.~Shi,
 J.~Ramos {\em et~al.}, ``Using tf-idf to determine word relevance in document
   queries,'' in {\em Proceedings of the first instructional conference on
   machine learning}, vol.~242, pp.~133--142, 2003.
+
+\bibitem{gasneteventissues}
+``{BerkeleyLab / CRD-CLaSS / upcxx / Issues}.''
+  \url{https://bitbucket.org/berkeleylab/upcxx/issues/107/upc-needs-to-gracefully-handle-gasnet}.
+\newblock [Online; accessed 24-May-2018].
 
 \end{thebibliography}

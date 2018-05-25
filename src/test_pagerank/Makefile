@@ -6,8 +6,7 @@ LDFLAGS=$(shell $(UPCXX_INSTALL)/bin/upcxx-meta LDFLAGS) $(EXTRA_FLAGS)
 LIBFLAGS=$(shell $(UPCXX_INSTALL)/bin/upcxx-meta LIBFLAGS)
 
 all:
-	$(CXX) -c pagerank.cpp $(PPFLAGS) $(LDFLAGS) $(LIBFLAGS) -g
-	$(CXX) -o pagerank pagerank.o $(PPFLAGS) $(LDFLAGS) $(LIBFLAGS) -lm $(cityhashopath) -std=c++17 -g
+	$(CXX) -o pagerank pagerank.cpp $(PPFLAGS) $(LDFLAGS) $(LIBFLAGS) -lm $(cityhashopath) -std=c++17
 
 clean:
 	rm -f pagerank *.o

@@ -4,8 +4,8 @@
 enum SendingMode {
     Combining,
     Direct,
-    GasnetDirect,
-    BufferingWorker
+    GasnetBuffering,
+    Buffering
 };
 
 

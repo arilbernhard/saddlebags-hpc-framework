@@ -53,7 +53,7 @@ class Item {
                 direct_push(destTableKey, destItemKey, val);
                 break;
             
-            case BufferingWorker :
+            case Buffering :
                 msg.dest_table = destTableKey;
                 msg.dest_item = destItemKey; 
                 msg.src_table = myTableKey;
@@ -62,7 +62,7 @@ class Item {
                 (*parent_dist_worker)->out_push_buffer.push_back(msg);
                 break;
 
-            case GasnetDirect :
+            case GasnetBuffering :
                 perform_remote_push(*(parent_dist_worker), destTableKey, destItemKey, val);
                 break;
 

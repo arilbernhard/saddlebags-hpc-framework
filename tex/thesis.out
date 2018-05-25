@@ -8,7 +8,7 @@
 \BOOKMARK [1][-]{section.2.2}{Programming models}{chapter.2}% 8
 \BOOKMARK [1][-]{section.2.3}{Data intensive computing}{chapter.2}% 9
 \BOOKMARK [1][-]{section.2.4}{Related work}{chapter.2}% 10
-\BOOKMARK [0][-]{chapter.3}{Partitioned Global Address Space}{}% 11
+\BOOKMARK [0][-]{chapter.3}{PGAS programming and UPC++}{}% 11
 \BOOKMARK [1][-]{section.3.1}{GASNet}{chapter.3}% 12
 \BOOKMARK [1][-]{section.3.2}{Unified Parallel C}{chapter.3}% 13
 \BOOKMARK [1][-]{section.3.3}{UPC++}{chapter.3}% 14
@@ -33,6 +33,6 @@
 \BOOKMARK [1][-]{section.7.3}{Message types}{chapter.7}% 33
 \BOOKMARK [1][-]{section.7.4}{Future work}{chapter.7}% 34
 \BOOKMARK [0][-]{chapter.8}{Conclusion}{}% 35
-\BOOKMARK [0][-]{chapter*.19}{Bibliography}{}% 36
+\BOOKMARK [0][-]{chapter*.20}{Bibliography}{}% 36
 \BOOKMARK [0][-]{appendix.A}{Installing and using Saddlebags}{}% 37
 \BOOKMARK [0][-]{appendix.B}{API Reference}{}% 38

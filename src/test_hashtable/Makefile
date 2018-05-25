@@ -6,8 +6,7 @@ LDFLAGS=$(shell $(UPCXX_INSTALL)/bin/upcxx-meta LDFLAGS) $(EXTRA_FLAGS)
 LIBFLAGS=$(shell $(UPCXX_INSTALL)/bin/upcxx-meta LIBFLAGS)
 
 all:
-	$(CXX) -c testhash.cpp $(PPFLAGS) $(LDFLAGS) $(LIBFLAGS) -g
-	$(CXX) -o testhash testhash.o $(PPFLAGS) $(LDFLAGS) $(LIBFLAGS) -lm $(cityhashopath) -std=c++17 -g
+	$(CXX) -o testhash testhash.cpp $(PPFLAGS) $(LDFLAGS) $(LIBFLAGS) -lm $(cityhashopath) -std=c++17
 
 clean:
 	rm -f testhash *.o

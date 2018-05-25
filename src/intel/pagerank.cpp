@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
     using object_k = int;
     using msg_type = float;
 
-    auto worker = lighght::create_worker<table_k, object_k, msg_type>(BufferingWorker);
+    auto worker = lighght::create_worker<table_k, object_k, msg_type>(Buffering);
 
     lighght::add_table<SiteObject>(worker, 0, true);
 

@@ -2,18 +2,18 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Overview of the organization of data structures in a Saddlebags application.\relax }}{24}{figure.caption.6}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Example of communication between tables on different partitions.\relax }}{29}{figure.caption.9}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Hash ring-view of Saddlebags application with 8 nodes and a fault tolerance degree of 2\relax }}{31}{figure.caption.10}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Overview of the organization of data structures in a Saddlebags application.\relax }}{24}{figure.caption.7}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Example of communication between tables on different partitions.\relax }}{29}{figure.caption.10}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Hash ring-view of Saddlebags application with 8 nodes and a fault tolerance degree of 2\relax }}{31}{figure.caption.11}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {5.1}{\ignorespaces UML diagram of Saddlebags' main classes.\relax }}{35}{figure.caption.11}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces UML diagram of Saddlebags' main classes.\relax }}{35}{figure.caption.12}
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Execution time of PageRank in Saddlebags and Husky\relax }}{49}{figure.caption.13}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces Execution time of PageRank in Saddlebags and Spark\relax }}{51}{figure.caption.14}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Execution time of TF-IDF in Saddlebags and Spark\relax }}{51}{figure.caption.15}
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Sending modes cluster\relax }}{53}{figure.caption.16}
-\contentsline {figure}{\numberline {6.5}{\ignorespaces Sending modes single node\relax }}{55}{figure.caption.17}
-\contentsline {figure}{\numberline {6.6}{\ignorespaces Sending modes cluster\relax }}{55}{figure.caption.18}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Execution time of PageRank in Saddlebags and Husky\relax }}{49}{figure.caption.14}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Execution time of PageRank in Saddlebags and Spark\relax }}{51}{figure.caption.15}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Execution time of TF-IDF in Saddlebags and Spark\relax }}{51}{figure.caption.16}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Sending modes cluster\relax }}{53}{figure.caption.17}
+\contentsline {figure}{\numberline {6.5}{\ignorespaces Sending modes single node\relax }}{55}{figure.caption.18}
+\contentsline {figure}{\numberline {6.6}{\ignorespaces Sending modes cluster\relax }}{55}{figure.caption.19}
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

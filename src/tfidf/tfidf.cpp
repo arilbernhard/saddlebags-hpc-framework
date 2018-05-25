@@ -119,7 +119,7 @@ int main(int argc, char* argv[]) {
     
     /* 1 Create worker and tables */
 
-    auto worker = saddlebags::create_worker<int, std::vector<std::string>, float>(BufferingWorker);
+    auto worker = saddlebags::create_worker<int, std::vector<std::string>, float>(Buffering);
 
     saddlebags::add_table<TermDocObject>(worker, TERMDOC_TABLE, false);
     saddlebags::add_table<TermObject>(worker, TERM_TABLE, true);
