@@ -850,6 +850,28 @@ lorem ipsum
 
 \appendix
 \chapter{Installing and using Saddlebags}
+This section will explain how to install UPC++, and use Saddlebags on different platforms. All compute clusters with InfiniBand or Ethernet connections that support MPI is expected to work, but this section will focus on major Norwegian high performance computing infrastructure, namely the Abel cluster at University of Oslo, and the Stallo cluster, at the University of Tromsø. 
+
+\section{UPC++ Installation}
+Saddlebags has been implemented and tested with UPC++ v2018.1.0, which can be found at {\url{https://bitbucket.org/upcxx/upcxx/downloads/upcxx-2018.1.0.tar.gz}}. Recent releases can be found at the official UPC++ repository, at {\url{https://bitbucket.org/berkeleylab/upcxx/wiki/Home}}.
+\subsection{Linux installation}
+Unzip the tarball, and run the \texttt{install} file, with installation directory as argument:\\
+\phantom{11111} \texttt{\$ ./install /desired/installation/directory}\\
+Store the installation directory in an environment variable\\
+\phantom{11111} \texttt{\$ export UPCXX\_INSTALL=/desired/installation/directory}\\
+\subsection{Linux running}
+asd
+\subsection{Abel installation}
+Abel uses the Lmod environment module system. Before installation can be performed as in the previous section, the proper modules must be loaded. \\
+\phantom{11111} \texttt{\$ module purge}\\
+\phantom{11111} \texttt{\$ module load python2/2.7.10.gnu}\\
+\phantom{11111} \texttt{\$ module load gcc/7.2.0}\\
+\phantom{11111} \texttt{\$ module load openmpi.gnu/2.1.0}  \\
+First, any pre-loaded modules are removed to ensure that the intended compiler is used. MPI is needed for communication between nodes, and thread spawning. Python is needed for installation 
+
+\phantom{11111} \texttt{\$ ./install /upcxx/installation} \\
+
+
 \chapter{API Reference}
 This section will explain the API that can be used to implement programs in Saddlebags. Since template types in definitions, parameters, and return values, can make function signatures exorbitantly large, simplified versions are shown at first, with parameters and return types explained subsequently. Because classes can't hold references to themselves as distributed objects, many operations are implemented as functions rather than methods.
 \vskip 0.6cm

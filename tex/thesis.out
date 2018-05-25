@@ -35,4 +35,5 @@
 \BOOKMARK [0][-]{chapter.8}{Conclusion}{}% 35
 \BOOKMARK [0][-]{chapter*.20}{Bibliography}{}% 36
 \BOOKMARK [0][-]{appendix.A}{Installing and using Saddlebags}{}% 37
-\BOOKMARK [0][-]{appendix.B}{API Reference}{}% 38
+\BOOKMARK [1][-]{section.A.1}{UPC++ Installation}{appendix.A}% 38
+\BOOKMARK [0][-]{appendix.B}{API Reference}{}% 39
