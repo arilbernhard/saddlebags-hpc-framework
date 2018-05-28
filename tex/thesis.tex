@@ -301,7 +301,7 @@ Listing \ref{lst:distribobj} demonstrates communication between two ranks using 
 A distributed object is used in this example because it can be passed as a reference to the RPC on the sender's side, and it will be translated to the local copy of the distributed object with the same name on the receiving side. Non-distributed objects can only be passed as copy through RPCs, so distributed objects must be used for retrieving or modifying properties of remote objects. Within the RPC, the distributed object can be de-referenced to access properties of the underlying class. This is exemplified in listing \ref{lst:distribobj} through the access of $myProperty$.
 
 
-\subsection{Global pointers}
+\subsection{Global pointers} \label{section:globalpointers}
 Basic built-in C++ datatypes can be transmitted between partitions as RPC arguments or return values, by passing them as a copy. To communicate pointers to other partitions, the shared memory segment must be utilized. UPC++ can create a pointer to memory allocated in the shared memory segment, and copy local data to this location. The global pointer can be passed to other partitions through RPCs. Accessing global memory from a partition other than the one that initiated the pointer has to be done through asynchronous operations. UPC++ provides functions for remote puts and gets, which require internal progress on the partition that is hosting the shared memory in order to complete.
 
 
@@ -752,7 +752,7 @@ Results are shown in figure \ref{fig:huskypagerank}. In this benchmark, Saddleba
 
 
 \newpage
-\subsection{Spark}
+\subsection{Spark}\label{section:sparkeval}
 Comparisons with Spark were ran on the Abel cluster. For the PageRank benchmark, both a native Spark RDD MapReduce implementation, and a GraphX implementation, was used. GraphX is an API for running graph-based parallel jobs in Spark \cite{graphx}. Both the MapReduce \cite{sparkpagerank} and GraphX \cite{graphxpagerank} implementations were provided by official repositories. It is in the Spark implementation recommended to utilize GraphX to process this particular workload.
 
 The other benchmark used with Spark is Term Frequency-Inverse Document Frequency (TF-IDF) \cite{tfidf}. This is an algorithm for classifying the relevance of words within a set of documents. A given word's importance within a given document is ranked based on its frequency within that document, and the inverse of the frequency of which it occurs in other documents.
@@ -779,7 +779,6 @@ It can be inefficient to express communication through a network graph with only
 \subsection{Replication}
 asd
 
-\newpage
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=15cm]{illustrations/huskyfaulttolerance.pdf}
@@ -789,13 +788,16 @@ asd
 
 \newpage
 \section{Internal configuration} \label{section:configuration}
+\subsection{Message ordering}
+
+\newpage
 \subsection{Sending modes}
 Different sending modes were outlined in section \ref{section:sendingmodes}. The PageRank benchmark was ran with different sending modes to investigate their performance implications. This benchmark was performed on the 16 core server and the cluster with 16 nodes. Both systems were included because of how UPC++ and GASNet communication implementation differs from single nodes and distributed systems. On the server, communication is achieved through shared memory. On the cluster, communication is achieved through message passing over InfiniBand.
 
 Figure \ref{fig:sendingmodes} shows results from benchmarks on the server. In this environment, \\\texttt{GasnetBuffering} showed the worst performance. This sending mode avoids the Message abstraction, and achieves bulk synchronous parallel behavior by ignoring incoming RPCs until all local work has been completed. \texttt{Direct}, which also avoids the Message abstraction but handled RPCs immediately and disables bulk synchronous parallel behavior, showed the best performance, similar to \texttt{BufferingWorker}. Figure \ref{fig:sendingmodesabel} shows results from benchmarks on the cluster. Here, \texttt{Combining} showed the best performance by a significant margin, followed by \texttt{GasnetBuffering}. \texttt{Buffering} and \texttt{Direct} showed similar performance.
 
 It is clear from these results that combining messages to reduce communication overhead is an effective technique in cluster environments. On single nodes, where communication is not executed through message passing, combining seems to have little effect, and may be unbeneficial because of the complexity introduced by the combination functionality.
-It can also be observed that Buffering is less performant than avoiding the Message abstraction on the cluster. The poor performance of \texttt{GASNetBuffering} on the single node is also notable. It has been claimed that UPC++ programs will execute sub-optimally when few \texttt{progress}-calls are made \cite{gasneteventissues}, which is the case for this mode, due to caching issues. This behavior varying between single nodes and cluster environments would explain differences in observed results between the two.
+It can also be observed that Buffering is less performant than avoiding the Message abstraction on the cluster. The poor performance of \texttt{GASNetBuffering} on the single node is also notable. It has been claimed that, due to caching issues, UPC++ programs will execute sub-optimally when few \texttt{progress}-calls are made \cite{gasneteventissues}, which is the case for \texttt{GASNetBuffering}. This behavior varying between single nodes and cluster environments would explain differences in observed results of \texttt{GASNetBuffering} and \texttt{Buffering} between the two.
 
 
 
@@ -813,26 +815,80 @@ It can also be observed that Buffering is less performant than avoiding the Mess
 	\caption{Sending modes cluster}
 	\label{fig:sendingmodesabel}
 \end{figure}
-\newpage
-\subsection{Message ordering}
 
 
 %\section{Energy efficiency}
 %\section{Abstraction costs}
 %\section{Comparison with other systems}
-
+\newpage
+\mbox{} \pagebreak
 \newpage
 \chapter{Discussion and Future Work} \label{section:discussion}
+This chapter will provide a discussion on the findings from the previous chapter, and provide an outline of potential extensions and improvements that can be made to Saddlebags. 
 
-\section{Benchmarks}
+\section{Benchmark selection}
+PageRank and TF-IDF were chosen as benchmarks because they are used prominently in the Husky paper, and because they represent different workload characteristics, namely a graph computation and a data intensive computation. Implementations of these problems were also widely available as example programs for Spark and GraphX. While these benchmarks showed results in favor of Saddlebags, it is difficult to proclaim its prominence as a general purpose framework, since a larger and more varied set of problems is relevant in high performance computing. In terms of throughput, it is naturally not possible to evaluate every existing HPC problem. In terms of programmability, universal classifiers such as Turing completeness checks are insignificant since Saddlebags applications are already implemented in the general purpose language C++. 
+\newpage
+A systematic approach to evaluating parallel programming systems was taken by Asanovic et al. \cite{dwarfs}, where 13 "dwarfs" (often referred to as "Berkeley Dwarfs") are used in place of traditional benchmarks. A dwarf is an algorithm or mathematical problem that captures a pattern of computation and data movement that constitutes a classification of problems with similar workload characteristics. 7 of the 13 Berkeley dwarfs were devised by Colella \cite{colella} in 2004 as numerical methods of importance in science and engineering. Inspired by these, Gao et al. \cite{datadwarfs} defined 8 dwarfs found in big data analysis applications. All of these dwarfs are listed in table \ref{table:dwarfs}. There is some overlap between the classes of dwarfs.
 
-\section{Fault tolerance}
+Example applications are given for each big data analysis dwarf. TF-IDF fits into this taxonomy as part of the Statistic Operations class. PageRank fits into the classes of Sampling and Graph Operations.
+
+\vskip 0.9cm
+\begin{table}[h]
+	\begin{center}
+		
+		\setlength\arrayrulewidth{1pt}
+		\renewcommand{\arraystretch}{2}
+		\begin{tabular}{ | p{4cm} | p{4cm} | p{4cm} |}
+			\hline
+			\textbf{Numerical} & \textbf{Berkeley} & \textbf{Big data}\\ \hline
+			Dense linear algebra & Combinational logic & Linear algebra \\ \hline
+			Sparse linear algebra & Graph traversal &  Sampling \\ \hline
+			Spectral methods & Dynamic programming &  Logic operations \\ \hline
+			N-Body Methods & Backtrack and branch+bound &  Transform operations \\ \hline
+			Structured Grids & Construct Graphical Models &  Set operations \\ \hline
+			Unstructured Grids & Finite State Machine &  Graph operations \\ \hline
+			Monte Carlo/MapReduce &  &  Sorting algorithms\\ \hline
+			 &  &  Statistic operations\\ \hline
+		\end{tabular}
+		\caption{Dwarf classifications}
+		\label{table:dwarfs}
+		
+	\end{center}
+\end{table}
+
+
+
+
+
+
+\newpage
+Example applications have been implemented in Saddlebags for sequential and distributed dense matrix multiplication. Set operations such as union, intersection and complement, can be implemented on a per-application basis, using table lookups and distribution schemes. Saddlebags can be extended to support this natively. The remaining dwarfs, Logic Operations (described as a collection of hash algorithms) and Sort classifications, have not been investigated. Considering the unordered nature of Saddlebags tables, implementing sorting algorithms with items will likely be unintuitive.
+
+Section \ref{section:programmability} investigated the programmability of Saddlebags in comparison with Husky and Pregel. These systems are natural targets for comparison as they provide a similar programming model, and it is often possible to find clear one to one relationships between different parts of their implementations. For example, vertices have clearly defined algorithm iteration tasks and communication routines, as shown in table \ref{table:programmability}. This provides a detailed comparison of frameworks, and implementation details and features such as data distribution, message protocols and code organization can be investigated. From a user-perspective, an overview like this is useful when deciding between frameworks that implement a similar programming model. However, it does not say much about the usefulness of this particular class of frameworks. For this, a more structured view of high performance computing and big data problems is required. For a more convincing performance evaluation and showing of expressiveness, more of the big data and Berkeley dwarfs should be provided. This is advantageous both for benchmarking a larger array of problems, and for examining the programmability of Saddlebags and other frameworks with similar programming models. 
+
+Providing implementations and benchmarks for problems of every dwarf classification can be complex and time consuming work, but it can be argued that such a collection of solved high performance computing problems is required before proclaiming that a framework suits a "general purpose". If the goal is to provide a unified high performance computing and big data framework, implementing workloads from all 13 Berkeley dwarfs and all 8 big data analysis dwarfs is an opportunity to demonstrate a framework's viability in both fields. Disregarding performance, an evaluation of the programming model of Husky or Pregel in context of the dwarfs would likely be relevant for Saddlebags as well. For an experiment like this, it would be assumed that problems that can be implemented in one of these frameworks could also be implemented in Saddlebags. However, no overview of Berkeley dwarf implementations in these frameworks have been found; Pregel is classified as a graph analysis framework and such a comparison is likely out of its scope, and Husky relies on performance benchmarks of different workload types rather than dwarf classifications. 
+
+%If we were to dis
+
+\section{Variants of fault tolerance}
+Fault tolerance is provided in Saddlebags, by replicating data throughout partitions. This is a technique adopted by different storage systems \cite{dynamo} \cite{ramcloud}, and has the advantage of keeping all data in memory, which avoids the inherent slowdown of accessing persistent storage. Other fault tolerance systems involve periodically storing data or program state to disk, a process that is slower but allows recovery at the same node rather than moving computation to a different node.
+
+Spark's RDD transformation execution model allows for recreation of data, since all operations can be logged inexpensively compared with fine-grained memory access models. This approach to fault tolerance is a fundamental part of the framework; replication and checkpointing approaches of other systems can be disabled or customized for higher throughput, but Spark's RDDs are designed around its fault tolerance model. Performance evaluations such as those presented in section \ref{section:sparkeval} may give the impression that the coarse grained operation model adopted by Spark is strictly worse than fine grained access, but the execution model also provides durability, which is not reflected in benchmark results. 
+
+Saddlebags' fault tolerance model is designed for high performance, with customizable replication level for transparent data movement. Should one require guarantees for crash recovery, other frameworks would be more suitable. While Spark provides an absolute guarantee of fault tolerance, and many traditional high performance computing frameworks ignores fault tolerance altogether, Saddlebags aims for a compromise. Should Saddlebags aim to provide more robust fault tolerance, it would implement checkpointing to disk in Young/Daly periods, which is the modern standard for fault tolerance in high performance computing \cite{herault2016fault}.
 
 \section{Message types}
+The messaging model that has been described in this thesis assumes that a single type, passed as a tempalte parameter to a Worker, is the only data type that can be used for communication. Section \ref{section:programmability} showed that Husky allows more flexible message passing, while Pregel also restricts messaging to a single type. While this is a restriction to programmability, some approaches can be taken to achieve a more flexible system. 
+
+The C++ boost library provides a class \texttt{any} \cite{boostany} that can hold data of different types. The responsibility of identifying different types within this class in messages is left to the user when type is used.
+
+UPC++ global pointers, as described in section \ref{section:globalpointers}, can be used as messaging types, so that Items are sending pointers to a shared memory segment in its messages. This allows for data of any structure to be communicated across items. This increases implementation complexity of the Item class, as synchronization of accessing data from global pointers is left up to the user.
+
 %global pointers
 %boost any
 
-\section{Future work}
+\section{Possible extensions}
 \subsection{View based serialization}
 \subsection{File input}
 %input of file formats?
@@ -852,15 +908,20 @@ lorem ipsum
 \chapter{Installing and using Saddlebags}
 This section will explain how to install UPC++, and use Saddlebags on different platforms. All compute clusters with InfiniBand or Ethernet connections that support MPI is expected to work, but this section will focus on major Norwegian high performance computing infrastructure, namely the Abel cluster at University of Oslo, and the Stallo cluster, at the University of Tromsø. 
 
-\section{UPC++ Installation}
-Saddlebags has been implemented and tested with UPC++ v2018.1.0, which can be found at {\url{https://bitbucket.org/upcxx/upcxx/downloads/upcxx-2018.1.0.tar.gz}}. Recent releases can be found at the official UPC++ repository, at {\url{https://bitbucket.org/berkeleylab/upcxx/wiki/Home}}.
-\subsection{Linux installation}
+\section{UPC++ Versions}
+Saddlebags has been implemented and tested with UPC++ v2018.1.0, which can be found at {\url{https://bitbucket.org/upcxx/upcxx/downloads/upcxx-2018.1.0.tar.gz}}. Recent releases can be found at the official UPC++ repository, at {\url{https://bitbucket.org/berkeleylab/upcxx/wiki/Home}}. 
+\section{Linux installation}
 Unzip the tarball, and run the \texttt{install} file, with installation directory as argument:\\
 \phantom{11111} \texttt{\$ ./install /desired/installation/directory}\\
 Store the installation directory in an environment variable\\
 \phantom{11111} \texttt{\$ export UPCXX\_INSTALL=/desired/installation/directory}\\
 \subsection{Linux running}
-asd
+There are two ways of running a UPC++ programs in a non-distributed environment. The first method involves setting the number of partitions in an environment variable, and running the program normally.\\
+\phantom{11111} \texttt{\$ export GASNET\_PSHM\_NODES=4}\\
+\phantom{11111} \texttt{\$ ./a}\\
+
+Another method is using the \texttt{upcxx\_run} script in the install location, with the number of partitions as argument.\\
+\phantom{11111} \texttt{\$ \$UPCXX\_INSTALL/bin/upcxx-run 4 a}\\
 \subsection{Abel installation}
 Abel uses the Lmod environment module system. Before installation can be performed as in the previous section, the proper modules must be loaded. \\
 \phantom{11111} \texttt{\$ module purge}\\

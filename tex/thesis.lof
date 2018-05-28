@@ -11,7 +11,7 @@
 \contentsline {figure}{\numberline {6.1}{\ignorespaces Execution time of PageRank in Saddlebags and Husky\relax }}{49}{figure.caption.14}
 \contentsline {figure}{\numberline {6.2}{\ignorespaces Execution time of PageRank in Saddlebags and Spark\relax }}{51}{figure.caption.15}
 \contentsline {figure}{\numberline {6.3}{\ignorespaces Execution time of TF-IDF in Saddlebags and Spark\relax }}{51}{figure.caption.16}
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Sending modes cluster\relax }}{53}{figure.caption.17}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Sending modes cluster\relax }}{52}{figure.caption.17}
 \contentsline {figure}{\numberline {6.5}{\ignorespaces Sending modes single node\relax }}{55}{figure.caption.18}
 \contentsline {figure}{\numberline {6.6}{\ignorespaces Sending modes cluster\relax }}{55}{figure.caption.19}
 \addvspace {10\p@ }

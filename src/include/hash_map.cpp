@@ -1,6 +1,5 @@
 #include "hashf.cpp"
 
-//#define OFFSET_LIMIT
 //#define ROBIN_SWAPPING
 
 namespace saddlebags
@@ -13,7 +12,6 @@ int bit_modulo(int x, int N) {
 template<typename keyT, typename valueT>
 class Entry {
     public:
-    //int offset = -1;
     int hash = -1;
     keyT first;
     valueT second;
@@ -28,17 +26,12 @@ class Robin_Map {
     using iterator = RobinIterator<keyT, valueT>;
 
     int size = 1024;
-    #ifdef OFFSET_LIMIT
-    int max_offset = std::log2(size);
-    #endif
     Entry<keyT, valueT>* entries;
     const float load_factor = 0.5;
     int num_items = 0;
 
     Robin_Map() {
-        //std::cout << "robin intialization" << std::endl;
         entries = new Entry<keyT, valueT>[size];
-        //std::cout << "--" << std::endl;
         for(int i = 0; i < size; i++)
         {
             Entry<keyT, valueT> tmp;
@@ -131,12 +124,8 @@ class Robin_Map {
         
         int location = bit_modulo(hashed, new_size);
 
-        //std::cout << key << " " << location << " " << hashed << std::endl;
         keyT key_to_place = key;
         valueT val_to_place = val;
-        #ifdef OFFSET_LIMIT
-        std::cout << "NYI" << std::endl;
-        #endif
         int i = 0;
         while(true)
         {
@@ -169,7 +158,6 @@ class Robin_Map {
     {
         if(num_items > (float)size * load_factor)
         {
-            //std::cout << " -- TABLE HAS REACHED MAX LOAD FACTOR with items=" << num_items << " size="<<size << " loadfactor="<<load_factor << std::endl;
             return true;
         }
         return false;
@@ -177,15 +165,8 @@ class Robin_Map {
 
     iterator find(keyT key)
     {
-        //int hashed = abs(std::hash<keyT>{}(key));
         int hashed = hashf(key);
         int location = bit_modulo(hashed, size);
-
-        
-        #ifdef OFFSET_LIMIT
-        std::cout << "NYI" << std::endl;
-        #endif
-
 
         int i = 0;
         while(true)
@@ -222,10 +203,7 @@ class Robin_Map {
             num_items += 1;
             return;
         }
-        #ifdef OFFSET_LIMIT
-        expand(size*2);
-        insert(key, val);
-        #endif
+
     }
 
     void insert(keyT key, valueT val, int hashed)
@@ -240,10 +218,7 @@ class Robin_Map {
             num_items += 1;
             return;
         }
-        #ifdef OFFSET_LIMIT
-        expand(size*2);
-        insert(key, val);
-        #endif
+
     }
 
 
@@ -252,11 +227,8 @@ class Robin_Map {
 
     void expand(int new_size)
     {
-        //std::cout << "expanding from " << size << " to " << new_size << std::endl;
         Entry<keyT, valueT>* new_entries = new Entry<keyT, valueT>[new_size];
-        #ifdef OFFSET_LIMIT
-        max_offset = std::log2(new_size);
-        #endif
+
 
         for(int i = 0; i < new_size; i++)
         {
@@ -269,15 +241,8 @@ class Robin_Map {
         {
             if(entries[i].hash != -1)
             {
-                #ifdef OFFSET_LIMIT
-                if(insert_new_array(entries[i].first, entries[i].second, entries[i].hash, new_entries, new_size) != true)
-                {
-                    delete[] new_entries;
-                    return expand(new_size*2);
-                }
-                #else
+
                 insert_new_array(entries[i].first, entries[i].second, entries[i].hash, new_entries, new_size);
-                #endif
             }
         }
         delete[] entries;

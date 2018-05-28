@@ -25,8 +25,6 @@ namespace std {
             }
 
             return hash<string>{}(tmp);
-			//string tmp = k.term + k.doc;
-			//return CityHash32((const char*)tmp.c_str(), tmp.size());
 		}
 	};
 
@@ -280,7 +278,6 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* insert_and_return(upcxx::dist_objec
     if(it == target_map->end()) {
         //create new object of ObjectType
         auto new_obj = new ObjectType<TableKey_T, ItemKey_T, Msg_Type>();
-        //target_table->insert_newly_created(item_key, new_obj);
         
         new_obj->myItemKey = item_key;
         new_obj->parent_dist_worker = &worker;
@@ -304,8 +301,6 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* insert_and_return(upcxx::dist_objec
 }
 
 
-//TODO are both lookup_item and get_item needed?
-
 template<template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
 ObjectType<TableKey_T, ItemKey_T, Msg_Type>* lookup_item(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker,
                         TableKey_T table_key, ItemKey_T item_key)
@@ -324,23 +319,6 @@ ObjectType<TableKey_T, ItemKey_T, Msg_Type>* lookup_item(upcxx::dist_object<Work
     }
 }
 
-
-/*
-template<template<class TableKey_T, class ItemKey_T, class Msg_Type> class ObjectType, class TableKey_T, class ItemKey_T, class Msg_Type>
-ObjectType<TableKey_T, ItemKey_T, Msg_Type>* get_item(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_Type>> &worker,
-                        TableKey_T table_key, ItemKey_T item_key)
-{
-    auto target_table = worker->tables[table_key];
-    auto target_map = *(target_table->get_items());
-
-    auto it = target_map.find(item_key);
-    if(it == target_map.end()) {
-        return NULL;
-    }
-    else {
-        return reinterpret_cast<ObjectType<TableKey_T, ItemKey_T, Msg_Type>*>(it->second);
-    }
-}*/
 
 template<class key_T, class value_T, class message_T>
 upcxx::dist_object<Worker<key_T, value_T, message_T>> create_worker()
@@ -372,27 +350,21 @@ void cycle(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker, boo
     if(do_work)
         worker->do_object_work();
 
-    //std::cout << "work complete" << std::endl;
-
     if(worker->ordered_pulls == true)
         worker->create_ordered_buffer();
 
     upcxx::barrier();
 
     //2) Communication phase
-    //std::cout << upcxx::rank_me() << " communication phase" << std::endl;    
     if(worker->sending_mode != Direct && worker->sending_mode != GasnetBuffering)
     {
         send_pushes(worker);
     }
     send_pulls(worker);
-    //std::cout << "end of communication phase" << std::endl;
     upcxx::barrier();
 
     await_worker_futures();
     upcxx::barrier();
-
-    //std::cout << upcxx::rank_me() << " communication complete" << std::endl;
 
     //3) Reset phase
     if(worker->pulls_before_pushes)
@@ -566,7 +538,6 @@ void perform_remote_push(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>
     target_table->push(dest_obj, msg_val);
 }
 
-//TODO: ????????
 template<typename TableKey_T, typename ItemKey_T, typename Msg_T>
 void perform_direct_remote_push(upcxx::dist_object<Worker<TableKey_T, ItemKey_T, Msg_T>> &worker, TableKey_T dest_table, ItemKey_T dest_obj, Msg_T msg_val)
 {

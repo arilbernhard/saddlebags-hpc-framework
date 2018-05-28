@@ -299,4 +299,36 @@ J.~Ramos {\em et~al.}, ``Using tf-idf to determine word relevance in document
   \url{https://bitbucket.org/berkeleylab/upcxx/issues/107/upc-needs-to-gracefully-handle-gasnet}.
 \newblock [Online; accessed 24-May-2018].
 
+\bibitem{dwarfs}
+K.~Asanovic, R.~Bodik, B.~C. Catanzaro, J.~J. Gebis, P.~Husbands, K.~Keutzer,
+  D.~A. Patterson, W.~L. Plishker, J.~Shalf, S.~W. Williams, {\em et~al.},
+  ``The landscape of parallel computing research: A view from berkeley,'' tech.
+  rep., Technical Report UCB/EECS-2006-183, EECS Department, University of
+  California, Berkeley, 2006.
+
+\bibitem{colella}
+P.~Colella, ``Defining software requirements for scientific computing,'' 01
+  2004.
+
+\bibitem{datadwarfs}
+W.~Gao, C.~Luo, J.~Zhan, H.~Ye, X.~He, L.~Wang, Y.~Zhu, and X.~Tian,
+  ``Identifying dwarfs workloads in big data analytics,'' {\em arXiv preprint
+  arXiv:1505.06872}, 2015.
+
+\bibitem{ramcloud}
+J.~Ousterhout, A.~Gopalan, A.~Gupta, A.~Kejriwal, C.~Lee, B.~Montazeri,
+  D.~Ongaro, S.~J. Park, H.~Qin, M.~Rosenblum, S.~Rumble, R.~Stutsman, and
+  S.~Yang, ``{The RAMCloud Storage System},'' {\em ACM Trans. Comput. Syst.},
+  vol.~33, pp.~7:1--7:55, Aug. 2015.
+
+\bibitem{herault2016fault}
+T.~Herault and Y.~Robert, {\em Fault-tolerance techniques for high-performance
+  computing}.
+\newblock Springer, 2016.
+
+\bibitem{boostany}
+``{Class any - boost}.''
+  \url{https://www.boost.org/doc/libs/1_61_0/doc/html/boost/any.html}.
+\newblock [Online; accessed 15-May-2018].
+
 \end{thebibliography}
