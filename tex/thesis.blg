@@ -5,11 +5,10 @@ The style file: ieeetr.bst
 Database file #1: thesis.bib
 Warning--string name "march" is undefined
 --line 11 of file thesis.bib
-Repeated entry---line 1055 of file thesis.bib
+Repeated entry---line 1071 of file thesis.bib
  : @inproceedings{consistenthashing
  :                                 ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "data_parallelism"
 Warning--empty booktitle in piccolo
 Warning--empty year in piccolo
 Warning--empty journal in bigdataconvergence
@@ -19,36 +18,36 @@ Warning--empty booktitle in abstractionslocality
 Warning--empty journal in robinhash
 Warning--empty journal in colella
 Warning--empty journal in upcxxguide20183
-You've used 65 entries,
+You've used 66 entries,
             1876 wiz_defined-function locations,
-            788 strings with 16061 characters,
-and the built_in function-call counts, 14203 in all, are:
-= -- 1228
-> -- 829
+            791 strings with 16126 characters,
+and the built_in function-call counts, 14315 in all, are:
+= -- 1240
+> -- 830
 < -- 1
-+ -- 307
++ -- 308
 - -- 242
-* -- 981
-:= -- 2052
-add.period$ -- 95
-call.type$ -- 65
-change.case$ -- 62
+* -- 984
+:= -- 2063
+add.period$ -- 97
+call.type$ -- 66
+change.case$ -- 63
 chr.to.int$ -- 0
-cite$ -- 74
-duplicate$ -- 648
-empty$ -- 1390
+cite$ -- 75
+duplicate$ -- 652
+empty$ -- 1408
 format.name$ -- 242
-if$ -- 3423
+if$ -- 3455
 int.to.chr$ -- 0
-int.to.str$ -- 65
+int.to.str$ -- 66
 missing$ -- 43
-newline$ -- 230
+newline$ -- 234
 num.names$ -- 42
-pop$ -- 365
+pop$ -- 373
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 405
+skip$ -- 408
 stack$ -- 0
 substring$ -- 487
 swap$ -- 197
@@ -58,6 +57,6 @@ top$ -- 0
 type$ -- 0
 warning$ -- 9
 while$ -- 85
-width$ -- 67
-write$ -- 567
+width$ -- 68
+write$ -- 575
 (There was 1 error message)

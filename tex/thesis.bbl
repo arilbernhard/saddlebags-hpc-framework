@@ -52,6 +52,16 @@ J.~Qiu, S.~Jha, A.~Luckow, and G.~C. Fox, ``{Towards HPC-ABDS: an initial
   high-performance big data stack},'' {\em Building Robust Big Data Ecosystem
   ISO/IEC JTC}, vol.~1, pp.~18--21, 2014.
 
+\bibitem{pregel}
+G.~Malewicz, M.~H. Austern, A.~J. Bik, J.~C. Dehnert, I.~Horn, N.~Leiser, and
+  G.~Czajkowski, ``Pregel: A system for large-scale graph processing,'' {\em
+  Proceedings of the 28th ACM symposium on Principles of distributed computing
+  - PODC 09}, 2009.
+
+\bibitem{giraph}
+``{Apache Giraph}.'' \url{http://giraph.apache.org}.
+\newblock [Online; accessed 01-May-2018].
+
 \bibitem{hpc_def}
 ``{Definitions - High Performance Computing}.''
   \url{http://www.hpc4poland.pl/en/definitions/}.
@@ -132,12 +142,6 @@ F.~Yang, Y.~Huang, Y.~Zhao, J.~Li, G.~Jiang, and J.~Cheng, ``The best of both
   worlds: Big data programming with both productivity and performance,'' in
   {\em Proceedings of the 2017 ACM International Conference on Management of
   Data}, pp.~1619--1622, ACM, 2017.
-
-\bibitem{pregel}
-G.~Malewicz, M.~H. Austern, A.~J. Bik, J.~C. Dehnert, I.~Horn, N.~Leiser, and
-  G.~Czajkowski, ``Pregel: A system for large-scale graph processing,'' {\em
-  Proceedings of the 28th ACM symposium on Principles of distributed computing
-  - PODC 09}, 2009.
 
 \bibitem{husky_website}
 ``{www.husky-project.com}.'' \url{http://www.husky-project.com}.

@@ -55,10 +55,10 @@
 \contentsline {subsection}{\numberline {7.4.1}Shared heap size}{62}{subsection.7.4.1}
 \contentsline {subsection}{\numberline {7.4.2}View-based serialization}{62}{subsection.7.4.2}
 \contentsline {chapter}{\numberline {8}Conclusion}{63}{chapter.8}
-\contentsline {chapter}{Bibliography}{64}{chapter*.21}
-\contentsline {chapter}{\numberline {A}Installing and using Saddlebags}{71}{appendix.A}
-\contentsline {section}{\numberline {A.1}Linux installation}{71}{section.A.1}
-\contentsline {subsection}{\numberline {A.1.1}Running UPC++ programs on Linux}{72}{subsection.A.1.1}
-\contentsline {subsection}{\numberline {A.1.2}Abel}{73}{subsection.A.1.2}
-\contentsline {subsection}{\numberline {A.1.3}Stallo}{73}{subsection.A.1.3}
-\contentsline {chapter}{\numberline {B}API Reference}{75}{appendix.B}
+\contentsline {chapter}{Bibliography}{65}{chapter*.22}
+\contentsline {chapter}{\numberline {A}Installing and using Saddlebags}{72}{appendix.A}
+\contentsline {section}{\numberline {A.1}Linux installation}{72}{section.A.1}
+\contentsline {subsection}{\numberline {A.1.1}Running UPC++ programs on Linux}{73}{subsection.A.1.1}
+\contentsline {subsection}{\numberline {A.1.2}Abel}{74}{subsection.A.1.2}
+\contentsline {subsection}{\numberline {A.1.3}Stallo}{74}{subsection.A.1.3}
+\contentsline {chapter}{\numberline {B}API Reference}{76}{appendix.B}

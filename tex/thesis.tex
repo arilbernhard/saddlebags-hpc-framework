@@ -90,7 +90,11 @@ Big data frameworks such as Apache Hadoop~\cite{hadoop}, Spark~\cite{spark} and 
 
 As many scientific applications depend on processing high volumes of data, problems of high performance computing and big data analytics are converging. As the amounts of data increase, so does the importance of developing more efficient analytical tools~\cite{hpcabds}. Features from big data systems can be incorporated into HPC frameworks, to create programming models that are intuitive and higher-level, yet expressive and performant. This thesis presents Saddlebags, a framework that attempts to strike a balance between the two paradigms of parallel computing systems. Inspired by big data frameworks, Saddlebags supports automatic distribution of data and computational tasks, and removes the need for specialized communication routines based on physical location. Inspired by HPC frameworks, Saddlebags allows fine grained memory access of distributed data, and leaves data movement during computations explicit and up to the programmer.
 
+Saddlebags takes an approach to parallelism similar to graph frameworks \cite{pregel} \cite{giraph} that distributes data in vertices, and allows computational tasks to be executed within the context of each individual vertex. Saddlebags aims to support various classifications of workloads, including graph computation, and provides a vertex-like abstraction in Items. Applications are built with Saddlebags by extending the Item class, and creating custom Item objects that contain data and computational tasks.
+
 Saddlebags is implemented in C++. It uses parallelization and communication implementations from UPC++, a Partitioned Global Address Space library. With UPC++, a program has a static number of threads, each of which is given the affinity of a unique private memory segment. While data can be shared across segments, a memory segment is mainly accessed by the thread it has affinity to. Saddlebags applications can be used either on a single node or across multiple nodes within a compute cluster, using Ethernet or InfiniBand for network communication.
+
+
 
 %while still allowing fine grained memory access, 
 
@@ -168,7 +172,7 @@ Historically, data intensive sciences and computational science has been conside
 
 A view of unified challenges in data intensive computing and high performance computing can formulate opportunities that benefit both fields. This can apply for two classes of workloads. Firstly, problems that require interweaved tasks of data analysis and computations will require unified application ecosystems and platforms. Secondly, problems that are defined with discrete steps of either data consumption and data analysis can benefit from the improvement in technology from both fields and their applications separately. In practice, the use of multiple platforms for solving a single pipelined problem can incur performance penalties due to differences in data structure and problem formulations~\cite{husky}. This penalty may grow larger as data volumes increase.
 
-The convergence of workloads in high performance computing and big data analysis has caused many to conclude that there is a need for new applications, platforms, or data abstractions that can be applied to problems of both classes. Work has gone into merging existing big data frameworks with high performance computing technology~\cite{bridgingthegap}\cite{gittens2016matrix}, and devising new abstractions and data structures \cite{yang2017best}. Detailed descriptions of problems that benefit from merging workflows from big data analytics and high performance computing are given in \cite{subcommittee} and \cite{bigdataconvergence}.
+The convergence of workloads in high performance computing and big data analysis has caused some to conclude that there is a need for new applications, platforms, or data abstractions that can be applied to problems of both classes. Work has gone into merging existing big data frameworks with high performance computing technology~\cite{bridgingthegap}\cite{gittens2016matrix}, and devising new abstractions and data structures \cite{yang2017best}. Detailed descriptions of problems that benefit from merging workflows from big data analytics and high performance computing are given in \cite{subcommittee} and \cite{bigdataconvergence}.
 
 \section{Related work} \label{section:relatedwork}
 Presentations of several modern high performance computing frameworks and big data systems follow. These systems are described here because they in-part make up the current state of the art high performance computing techniques and programming models. The conflicting principles of compute-oriented and data-oriented computation are exemplified in the features of the systems that are in use today.
@@ -259,7 +263,7 @@ Hello world! 1
 
 
 Through communication or internal operations, a single thread may consist of several independent tasks that need access to computing resources for the program to continue its execution. In order to keep communication data movement predictable, a programmer will need to yield control of execution. This means that operations that require communication, such as RPC or global memory accesses, are separated from the main thread of execution and will not expend computing resources until explicitly granted permission to do so. Remote and asynchronous tasks are exposed to the caller through \emph{future} objects, which will change their internal state when the task has completed. This allows the caller to perform operations dependent on the completion of remote tasks or retrieval of remote data, and effectively communicate between ranks.
-
+\newpage
 The 1.0 release of UPC++ introduced the concept of \emph{distributed objects}, which are objects defined by a generic type within UPC++ with the same identifier across all ranks. This means that data stored in the private memory segment of a partition can be referenced by a different rank in RPC calls. The data within the object is not implicitly distributed, but the name of the variable is. Local contents of the distributed objects can as such be explicitly distributed to any rank.
 
 \subsection{Progress}
@@ -344,7 +348,7 @@ Items of different types can be implemented in the same application, and stored 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=14cm]{illustrations/basicmodel.pdf}
+\includegraphics[width=15cm]{illustrations/png/basicmodel.png}
 \caption{Overview of the organization of data structures in a Saddlebags application.}
 \label{fig:basicmodel}
 \end{figure}
@@ -430,7 +434,7 @@ It is possible for different tables within the same program to use different dis
 \vspace{0.4cm}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=13cm]{illustrations/communication.pdf}
+	\includegraphics[width=13cm]{illustrations/png/communication.png}
 	\caption{Example of communication between tables on different partitions.}
 	\label{fig:communication}
 \end{figure}
@@ -455,7 +459,7 @@ Figure \ref{fig:ring} shows an overview of 8 nodes and their replicas, when a pr
 \vspace{1.5cm}
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{illustrations/ring.pdf}
+	\includegraphics[width=12cm]{illustrations/png/ring.png}
 	\caption{Hash ring-view of Saddlebags application with 8 nodes and a fault tolerance degree of 2}
 	\label{fig:ring}
 \end{figure}
@@ -484,7 +488,7 @@ The main classes in the Saddlebags implementation is shown as a UML diagram in f
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{illustrations/uml.pdf}
+	\includegraphics[width=15cm]{illustrations/png/uml.png}
 	\caption{UML diagram of Saddlebags' main classes.}
 	\label{fig:uml}
 \end{figure}
@@ -743,7 +747,7 @@ Results are shown in figure \ref{fig:huskypagerank}. In this benchmark, Saddleba
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{illustrations/huskypagerank.pdf}
+	\includegraphics[width=15cm]{illustrations/png/huskypagerank.png}
 	\caption{Execution time of PageRank in Saddlebags and Husky}
 	\label{fig:huskypagerank}
 \end{figure}
@@ -754,7 +758,7 @@ Results are shown in figure \ref{fig:huskypagerank}. In this benchmark, Saddleba
 \subsection{Spark}\label{section:sparkeval}
 Comparisons with Spark were ran on the Abel cluster. For the PageRank benchmark, both a native Spark RDD MapReduce implementation, and a GraphX implementation, was used. GraphX is an API for running graph-based parallel jobs in Spark \cite{graphx}. Both the MapReduce \cite{sparkpagerank} and GraphX \cite{graphxpagerank} implementations were provided by official repositories. It is in the Spark implementation recommended to utilize GraphX to process this particular workload.
 
-The other benchmark used with Spark is Term Frequency-Inverse Document Frequency (TF-IDF) \cite{tfidf}. This is an algorithm for classifying the relevance of words within a set of documents. A given word's importance within a given document is ranked based on its frequency within that document, and the inverse of the frequency of which it occurs in other documents.
+The other benchmark used with Spark is Term Frequency-Inverse Document Frequency (TF-IDF) \cite{tfidf}. This is an algorithm for classifying the relevance of words within a set of documents. A given word's importance within a given document is ranked based on its frequency within that document, and the inverse of the frequency of which it occurs in other documents. This benchmark was performed on a corpus of Wikipedia articles.
 
 Results are shown in figures \ref{fig:pagerankspark} and \ref{fig:tfidfspark}. Both experiments show results that are significantly in favor of Saddlebags. These results are consistent with those presented in the Husky paper \cite{husky}, when using the comparison between Saddlebags and Husky from section \ref{section:huskycomp} as baseline. The advantage over Spark is explained by Husky as the result of fine-grained access of mutable data, which is also a relevant factor for Saddlebags, and applies to both benchmarks.
 
@@ -763,32 +767,40 @@ It can be inefficient to express communication through a network graph with only
 \newpage
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{illustrations/sparkpagerank.pdf}
+	\includegraphics[width=15cm]{illustrations/png/sparkpagerank.png}
 	\caption{Execution time of PageRank in Saddlebags and Spark}
 	\label{fig:pagerankspark}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{illustrations/sparktfidf.pdf}
+	\includegraphics[width=15cm]{illustrations/png/sparktfidf.png}
 	\caption{Execution time of TF-IDF in Saddlebags and Spark}
 	\label{fig:tfidfspark}
 \end{figure}
 \newpage
 \subsection{Replication}\label{section:replicationeval}
-asd
-
+The PageRank experiment from section \ref{section:huskycomp} was performed again with replication enabled, and the results are shown in figure \ref{fig:huskyfaulttolerance}.
+The increase in execution time of the algorithm per degree of replication can be analyzed with linear regression. The relationship between average execution time and degree of replication on 17 iterations of the Kronecker graph can be mapped to the linear equation $Y = 0.1945X + 0.8445$ where $X$ is degree of replication and $Y$ is total execution time, with $r^2 = 0.984$, suggesting that this model is a good fit for the data. In practice, this means that adding a degree of replication in this experiment will increase the execution time with 0.1945 seconds, which is 23\% of the base execution time. While the time measurements are specific to this experiment, the significant observation is the linearity of the increase in time per replica. The implementation of the replication routine also implies that the increase in time should be linear, because the additional data movement required per additional replication node is constant.
+\vskip 0.5cm
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{illustrations/huskyfaulttolerance.pdf}
-	\caption{PageRank with replication}
+	\includegraphics[width=15cm]{illustrations/png/replication.png}
+	\caption{Execution time of PageRank in Saddlebags with replication}
 	\label{fig:huskyfaulttolerance}
 \end{figure}
 
 \newpage
 \section{Internal configuration} \label{section:configuration}
 \subsection{Message ordering}
-
+Parts of the TF-IDF experiment from section \ref{section:sparkeval} was performed again with ordered pulls enabled. Normally, in the Saddlebags implementation of TF-IDF, the Item for every unique word that occurs in a document will perform two pull operations. For this experiment, the number of pulls per item was increased to 30. Ensuring that pulls are returned in the same order as they were sent in serves no purpose in TF-IDF, and the extra pull messages implemented for this experiment are extraneous. This was done only to observe performance differences when messages are delivered in-order. Figure \ref{fig:ordering} shows the results of this experiment. While the average execution time of the program with ordered messages was higher, both results are within the area denoted by each other's standard deviation. The difference in implementation is that ordered messages contain a sequence number integer, and that a O(1) lookup of the messaging buffer is performed when storing the returned message, as opposed to always storing it at the end of the buffer. It is possible that, for problems with a certain degree of computational intensity, the complexity of message ordering is insignificant.
+\vskip 0.5cm
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=13cm]{illustrations/png/messageordering.png}
+	\caption{Execution time of TF-IDF with ordered pulls}
+	\label{fig:ordering}
+\end{figure}
 \newpage
 \subsection{Sending modes} \label{section:sendingmodeseval}
 Different sending modes were outlined in section \ref{section:sendingmodes}. The PageRank benchmark was ran with different sending modes to investigate their performance implications. This benchmark was performed on the 16 core server and the cluster with 16 nodes. Both systems were included because of how UPC++ and GASNet communication implementation differs from single nodes and distributed systems. On the server, communication is achieved through shared memory. On the cluster, communication is achieved through message passing over InfiniBand.
@@ -803,14 +815,14 @@ It can also be observed that Buffering is less performant than avoiding the Mess
 \newpage
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{illustrations/sendingmodes.pdf}
+	\includegraphics[width=15cm]{illustrations/png/sendingmodessinglenode.png}
 	\caption{Sending modes single node}
 	\label{fig:sendingmodes}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=15cm]{illustrations/sendingmodesabel.pdf}
+	\includegraphics[width=15cm]{illustrations/png/sendingmodescluster.png}
 	\caption{Sending modes cluster}
 	\label{fig:sendingmodesabel}
 \end{figure}
@@ -890,7 +902,8 @@ UPC++ global pointers, as described in section \ref{section:globalpointers}, can
 %\section{Possible extensions}
 
 \section{UPC++ versions}
-Saddlebags was implemented and tested with UPC++ version 2017.9.0. At the time of this writing, two more recent versions has been released, 2018.1.0 and 2018.3.0.
+Saddlebags was implemented and tested with UPC++ version 2017.9.0. At the time of this writing, two more recent versions has been released, 2018.1.0 and 2018.3.0. Some features of these version could provide improvements to Saddlebags.
+
 \subsection{Shared heap size}
 A recent feature of significance is that of a parameter that allows customization of shared heap size. This means that the maximum size allocated to shared memory segments, which contains global pointers and RPC data, can be tuned before executing a UPC++ program. The replication test in section \ref{section:replicationeval} was only performed on a single node, as the cluster ran out of memory allocated to the shared segment due to the memory cost of replication, and the differing communication models applied on clusters and single node systems. Since the program is implemented in an earlier version of UPC++, the shared heap size can not be configured at this time, and is fixed at 128 MB \cite{upcxxguide20183}. For this reason, the largest focus of future work on Saddlebags should be porting it to a more recent version of UPC++. Possible compatibility-breaking features of new releases would make this effort only worthwhile when useful features or fixes are released, such as shared heap size customization.
 
@@ -909,7 +922,11 @@ It was shown in section \ref{section:sendingmodeseval} that \texttt{Combining} i
 
 
 \chapter{Conclusion}
-lorem ipsum
+This thesis has presented Saddlebags, a high performance computing framework implemented in C++, using the UPC++ library for a partitioned global address space communication model. Saddlebags aims to provide support for workloads from the fields of both high performance computing and big data analysis. This is achieved by providing features from big data analysis that allows for easier programming and handling of large volumes of data, while providing a lightweight and customizable execution model. Inspired by big data systems, Saddlebags provides implicit distribution of data, moves computing tasks to the location of its data, provides fault tolerance, and relieves programmers of implementing specialized communication routines and synchronization. Additionally, all data movement and communication is explicit, and data can be remotely accessed in fine-grained fashion.
+
+Saddlebags implements a bulk synchronous parallel programming model that is inspired by graph computing frameworks, but aims to support more diverse workloads. Saddlebags programs are based around extending a general-purpose data item class, that is accessible from all parallel partitions through RPCs. This base item class provides communication features and can be extended to execute computational tasks. Like UPC++, Saddlebags is customizable through C++ template programming.
+
+Benchmarks shows that this approach, coupled with a communication layer implementation by UPC++ and GASNet, provides favorable performance in comparison with other contemporary systems for high performance computing and big data analysis. What is left for the future is a more extensive investigation of the various classifications of workloads that can benefit from the Saddlebags programming model.
 
 \pagebreak
 \bibliographystyle{ieeetr}
