@@ -2,6 +2,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.figure(figsize=(13,9))
+
+
 font = {'family' : 'serif',
         'size'   : 18}
 
@@ -70,7 +73,7 @@ x_axis_labels = [   "17 iters\n131k nodes\n461k edges",
                     "20 iters\n1.04m nodes\n4.61m edges",
                     "23 iters\n8.38m nodes\n46m edges"]
 
-plt.scatter(range(0,len(bufferingworker)), [np.average(x) for x in bufferingworker], label='BufferingWorker', linewidths=3, color='RED')
+plt.scatter(range(0,len(bufferingworker)), [np.average(x) for x in bufferingworker], label='Buffering', linewidths=3, color='RED')
 plt.scatter(range(0,len(combining)), [np.average(x) for x in combining], label='Combining', linewidths=3, color='GREEN')
 plt.scatter(range(0,len(direct)), [np.average(x) for x in direct], label='Direct', linewidths=3, color='BLACK')
 plt.scatter(range(0,len(gasnetbuffering)), [np.average(x) for x in gasnetbuffering], label='GasnetBuffering', linewidths=3, color='BLUE')
@@ -96,4 +99,5 @@ plt.title("Time (s) of 3 iterations of PageRank on Kronecker graph (BigDataBench
 
 
 
-plt.show()
+#plt.show()
+plt.savefig('sending_modes_cluster.png', format='png', dpi=500)

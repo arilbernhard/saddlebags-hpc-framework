@@ -2,6 +2,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.figure(figsize=(13,9))
+
 font = {'family' : 'serif',
         'size'   : 18}
 
@@ -105,4 +107,5 @@ plt.title("Time (s) of 3 iterations of PageRank on Kronecker graph (BigDataBench
 
 
 
-plt.show()
+#plt.show()
+plt.savefig('husky_pagerank.png', format='png', dpi=500)

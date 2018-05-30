@@ -46,8 +46,8 @@ int main(int argc, char* argv[]) {
         std::cout << "running with " << upcxx::rank_n() << " ranks" << std::endl;
 
     auto worker = saddlebags::create_worker<int, int, float>(Buffering);
-    //worker->set_replication(3);
-    worker->ordered_pulls = true;
+    worker->set_replication(3);
+    //worker->ordered_pulls = true;
     saddlebags::add_table<SiteObject>(worker, 0, true);
 
     //std::ifstream infile("example_data/simple_graph.txt");

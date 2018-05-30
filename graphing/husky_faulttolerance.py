@@ -1,6 +1,7 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+plt.figure(figsize=(13,9))
 
 font = {'family' : 'serif',
         'size'   : 18}
@@ -127,5 +128,6 @@ plt.xticks(index, x_axis_labels)
 plt.title("Time (s) of 3 iterations of PageRank on Kronecker graph (BigDataBench 3.2)\nSingle node, 8GB memory, 4 cores")
 
 
+plt.savefig('replication.png', format='png', dpi=500)
 
-plt.show()
+#plt.show()

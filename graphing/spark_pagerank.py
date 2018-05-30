@@ -2,6 +2,8 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
+plt.figure(figsize=(13,9))
+
 font = {'family' : 'serif',
         'size'   : 18}
 
@@ -29,9 +31,9 @@ width = 0.25
 
 ind = np.arange(2)
 
-plt.bar(ind, upc, width,label='Saddlebags', color='BLACK')
-plt.bar(ind+width, spark, width,label='Spark RDD MapReduce', color='RED')
-plt.bar(ind+(2*width), graphx, width,label='Spark Graphx', color='BLUE')
+plt.bar(ind, upc, width,label='Saddlebags', color='BLACK', yerr=[0.6,6.5])
+plt.bar(ind+width, spark, width,label='Spark RDD MapReduce', color='RED', yerr=[12,74])
+plt.bar(ind+(2*width), graphx, width,label='Spark Graphx', color='BLUE', yerr=[7,33])
 
 
 plt.legend()
@@ -45,4 +47,5 @@ plt.title("Time (s) of PageRank on Kronecker graph (BigDataBench 3.2) \n16 nodes
 plt.grid(axis='y')
 
 
-plt.show()
+#plt.show()
+plt.savefig('spark_pagerank.png', format='png', dpi=500)

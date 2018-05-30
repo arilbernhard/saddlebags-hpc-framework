@@ -1,6 +1,7 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+plt.figure(figsize=(11,9))
 
 font = {'family' : 'serif',
         'size'   : 18}
@@ -46,6 +47,6 @@ plt.title("Time (s) of PageRank on Kronecker graph (BigDataBench 3.2) \n16 nodes
 
 plt.grid(axis='y')
 
-plt.savefig('messageordering.png', format='png', dpi=1000)
+plt.savefig('messageordering.png', format='png', dpi=500)
 
 #plt.show()

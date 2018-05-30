@@ -320,8 +320,7 @@ Some of the underlying concepts in Saddlebags and the motivation behind them fol
 
 \hspace{4ex} \textbf{1. Computational tasks should be executed in the same partition in which the data it requires is located}
 
-%TODO: CITATION FOR DATA PARALLELISM
-Problems that can be expressed with data parallelism \cite{data_parallelism} can be distributed across computing units as individual tasks related to specific data. A key concept within PGAS programming is that a private memory segment has affinity to a single computing unit. To exploit data locality, a computational task should only be performed on the unit of computing which the data it requires has affinity to. Expressing behavior like this is trivial when the distribution of data is deterministic. Another wording of the same behavior is that computational tasks have affinity to the data it requires, the same way data has affinity to a computing unit and its private memory segment.
+Problems that can be expressed with data parallelism can be distributed across computing units as individual tasks related to specific data. A key concept within PGAS programming is that a private memory segment has affinity to a single computing unit. To exploit data locality, a computational task should only be performed on the unit of computing which the data it requires has affinity to. Expressing behavior like this is trivial when the distribution of data is deterministic. Another wording of the same behavior is that computational tasks have affinity to the data it requires, the same way data has affinity to a computing unit and its private memory segment.
 \\
 
 \hspace{4ex} \textbf{2. A multitude of data should be implicitly distributed across available partitions}
@@ -776,13 +775,13 @@ It can be inefficient to express communication through a network graph with only
 	\label{fig:tfidfspark}
 \end{figure}
 \newpage
-\subsection{Replication}
+\subsection{Replication}\label{section:replicationeval}
 asd
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=15cm]{illustrations/huskyfaulttolerance.pdf}
-	\caption{Sending modes cluster}
+	\caption{PageRank with replication}
 	\label{fig:huskyfaulttolerance}
 \end{figure}
 
@@ -791,7 +790,7 @@ asd
 \subsection{Message ordering}
 
 \newpage
-\subsection{Sending modes}
+\subsection{Sending modes} \label{section:sendingmodeseval}
 Different sending modes were outlined in section \ref{section:sendingmodes}. The PageRank benchmark was ran with different sending modes to investigate their performance implications. This benchmark was performed on the 16 core server and the cluster with 16 nodes. Both systems were included because of how UPC++ and GASNet communication implementation differs from single nodes and distributed systems. On the server, communication is achieved through shared memory. On the cluster, communication is achieved through message passing over InfiniBand.
 
 Figure \ref{fig:sendingmodes} shows results from benchmarks on the server. In this environment, \\\texttt{GasnetBuffering} showed the worst performance. This sending mode avoids the Message abstraction, and achieves bulk synchronous parallel behavior by ignoring incoming RPCs until all local work has been completed. \texttt{Direct}, which also avoids the Message abstraction but handled RPCs immediately and disables bulk synchronous parallel behavior, showed the best performance, similar to \texttt{BufferingWorker}. Figure \ref{fig:sendingmodesabel} shows results from benchmarks on the cluster. Here, \texttt{Combining} showed the best performance by a significant margin, followed by \texttt{GasnetBuffering}. \texttt{Buffering} and \texttt{Direct} showed similar performance.
@@ -824,7 +823,7 @@ It can also be observed that Buffering is less performant than avoiding the Mess
 \mbox{} \pagebreak
 \newpage
 \chapter{Discussion and Future Work} \label{section:discussion}
-This chapter will provide a discussion on the findings from the previous chapter, and provide an outline of potential extensions and improvements that can be made to Saddlebags. 
+This chapter will provide a discussion on the findings from the previous chapter, and provide an outline of potential extensions and improvements that can be made to Saddlebags.
 
 \section{Benchmark selection}
 PageRank and TF-IDF were chosen as benchmarks because they are used prominently in the Husky paper, and because they represent different workload characteristics, namely a graph computation and a data intensive computation. Implementations of these problems were also widely available as example programs for Spark and GraphX. While these benchmarks showed results in favor of Saddlebags, it is difficult to proclaim its prominence as a general purpose framework, since a larger and more varied set of problems is relevant in high performance computing. In terms of throughput, it is naturally not possible to evaluate every existing HPC problem. In terms of programmability, universal classifiers such as Turing completeness checks are insignificant since Saddlebags applications are already implemented in the general purpose language C++. 
@@ -888,9 +887,21 @@ UPC++ global pointers, as described in section \ref{section:globalpointers}, can
 %global pointers
 %boost any
 
-\section{Possible extensions}
-\subsection{View based serialization}
-\subsection{File input}
+%\section{Possible extensions}
+
+\section{UPC++ versions}
+Saddlebags was implemented and tested with UPC++ version 2017.9.0. At the time of this writing, two more recent versions has been released, 2018.1.0 and 2018.3.0.
+\subsection{Shared heap size}
+A recent feature of significance is that of a parameter that allows customization of shared heap size. This means that the maximum size allocated to shared memory segments, which contains global pointers and RPC data, can be tuned before executing a UPC++ program. The replication test in section \ref{section:replicationeval} was only performed on a single node, as the cluster ran out of memory allocated to the shared segment due to the memory cost of replication, and the differing communication models applied on clusters and single node systems. Since the program is implemented in an earlier version of UPC++, the shared heap size can not be configured at this time, and is fixed at 128 MB \cite{upcxxguide20183}. For this reason, the largest focus of future work on Saddlebags should be porting it to a more recent version of UPC++. Possible compatibility-breaking features of new releases would make this effort only worthwhile when useful features or fixes are released, such as shared heap size customization.
+
+
+\subsection{View-based serialization}
+UPC++ version 2018.3.0, released March 2018, introduced an alternative serialization model for transmitting collections of objects via RPCs, named view-based serialization. Prior to this update, transmission of an arbitrarily count of objects was done through explicitly packaging objects into containers such as the C++ standard library \texttt{vector} type. In Saddlebags, both transmission of data for replication and the \texttt{Combining} sending mode are implemented in this fashion. View-based serialization can be used as an optimization through the \texttt{View} type, which provides an iterator that traverses items in the network buffer used for RPCs \cite{upcxxguide20183}. The significance of this technique is that it avoids the creation and teardown of containers such as vectors that hold no additional information other than the collection of objects.
+
+It was shown in section \ref{section:sendingmodeseval} that \texttt{Combining} is the preferred sending mode for cluster environments, and improving this sending mode is a possible area of focus for improving the performance of Saddlebags. Due to its debut in the 2018.3 version of UPC++, view-based serialization has not been utilized in this release of Saddlebags.
+
+
+%\subsection{File input}
 %input of file formats?
 %input of filled-out tables, like how rdds can be stored to disk and loaded
 
@@ -906,23 +917,38 @@ lorem ipsum
 
 \appendix
 \chapter{Installing and using Saddlebags}
-This section will explain how to install UPC++, and use Saddlebags on different platforms. All compute clusters with InfiniBand or Ethernet connections that support MPI is expected to work, but this section will focus on major Norwegian high performance computing infrastructure, namely the Abel cluster at University of Oslo, and the Stallo cluster, at the University of Tromsø. 
+This section will explain how to install UPC++, and use Saddlebags on different platforms. All compute clusters with InfiniBand or Ethernet connections that support MPI is expected to work, but this section will focus on major Norwegian high performance computing infrastructure, namely the Abel cluster at University of Oslo, and the Stallo cluster, at the University of Tromsø. Installation instructions are available in the UPC++ implementation tarball, and are also included here to provide specific instructions for modules and workload managers found in Norwegian university clusters.
 
-\section{UPC++ Versions}
-Saddlebags has been implemented and tested with UPC++ v2018.1.0, which can be found at {\url{https://bitbucket.org/upcxx/upcxx/downloads/upcxx-2018.1.0.tar.gz}}. Recent releases can be found at the official UPC++ repository, at {\url{https://bitbucket.org/berkeleylab/upcxx/wiki/Home}}. 
-\section{Linux installation}
+Saddlebags has been implemented and tested with UPC++ v2017.9.0, which can be found at {\url{https://bitbucket.org/upcxx/upcxx/downloads/upcxx-2017.9.0.tar.gz}}.
+\section{Linux installation}\label{section:installinux}
 Unzip the tarball, and run the \texttt{install} file, with installation directory as argument:\\
 \phantom{11111} \texttt{\$ ./install /desired/installation/directory}\\
 Store the installation directory in an environment variable\\
 \phantom{11111} \texttt{\$ export UPCXX\_INSTALL=/desired/installation/directory}\\
-\subsection{Linux running}
+\subsection{Running UPC++ programs on Linux}\label{section:runlinux}
+First, set a memory limit per node.\\
+\phantom{11111} \texttt{\$ export GASNET\_PHYSMEM\_MAX='8000MB'}\\
+
+
+
 There are two ways of running a UPC++ programs in a non-distributed environment. The first method involves setting the number of partitions in an environment variable, and running the program normally.\\
+\phantom{11111} \texttt{\$ cd upcxx-2018.1.0/example/prog-guide}\\
+\phantom{11111} \texttt{\$ make}\\
 \phantom{11111} \texttt{\$ export GASNET\_PSHM\_NODES=4}\\
-\phantom{11111} \texttt{\$ ./a}\\
+\phantom{11111} \texttt{\$ ./hello-world}\\
 
 Another method is using the \texttt{upcxx\_run} script in the install location, with the number of partitions as argument.\\
-\phantom{11111} \texttt{\$ \$UPCXX\_INSTALL/bin/upcxx-run 4 a}\\
-\subsection{Abel installation}
+\phantom{11111} \texttt{\$ \$UPCXX\_INSTALL/bin/upcxx-run 4 hello-world}\\
+
+The default communication conduit is detected during installation. It can also be set manually.
+
+InfiniBand (clusters):\\
+\phantom{11111} \texttt{\$ export UPCXX\_GASNET\_CONDUIT=ibv}\\
+Shared memory (single node):\\
+\phantom{11111} \texttt{\$ export UPCXX\_GASNET\_CONDUIT=smp}\\
+MPI:\\
+\phantom{11111} \texttt{\$ export UPCXX\_GASNET\_CONDUIT=mpi}\\
+\subsection{Abel}
 Abel uses the Lmod environment module system. Before installation can be performed as in the previous section, the proper modules must be loaded. \\
 \phantom{11111} \texttt{\$ module purge}\\
 \phantom{11111} \texttt{\$ module load python2/2.7.10.gnu}\\
@@ -930,7 +956,22 @@ Abel uses the Lmod environment module system. Before installation can be perform
 \phantom{11111} \texttt{\$ module load openmpi.gnu/2.1.0}  \\
 First, any pre-loaded modules are removed to ensure that the intended compiler is used. MPI is needed for communication between nodes, and thread spawning. Python is needed for installation 
 
-\phantom{11111} \texttt{\$ ./install /upcxx/installation} \\
+With all modules loaded, follow the normal Linux installation instructions found earlier in this section. Programs are compiled as shown in section \ref{section:runlinux}.
+
+In order to run workloads on Abel, you need allocated CPU hours on a specific account name. To find your account name:\\
+\phantom{11111} \texttt{\$ cost}\\
+Run programs with the \texttt{salloc} command. Memory usage and max compute time must be provided:\\
+\phantom{11111} \texttt{\$ salloc --nodes=16 --mem-per-cpu=8000 --time=01:00:00 --account=ACCNAME \$UPCXX\_INSTALL/bin/upcxx-run 16 ./hello-world}\\
+
+\subsection{Stallo}
+Stallo uses the same module system as Abel, but provides different default modules and names. Here, \texttt{mpicxx} can be set as the default C++ compiler during installation:
+\phantom{11111} \texttt{\$ module load OpenMPI/2.1.1-GCC-6.4.0-2.28}\\
+\phantom{11111} \texttt{\$ CC=mpicc CXX=mpicxx ./install /desired/installation/directory}\\
+\phantom{11111} \texttt{\$ export UPCXX\_INSTALL=/desired/installation/directory}\\
+
+Running programs on Stallo is similar as on Abel, but less information is required to queue workloads.\\
+\phantom{11111} \texttt{\$ salloc --nodes=16 \$UPCXX\_INSTALL/bin/upcxx-run 16 ./hello-world}\\
+Information about memory usage per node is not required, but should be added as an argument, like on Abel, if \texttt{GASNET\_PHYSMEM\_MAX} is set above 1 GB.
 
 
 \chapter{API Reference}

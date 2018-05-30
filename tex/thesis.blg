@@ -3,7 +3,9 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 The style file: ieeetr.bst
 Database file #1: thesis.bib
-Repeated entry---line 1043 of file thesis.bib
+Warning--string name "march" is undefined
+--line 11 of file thesis.bib
+Repeated entry---line 1055 of file thesis.bib
  : @inproceedings{consistenthashing
  :                                 ,
 I'm skipping whatever remains of this entry
@@ -16,36 +18,37 @@ Warning--empty journal in upc_language_specification
 Warning--empty booktitle in abstractionslocality
 Warning--empty journal in robinhash
 Warning--empty journal in colella
-You've used 64 entries,
+Warning--empty journal in upcxxguide20183
+You've used 65 entries,
             1876 wiz_defined-function locations,
-            784 strings with 15791 characters,
-and the built_in function-call counts, 13951 in all, are:
-= -- 1217
-> -- 797
+            788 strings with 16061 characters,
+and the built_in function-call counts, 14203 in all, are:
+= -- 1228
+> -- 829
 < -- 1
-+ -- 296
-- -- 232
-* -- 955
-:= -- 2004
-add.period$ -- 94
-call.type$ -- 64
-change.case$ -- 61
++ -- 307
+- -- 242
+* -- 981
+:= -- 2052
+add.period$ -- 95
+call.type$ -- 65
+change.case$ -- 62
 chr.to.int$ -- 0
-cite$ -- 72
-duplicate$ -- 639
-empty$ -- 1373
-format.name$ -- 232
-if$ -- 3373
+cite$ -- 74
+duplicate$ -- 648
+empty$ -- 1390
+format.name$ -- 242
+if$ -- 3423
 int.to.chr$ -- 0
-int.to.str$ -- 64
-missing$ -- 42
-newline$ -- 227
-num.names$ -- 41
-pop$ -- 359
+int.to.str$ -- 65
+missing$ -- 43
+newline$ -- 230
+num.names$ -- 42
+pop$ -- 365
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 404
+skip$ -- 405
 stack$ -- 0
 substring$ -- 487
 swap$ -- 197
@@ -53,8 +56,8 @@ text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 8
-while$ -- 84
-width$ -- 66
-write$ -- 560
+warning$ -- 9
+while$ -- 85
+width$ -- 67
+write$ -- 567
 (There was 1 error message)

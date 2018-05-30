@@ -331,4 +331,9 @@ T.~Herault and Y.~Robert, {\em Fault-tolerance techniques for high-performance
   \url{https://www.boost.org/doc/libs/1_61_0/doc/html/boost/any.html}.
 \newblock [Online; accessed 15-May-2018].
 
+\bibitem{upcxxguide20183}
+J.~Bachan, S.~Baden, D.~Bonachea, P.~Hargrove, S.~Hofmeyr, K.~Ibrahim,
+  M.~Jacquelin, A.~Kamil, B.~Lelbach, and B.~van Straalen, ``{UPC++
+  Programmer's Guide, v1.0-2018.3},'' 2018.
+
 \end{thebibliography}

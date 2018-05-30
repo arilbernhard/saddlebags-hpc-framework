@@ -1,6 +1,7 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+plt.figure(figsize=(13,9))
 
 font = {'family' : 'serif',
         'size'   : 18}
@@ -29,8 +30,8 @@ width = 0.25
 
 ind = np.arange(2)
 
-plt.bar(ind, upc, width,label='Saddlebags', color='BLACK')
-plt.bar(ind+width, spark, width,label='Spark RDD MapReduce', color='RED')
+plt.bar(ind, upc, width,label='Saddlebags', color='BLACK', yerr=[2.1,7.6])
+plt.bar(ind+width, spark, width,label='Spark RDD MapReduce', color='RED', yerr=[61,83])
 
 
 plt.legend()
@@ -42,5 +43,6 @@ plt.title("Time (s) of TF-IDF on Wikipedia articles \n16 nodes, 8GB memory")
 
 plt.grid(axis='y')
 
+plt.savefig('spark_tfidf.png', format='png', dpi=500)
 
-plt.show()
+#plt.show()
