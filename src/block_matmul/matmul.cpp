@@ -6,7 +6,13 @@
 
 #include <Eigen/Dense>
 
-/* Convert Eigen matrices to std vectors, since serialization of other types is not yet implemented*/
+/* Convert Eigen matrices to std vectors, since serialization of other types is not yet implemented
+
+This is a temporary workaround: Serialization is in the UPC++ specification, and listed as an upcoming feature
+see https://groups.google.com/forum/#!searchin/upcxx/2018.1|sort:date/upcxx/TSrsU5y0HBc/T67IeSJXAgAJ
+
+*/
+
 std::vector<int> mat_to_vector(Eigen::MatrixXi mat)
 {
     std::vector<int> vec;
