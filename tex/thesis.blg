@@ -18,45 +18,45 @@ Warning--empty booktitle in abstractionslocality
 Warning--empty journal in robinhash
 Warning--empty journal in colella
 Warning--empty journal in upcxxguide20183
-You've used 66 entries,
+You've used 67 entries,
             1876 wiz_defined-function locations,
-            791 strings with 16126 characters,
-and the built_in function-call counts, 14315 in all, are:
-= -- 1240
-> -- 830
+            797 strings with 16396 characters,
+and the built_in function-call counts, 14674 in all, are:
+= -- 1273
+> -- 853
 < -- 1
-+ -- 308
-- -- 242
-* -- 984
-:= -- 2063
-add.period$ -- 97
-call.type$ -- 66
-change.case$ -- 63
++ -- 316
+- -- 249
+* -- 1016
+:= -- 2118
+add.period$ -- 98
+call.type$ -- 67
+change.case$ -- 64
 chr.to.int$ -- 0
-cite$ -- 75
-duplicate$ -- 652
-empty$ -- 1408
-format.name$ -- 242
-if$ -- 3455
+cite$ -- 76
+duplicate$ -- 667
+empty$ -- 1435
+format.name$ -- 249
+if$ -- 3538
 int.to.chr$ -- 0
-int.to.str$ -- 66
-missing$ -- 43
-newline$ -- 234
-num.names$ -- 42
-pop$ -- 373
+int.to.str$ -- 67
+missing$ -- 44
+newline$ -- 237
+num.names$ -- 43
+pop$ -- 374
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 408
+skip$ -- 419
 stack$ -- 0
-substring$ -- 487
-swap$ -- 197
+substring$ -- 511
+swap$ -- 204
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 9
-while$ -- 85
-width$ -- 68
-write$ -- 575
+while$ -- 89
+width$ -- 69
+write$ -- 586
 (There was 1 error message)

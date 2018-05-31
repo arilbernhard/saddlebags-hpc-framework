@@ -220,6 +220,12 @@ G.~Decandia, D.~Hastorun, M.~Jampani, G.~Kakulapati, A.~Lakshman, A.~Pilchin,
   of twenty-first ACM SIGOPS symposium on Operating systems principles - SOSP
   07}, 2007.
 
+\bibitem{chord}
+I.~Stoica, R.~Morris, D.~Liben-Nowell, D.~R. Karger, M.~F. Kaashoek, F.~Dabek,
+  and H.~Balakrishnan, ``Chord: a scalable peer-to-peer lookup protocol for
+  internet applications,'' {\em IEEE/ACM Transactions on Networking (TON)},
+  vol.~11, no.~1, pp.~17--32, 2003.
+
 \bibitem{upcreq}
 ``{berkeleylab / upcxx / wiki}.''
   \url{https://bitbucket.org/berkeleylab/upcxx/wiki/README}.
