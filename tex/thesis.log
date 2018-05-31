@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.21)  31 MAY 2018 12:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.11.21)  31 MAY 2018 15:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1264,24 +1264,33 @@ File: pppdftex.def 2015/09/18 v0.5d Pdfpages driver for pdfTeX (AM)
 \AM@toc@title=\toks44
 \c@AM@survey=\count288
 \AM@templatesizebox=\box76
+)
+(/usr/share/texlive/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\labelindent=\skip121
+\enit@outerparindent=\dimen263
+\enit@toks=\toks45
+\enit@inbox=\box77
+\enitdp@description=\count289
 ) (./thesis.aux)
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 20.
-LaTeX Font Info:    ... okay on input line 20.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 20.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 21.
+
 (/usr/share/texmf/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
@@ -1321,31 +1330,31 @@ File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count289
-\scratchdimen=\dimen263
-\scratchbox=\box77
-\nofMPsegments=\count290
-\nofMParguments=\count291
-\everyMPshowfont=\toks45
-\MPscratchCnt=\count292
-\MPscratchDim=\dimen264
-\MPnumerator=\count293
-\makeMPintoPDFobject=\count294
-\everyMPtoPDFconversion=\toks46
+\scratchcounter=\count290
+\scratchdimen=\dimen264
+\scratchbox=\box78
+\nofMPsegments=\count291
+\nofMParguments=\count292
+\everyMPshowfont=\toks46
+\MPscratchCnt=\count293
+\MPscratchDim=\dimen265
+\MPnumerator=\count294
+\makeMPintoPDFobject=\count295
+\everyMPtoPDFconversion=\toks47
 )
-\AtBeginShipoutBox=\box78
-Package hyperref Info: Link coloring OFF on input line 20.
+\AtBeginShipoutBox=\box79
+Package hyperref Info: Link coloring OFF on input line 21.
  (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count295
+\c@section@level=\count296
 )
-LaTeX Info: Redefining \ref on input line 20.
-LaTeX Info: Redefining \pageref on input line 20.
-LaTeX Info: Redefining \nameref on input line 20.
+LaTeX Info: Redefining \ref on input line 21.
+LaTeX Info: Redefining \pageref on input line 21.
+LaTeX Info: Redefining \nameref on input line 21.
 
 (./thesis.out) (./thesis.out)
 \@outlinefile=\write3
@@ -1370,14 +1379,14 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count296
+\c@lstlisting=\count297
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 20.
+(lastpage)             ! on input line 21.
 .................................................
 . chemgreek info: "mapping-activated"
 . 
-. Activating mapping `upgreek' on line 20.
+. Activating mapping `upgreek' on line 21.
 .................................................
 
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/pdflscape.sty
@@ -1388,38 +1397,38 @@ Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 80.
 )
-<front.pdf, id=161, 597.50829pt x 845.0471pt>
+<front.pdf, id=173, 597.50829pt x 845.0471pt>
 File: front.pdf Graphic file (type pdf)
  <use front.pdf>
-Package pdftex.def Info: front.pdf used on input line 21.
+Package pdftex.def Info: front.pdf used on input line 22.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 File: front.pdf Graphic file (type pdf)
  <use front.pdf>
-Package pdftex.def Info: front.pdf used on input line 21.
+Package pdftex.def Info: front.pdf used on input line 22.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 
-<front.pdf, id=164, page=1, 597.50829pt x 845.0471pt>
+<front.pdf, id=176, page=1, 597.50829pt x 845.0471pt>
 File: front.pdf Graphic file (type pdf)
  <use front.pdf, page 1>
-Package pdftex.def Info: front.pdf, page1 used on input line 21.
+Package pdftex.def Info: front.pdf, page1 used on input line 22.
 (pdftex.def)             Requested size: 597.50682pt x 845.04504pt.
 File: front.pdf Graphic file (type pdf)
 
 <use front.pdf, page 1>
-Package pdftex.def Info: front.pdf, page1 used on input line 21.
+Package pdftex.def Info: front.pdf, page1 used on input line 22.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
 File: front.pdf Graphic file (type pdf)
  <use front.pdf, page 1>
-Package pdftex.def Info: front.pdf, page1 used on input line 21.
+Package pdftex.def Info: front.pdf, page1 used on input line 22.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
 File: front.pdf Graphic file (type pdf)
  <use front.pdf, page 1>
-Package pdftex.def Info: front.pdf, page1 used on input line 21.
+Package pdftex.def Info: front.pdf, page1 used on input line 22.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
 File: front.pdf Graphic file (type pdf)
 
 <use front.pdf, page 1>
-Package pdftex.def Info: front.pdf, page1 used on input line 21.
+Package pdftex.def Info: front.pdf, page1 used on input line 22.
 (pdftex.def)             Requested size: 597.53416pt x 845.08372pt.
  [1
 
@@ -1494,22 +1503,22 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.90 
+l.98 
       [1
 
 ]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
  been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.113 \newpage
+l.121 \newpage
                [2]
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 118.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 126.
 
  (/usr/share/texmf/tex/latex/lm/omslmr.fd
 File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 118.
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 126.
  [3] [4]
 Chapter 2.
 [5
@@ -1518,7 +1527,8 @@ Chapter 2.
 Chapter 3.
 [13
 
-] [14] [15] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+] [14] [15] [16]
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -1528,119 +1538,119 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 247.
- [16] [17]
-[18] [19] [20]
+nput line 256.
+ [17]
+LaTeX Font Info:    Try loading font information for T1+lmtt on input line 279.
+
+
+(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+) [18] [19] [20] [21]
 Chapter 4.
-[21
+[22
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 327--329
+Underfull \hbox (badness 10000) in paragraph at lines 336--338
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 332--334
+Underfull \hbox (badness 10000) in paragraph at lines 341--343
 
  []
 
-[22]
-Underfull \hbox (badness 10000) in paragraph at lines 337--339
+[23]
+Underfull \hbox (badness 10000) in paragraph at lines 346--348
 
  []
 
-[23] <illustrations/png/basicmodel.png, id=652, 450.42697pt x 179.2296pt>
+[24] <illustrations/png/basicmodel.png, id=668, 450.42697pt x 179.2296pt>
 File: illustrations/png/basicmodel.png Graphic file (type png)
 
 <use illustrations/png/basicmodel.png>
-Package pdftex.def Info: illustrations/png/basicmodel.png used on input line 35
-1.
+Package pdftex.def Info: illustrations/png/basicmodel.png used on input line 36
+0.
 (pdftex.def)             Requested size: 426.79134pt x 169.82956pt.
- [24 <./illustrations/png/basicmodel.png>] [25]
-Overfull \hbox (28.2783pt too wide) in paragraph at lines 369--381
+ [25 <./illustrations/png/basicmodel.png>] [26]
+Overfull \hbox (28.2783pt too wide) in paragraph at lines 378--390
 [][] 
  []
 
-[26]
-Overfull \hbox (15.27832pt too wide) in paragraph at lines 407--415
+[27]
+Overfull \hbox (15.27832pt too wide) in paragraph at lines 416--424
 [][] 
  []
 
-[27] <illustrations/png/communication.png, id=685, 247.78285pt x 247.78285pt>
+[28] <illustrations/png/communication.png, id=702, 247.78285pt x 247.78285pt>
 File: illustrations/png/communication.png Graphic file (type png)
 
 <use illustrations/png/communication.png>
 Package pdftex.def Info: illustrations/png/communication.png used on input line
- 437.
+ 446.
 (pdftex.def)             Requested size: 369.88582pt x 369.88501pt.
- [28] [29 <./illustrations/png/communication.png>] [30] <illustrations/png/ring
-.png, id=706, 505.89pt x 401.2603pt>
+ [29] [30 <./illustrations/png/communication.png>] [31] <illustrations/png/ring
+.png, id=723, 505.89pt x 401.2603pt>
 File: illustrations/png/ring.png Graphic file (type png)
 
 <use illustrations/png/ring.png>
-Package pdftex.def Info: illustrations/png/ring.png used on input line 462.
+Package pdftex.def Info: illustrations/png/ring.png used on input line 471.
 (pdftex.def)             Requested size: 341.43306pt x 270.82065pt.
- [31 <./illustrations/png/ring.png>] [32]
+ [32 <./illustrations/png/ring.png>] [33]
 Chapter 5.
-LaTeX Font Info:    Try loading font information for T1+lmtt on input line 476.
+[34
 
-(/usr/share/texmf/tex/latex/lm/t1lmtt.fd
-File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [33
-
-]
-<illustrations/png/uml.png, id=728, 299.9205pt x 416.2752pt>
+] <illustrations/png/uml.png, id=745, 299.9205pt x 416.2752pt>
 File: illustrations/png/uml.png Graphic file (type png)
 
 <use illustrations/png/uml.png>
-Package pdftex.def Info: illustrations/png/uml.png used on input line 491.
+Package pdftex.def Info: illustrations/png/uml.png used on input line 500.
 (pdftex.def)             Requested size: 426.79134pt x 592.39165pt.
- [34] [35 <./illustrations/png/uml.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 500--519
+ [35] [36 <./illustrations/png/uml.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 509--528
 
  []
 
-[36]
-Underfull \hbox (badness 10000) in paragraph at lines 522--524
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 531--533
 
  []
 
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 525.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 534.
 
-Underfull \hbox (badness 10000) in paragraph at lines 525--529
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 530--534
-
- []
-
-[37] [38] [39]
-Underfull \hbox (badness 10000) in paragraph at lines 566--569
+Underfull \hbox (badness 10000) in paragraph at lines 534--538
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 570--573
+Underfull \hbox (badness 10000) in paragraph at lines 539--543
+
+ []
+
+[38] [39] [40]
+Underfull \hbox (badness 10000) in paragraph at lines 575--578
 
  []
 
 
-Overfull \hbox (4.5265pt too wide) in paragraph at lines 574--577
+Underfull \hbox (badness 10000) in paragraph at lines 579--582
+
+ []
+
+
+Overfull \hbox (4.5265pt too wide) in paragraph at lines 583--586
 \T1/lmr/m/n/12 Operations are not stored in-ter-me-di-ately as mes-sages, but r
 ather only ex-pressed through
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 574--577
+Underfull \hbox (badness 10000) in paragraph at lines 583--586
 
  []
 
-[40] [41] [42]
+[41] [42] [43]
 Chapter 6.
-[43
+[44
 
 ]
 
@@ -1649,144 +1659,144 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[44]
+[45]
 
-LaTeX Warning: Text page 45 contains only floats.
+LaTeX Warning: Text page 46 contains only floats.
 
-[45] [46]
-Underfull \hbox (badness 10000) in paragraph at lines 713--713
+[46] [47]
+Underfull \hbox (badness 10000) in paragraph at lines 722--722
 []|\T1/lmr/bx/n/12 Implicit dis-tri-bu-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 715--715
+Underfull \hbox (badness 10000) in paragraph at lines 724--724
 []|\T1/lmr/bx/n/12 Payload of mes-
  []
 
 
-Underfull \hbox (badness 5771) in paragraph at lines 715--715
+Underfull \hbox (badness 5771) in paragraph at lines 724--724
 []|\T1/lmr/m/n/12 Return val-ues of
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 715--715
+Underfull \hbox (badness 10000) in paragraph at lines 724--724
 []|\T1/lmr/m/n/12 Per-application
  []
 
 
-Underfull \hbox (badness 2922) in paragraph at lines 716--716
+Underfull \hbox (badness 2922) in paragraph at lines 725--725
 []|\T1/lmr/bx/n/12 Ordering of mes-
  []
 
 
-Underfull \hbox (badness 1237) in paragraph at lines 717--717
+Underfull \hbox (badness 1237) in paragraph at lines 726--726
 []|\T1/lmr/m/n/12 In ver-tex, in one
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 717--717
+Underfull \hbox (badness 10000) in paragraph at lines 726--726
 []|\T1/lmr/m/n/12 Defined in main
  []
 
 
-Underfull \hbox (badness 1184) in paragraph at lines 717--717
+Underfull \hbox (badness 1184) in paragraph at lines 726--726
 \T1/lmr/m/n/12 pro-gram, it-er-at-ing
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 718--718
+Underfull \hbox (badness 10000) in paragraph at lines 727--727
 []|\T1/lmr/m/n/12 Yes (ex-plicit in
  []
 
 
-Overfull \hbox (27.05194pt too wide) in paragraph at lines 710--721
+Overfull \hbox (27.05194pt too wide) in paragraph at lines 719--730
  [] 
  []
 
-[47] [48] <illustrations/png/huskypagerank.png, id=915, 939.51pt x 650.43pt>
+[48] [49] <illustrations/png/huskypagerank.png, id=931, 939.51pt x 650.43pt>
 File: illustrations/png/huskypagerank.png Graphic file (type png)
 
 <use illustrations/png/huskypagerank.png>
 Package pdftex.def Info: illustrations/png/huskypagerank.png used on input line
- 750.
+ 759.
 (pdftex.def)             Requested size: 426.79134pt x 295.46973pt.
- [49 <./illustrations/png/huskypagerank.png>] [50]
-<illustrations/png/sparkpagerank.png, id=939, 939.51pt x 650.43pt>
+ [50 <./illustrations/png/huskypagerank.png>] [51]
+<illustrations/png/sparkpagerank.png, id=956, 939.51pt x 650.43pt>
 File: illustrations/png/sparkpagerank.png Graphic file (type png)
 
 <use illustrations/png/sparkpagerank.png>
 Package pdftex.def Info: illustrations/png/sparkpagerank.png used on input line
- 770.
+ 779.
 (pdftex.def)             Requested size: 426.79134pt x 295.46973pt.
 
-<illustrations/png/sparktfidf.png, id=940, 939.51pt x 650.43pt>
+<illustrations/png/sparktfidf.png, id=957, 939.51pt x 650.43pt>
 File: illustrations/png/sparktfidf.png Graphic file (type png)
 
 <use illustrations/png/sparktfidf.png>
-Package pdftex.def Info: illustrations/png/sparktfidf.png used on input line 77
-7.
+Package pdftex.def Info: illustrations/png/sparktfidf.png used on input line 78
+6.
 (pdftex.def)             Requested size: 426.79134pt x 295.46973pt.
- [51 <./illustrations/png/sparkpagerank.png> <./illustrations/png/sparktfidf.pn
+ [52 <./illustrations/png/sparkpagerank.png> <./illustrations/png/sparktfidf.pn
 g>]
-<illustrations/png/replication.png, id=950, 939.51pt x 650.43pt>
+<illustrations/png/replication.png, id=966, 939.51pt x 650.43pt>
 File: illustrations/png/replication.png Graphic file (type png)
 
 <use illustrations/png/replication.png>
 Package pdftex.def Info: illustrations/png/replication.png used on input line 7
-88.
+97.
 (pdftex.def)             Requested size: 426.79134pt x 295.46973pt.
- [52 <./illustrations/png/replication.png>] <illustrations/png/messageordering.
-png, id=960, 867.24pt x 433.62pt>
+ [53 <./illustrations/png/replication.png>] <illustrations/png/messageordering.
+png, id=976, 867.24pt x 433.62pt>
 File: illustrations/png/messageordering.png Graphic file (type png)
 
 <use illustrations/png/messageordering.png>
 Package pdftex.def Info: illustrations/png/messageordering.png used on input li
-ne 800.
+ne 809.
 (pdftex.def)             Requested size: 369.88582pt x 184.9444pt.
- [53 <./illustrations/png/messageordering.png>] [54]
-<illustrations/png/sendingmodessinglenode.png, id=977, 939.51pt x 650.43pt>
+ [54 <./illustrations/png/messageordering.png>] [55]
+<illustrations/png/sendingmodessinglenode.png, id=993, 939.51pt x 650.43pt>
 File: illustrations/png/sendingmodessinglenode.png Graphic file (type png)
 
 <use illustrations/png/sendingmodessinglenode.png>
 Package pdftex.def Info: illustrations/png/sendingmodessinglenode.png used on i
-nput line 818.
+nput line 827.
 (pdftex.def)             Requested size: 426.79134pt x 295.46973pt.
 
-<illustrations/png/sendingmodescluster.png, id=978, 939.51pt x 650.43pt>
+<illustrations/png/sendingmodescluster.png, id=994, 939.51pt x 650.43pt>
 File: illustrations/png/sendingmodescluster.png Graphic file (type png)
 
 <use illustrations/png/sendingmodescluster.png>
 Package pdftex.def Info: illustrations/png/sendingmodescluster.png used on inpu
-t line 825.
+t line 834.
 (pdftex.def)             Requested size: 426.79134pt x 295.46973pt.
- [55 <./illustrations/png/sendingmodessinglenode.png> <./illustrations/png/send
-ingmodescluster.png>] [56]
+ [56 <./illustrations/png/sendingmodessinglenode.png> <./illustrations/png/send
+ingmodescluster.png>] [57]
 Chapter 7.
-[57
+[58
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 858--858
+Underfull \hbox (badness 10000) in paragraph at lines 867--867
 []|\T1/lmr/m/n/12 Dynamic pro-gram-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 859--859
+Underfull \hbox (badness 10000) in paragraph at lines 868--868
 []|\T1/lmr/m/n/12 Backtrack and
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 860--860
+Underfull \hbox (badness 10000) in paragraph at lines 869--869
 []|\T1/lmr/m/n/12 Construct Graph-i-cal
  []
 
-[58] [59] [60] [61] [62]
+[59] [60] [61] [62] [63]
 Chapter 8.
-[63
+[64
 
-] [64] (./thesis.bbl
+] [65] (./thesis.bbl
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 17.
- [65
+ [66
 
 ]
 Underfull \hbox (badness 1681) in paragraph at lines 101--104
@@ -1794,13 +1804,13 @@ Underfull \hbox (badness 1681) in paragraph at lines 101--104
 : / / www . microsoft . com / en -[] us / research /
  []
 
-[66] [67]
+[67] [68]
 Underfull \hbox (badness 2608) in paragraph at lines 188--191
 []\T1/lmr/m/n/12 ``Function tem-plate, cp-pref-er-ence.com.'' []$\T1/lmtt/m/n/1
 0.95 http : / / en . cppreference . com / w / cpp /
  []
 
-[68] [69]
+[69] [70]
 Underfull \hbox (badness 6428) in paragraph at lines 267--270
 []\T1/lmr/m/n/12 ``Spark - Uni-ver-sity of Oslo.'' []$\T1/lmtt/m/n/10.95 https 
 : / / www . uio . no / english / services / it /
@@ -1830,122 +1840,122 @@ Underfull \hbox (badness 2635) in paragraph at lines 302--305
 n/10.95 https : / / bitbucket . org /
  []
 
-[70]) [71]
+[71]) [72]
 Appendix A.
 
-Overfull \hbox (13.63431pt too wide) in paragraph at lines 939--940
+Overfull \hbox (13.63431pt too wide) in paragraph at lines 948--949
 \T1/lmr/m/n/12 found at []$\T1/lmtt/m/n/10.95 https : / / bitbucket . org / upc
 xx / upcxx / downloads / upcxx -[] 2017 . 9 . 0 . tar . gz$[]\T1/lmr/m/n/12 . 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 941--945
+Underfull \hbox (badness 10000) in paragraph at lines 950--954
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 946--948
+Underfull \hbox (badness 10000) in paragraph at lines 955--957
 
  []
 
-[72
+[73
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 951--956
+Underfull \hbox (badness 10000) in paragraph at lines 960--965
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 957--959
+Underfull \hbox (badness 10000) in paragraph at lines 966--968
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 962--968
+Underfull \hbox (badness 10000) in paragraph at lines 971--977
 
  []
 
-[73]
-Overfull \hbox (13.3662pt too wide) in paragraph at lines 978--982
+[74]
+Overfull \hbox (13.3662pt too wide) in paragraph at lines 987--991
 [] \T1/lmtt/m/n/12 $ salloc --nodes=16 --mem-per-cpu=8000 --time=01:00:00 --acc
 ount=ACCNAME
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 978--982
+Underfull \hbox (badness 10000) in paragraph at lines 987--991
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 984--988
+Underfull \hbox (badness 10000) in paragraph at lines 993--997
 
  []
 
-[74] [75]
+[75] [76]
 Appendix B.
-[76
+[77
 
 ]
-Overfull \hbox (13.3732pt too wide) in paragraph at lines 1031--1042
+Overfull \hbox (13.3732pt too wide) in paragraph at lines 1040--1051
 [] \T1/lmtt/m/n/12 <ItemType_T> ItemType_T insert_and_return(worker, tableKey, 
 itemKey) 
  []
 
-[77] [78]
-Overfull \hbox (1.0232pt too wide) in paragraph at lines 1100--1114
+[78] [79]
+Overfull \hbox (1.0232pt too wide) in paragraph at lines 1109--1123
 [] \T1/lmtt/m/n/12 void pull(TableKey_T destTableKey, ItemKey_T destItemKey, in
 t tag)
  []
 
 
-Overfull \hbox (13.3732pt too wide) in paragraph at lines 1100--1114
+Overfull \hbox (13.3732pt too wide) in paragraph at lines 1109--1123
 [] \T1/lmtt/m/n/12 void push(TableKey_T destTableKey, ItemKey_T destItemKey, Ms
 g_T val)
  []
 
-[79]
-Underfull \hbox (badness 10000) in paragraph at lines 1115--1127
+[80]
+Underfull \hbox (badness 10000) in paragraph at lines 1124--1136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1115--1127
+Underfull \hbox (badness 10000) in paragraph at lines 1124--1136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1115--1127
+Underfull \hbox (badness 10000) in paragraph at lines 1124--1136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1115--1127
+Underfull \hbox (badness 10000) in paragraph at lines 1124--1136
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1115--1127
+Underfull \hbox (badness 10000) in paragraph at lines 1124--1136
 
  []
 
 
 AED: lastpage setting LastPage
-[80]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1129.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1129.
+[81]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1138.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1138.
  (./thesis.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1129.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1129.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1138.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1138.
 
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 36DA34B225F8F0FEE35A27373C5EB58D;2289.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1129.
+(rerunfilecheck)             Checksum: DF45DBC2C49E8121A251BF3CC6C95080;2432.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1138.
  ) 
 Here is how much of TeX's memory you used:
- 23391 strings out of 493029
- 394010 string characters out of 6136233
- 635059 words of memory out of 5000000
- 26138 multiletter control sequences out of 15000+600000
+ 23669 strings out of 493029
+ 398687 string characters out of 6136233
+ 641167 words of memory out of 5000000
+ 26411 multiletter control sequences out of 15000+600000
  80594 words of font info for 76 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  48i,18n,60p,10369b,1338s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1967,10 +1977,10 @@ lic/lm/lmri12.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/shar
 e/texmf/fonts/type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm
 /lmtk10.pfb></usr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texm
 f/fonts/type1/public/lm/lmtt12.pfb>
-Output written on thesis.pdf (90 pages, 8950768 bytes).
+Output written on thesis.pdf (91 pages, 8949699 bytes).
 PDF statistics:
- 1309 PDF objects out of 1440 (max. 8388607)
- 1110 compressed objects within 12 object streams
- 356 named destinations out of 1000 (max. 500000)
- 408 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1326 PDF objects out of 1440 (max. 8388607)
+ 1126 compressed objects within 12 object streams
+ 357 named destinations out of 1000 (max. 500000)
+ 432 words of extra memory for PDF output out of 10000 (max. 10000000)
 
