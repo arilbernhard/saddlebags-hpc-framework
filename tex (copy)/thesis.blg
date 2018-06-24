@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: thesis.aux
+The style file: ieeetr.bst
+Database file #1: thesis.bib
+Repeated entry---line 1071 of file thesis.bib
+ : @inproceedings{consistenthashing
+ :                                 ,
+I'm skipping whatever remains of this entry
+Warning--empty booktitle in piccolo
+Warning--empty year in piccolo
+You've used 28 entries,
+            1876 wiz_defined-function locations,
+            615 strings with 8808 characters,
+and the built_in function-call counts, 6221 in all, are:
+= -- 559
+> -- 327
+< -- 0
++ -- 123
+- -- 95
+* -- 429
+:= -- 884
+add.period$ -- 43
+call.type$ -- 28
+change.case$ -- 25
+chr.to.int$ -- 0
+cite$ -- 30
+duplicate$ -- 271
+empty$ -- 631
+format.name$ -- 95
+if$ -- 1511
+int.to.chr$ -- 0
+int.to.str$ -- 28
+missing$ -- 19
+newline$ -- 103
+num.names$ -- 17
+pop$ -- 159
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 167
+stack$ -- 0
+substring$ -- 267
+swap$ -- 81
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 2
+while$ -- 44
+width$ -- 30
+write$ -- 252
+(There was 1 error message)

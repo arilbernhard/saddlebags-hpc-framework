@@ -47,6 +47,6 @@ plt.title("Time (s) of TF-IDF on Wikipedia articles \n16 nodes, 8GB memory")
 plt.grid(axis='y')
 plt.ylim(ymax=170)
 
-plt.savefig('messageordering.png', format='png', dpi=500)
+#plt.savefig('messageordering.png', format='png', dpi=500)
 
-#plt.show()
+plt.show()

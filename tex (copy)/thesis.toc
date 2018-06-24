@@ -1,0 +1,66 @@
+\contentsline {chapter}{Abstract}{i}{section*.1}
+\contentsline {chapter}{List of Figures}{iv}{chapter*.3}
+\contentsline {chapter}{List of Tables}{v}{chapter*.4}
+\contentsline {chapter}{Listings}{vi}{chapter*.5}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Contributions}{3}{section.1.1}
+\contentsline {section}{\numberline {1.2}Outline}{3}{section.1.2}
+\contentsline {chapter}{\numberline {2}Background}{5}{chapter.2}
+\contentsline {section}{\numberline {2.1}High Performance Computing}{5}{section.2.1}
+\contentsline {section}{\numberline {2.2}Programming models}{6}{section.2.2}
+\contentsline {section}{\numberline {2.3}Data intensive computing}{7}{section.2.3}
+\contentsline {section}{\numberline {2.4}Related work}{8}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}Pregel}{9}{subsection.2.4.1}
+\contentsline {subsection}{\numberline {2.4.2}Spark}{10}{subsection.2.4.2}
+\contentsline {subsection}{\numberline {2.4.3}Husky}{11}{subsection.2.4.3}
+\contentsline {chapter}{\numberline {3}PGAS programming and UPC++}{13}{chapter.3}
+\contentsline {section}{\numberline {3.1}GASNet}{14}{section.3.1}
+\contentsline {section}{\numberline {3.2}Unified Parallel C}{14}{section.3.2}
+\contentsline {section}{\numberline {3.3}UPC++}{15}{section.3.3}
+\contentsline {subsection}{\numberline {3.3.1}Programming model}{15}{subsection.3.3.1}
+\contentsline {subsection}{\numberline {3.3.2}Progress}{17}{subsection.3.3.2}
+\contentsline {subsection}{\numberline {3.3.3}Remote Procedure Calls}{17}{subsection.3.3.3}
+\contentsline {subsection}{\numberline {3.3.4}Global pointers}{19}{subsection.3.3.4}
+\contentsline {chapter}{\numberline {4}Design}{21}{chapter.4}
+\contentsline {section}{\numberline {4.1}Motivation}{21}{section.4.1}
+\contentsline {section}{\numberline {4.2}Programming model}{24}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}Events}{25}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}Example: PageRank}{27}{subsection.4.2.2}
+\contentsline {section}{\numberline {4.3}Architecture and data flow}{28}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}Table structure}{28}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.2}Data distribution}{28}{subsection.4.3.2}
+\contentsline {subsection}{\numberline {4.3.3}Table locality}{30}{subsection.4.3.3}
+\contentsline {section}{\numberline {4.4}Fault tolerance}{30}{section.4.4}
+\contentsline {chapter}{\numberline {5}Implementation}{33}{chapter.5}
+\contentsline {section}{\numberline {5.1}Overview}{33}{section.5.1}
+\contentsline {section}{\numberline {5.2}Template types}{36}{section.5.2}
+\contentsline {subsection}{\numberline {5.2.1}Parameters}{37}{subsection.5.2.1}
+\contentsline {section}{\numberline {5.3}Communication}{39}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}Sending modes}{39}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}Ordering}{41}{subsection.5.3.2}
+\contentsline {section}{\numberline {5.4}Table}{41}{section.5.4}
+\contentsline {section}{\numberline {5.5}Synchronization}{42}{section.5.5}
+\contentsline {chapter}{\numberline {6}Evaluation}{43}{chapter.6}
+\contentsline {section}{\numberline {6.1}Programmability}{44}{section.6.1}
+\contentsline {section}{\numberline {6.2}Performance evaluation}{48}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Husky}{49}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Spark}{50}{subsection.6.2.2}
+\contentsline {subsection}{\numberline {6.2.3}Fault tolerance}{52}{subsection.6.2.3}
+\contentsline {section}{\numberline {6.3}Internal configuration}{53}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Message ordering}{53}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Sending modes}{54}{subsection.6.3.2}
+\contentsline {chapter}{\numberline {7}Discussion and Future Work}{57}{chapter.7}
+\contentsline {section}{\numberline {7.1}Benchmark selection}{57}{section.7.1}
+\contentsline {section}{\numberline {7.2}Variants of fault tolerance}{60}{section.7.2}
+\contentsline {section}{\numberline {7.3}Message types}{61}{section.7.3}
+\contentsline {section}{\numberline {7.4}UPC++ versions}{61}{section.7.4}
+\contentsline {subsection}{\numberline {7.4.1}Shared heap size}{62}{subsection.7.4.1}
+\contentsline {subsection}{\numberline {7.4.2}View-based serialization}{62}{subsection.7.4.2}
+\contentsline {chapter}{\numberline {8}Conclusion}{63}{chapter.8}
+\contentsline {chapter}{Bibliography}{65}{chapter*.21}
+\contentsline {chapter}{\numberline {A}Installing and using Saddlebags}{73}{appendix.A}
+\contentsline {section}{\numberline {A.1}Linux installation}{73}{section.A.1}
+\contentsline {subsection}{\numberline {A.1.1}Running UPC++ programs on Linux}{74}{subsection.A.1.1}
+\contentsline {subsection}{\numberline {A.1.2}Abel}{75}{subsection.A.1.2}
+\contentsline {subsection}{\numberline {A.1.3}Stallo}{75}{subsection.A.1.3}
+\contentsline {chapter}{\numberline {B}API Reference}{77}{appendix.B}
